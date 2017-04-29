@@ -1,3 +1,10 @@
-.idea
+#common
 node_modules
+
+#project specific
 *.sqlite3
+
+#user specific
+#shak
+.idea
+*.ipynb
