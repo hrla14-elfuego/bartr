@@ -1,14 +1,14 @@
-var gulp = require('gulp');
-var nodemon = require('gulp-nodemon');
-var env = require('gulp-env');
-var Promise = require('bluebird');
+const gulp = require('gulp');
+const nodemon = require('gulp-nodemon');
+const env = require('gulp-env');
+const Promise = require('bluebird');
 
 env({
   file: './.env',
   type: 'ini'
 });
 
-var db = require('./server/db');
+const db = require('./server/db');
 
 gulp.task('seed:wipe', function(cb){
   db.Users.sync({force: true})
@@ -25,7 +25,7 @@ gulp.task('seed:wipe', function(cb){
 gulp.task('seed', ['seed:wipe']);
 
 gulp.task('nodemon', function () {
-  var stream = nodemon({script: 'server/index.js'});
+  const stream = nodemon({script: 'server/index.js'});
 });
 
 gulp.task('watch', function() {
