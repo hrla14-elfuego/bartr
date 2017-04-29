@@ -16,7 +16,8 @@ const sql = new Sequelize('bartrDB', null, null, {
 const Engagement = sql.define('Engagement', {
 		complete: {
 			type: Sequelize.BOOLEAN,
-			allowNull: false
+			allowNull: false,
+      defaultValue: false
 		}
 });
 
@@ -85,8 +86,12 @@ const Service = sql.define('Service', {
 User.belongsTo(Service);
 Service.hasMany(User);
 
-Engagement.belongsTo(User, {as: 'initiator'});
-Engagement.belongsTo(User, {as: 'recipient'});
+// Engagement.belongsTo(User, {as: 'initiator'});
+// Engagement.belongsTo(User, {as: 'recipient'});
+// User.belongsTo(Engagement, {as: 'initiator'});
+// User.hasMany(Engagement, {foreignKey: 'recipient'});
+// Engagement.belongsToMany(User, {through: 'UserEngagement'});
+// User.belongsToMany(Engagement, {through: 'UserEngagement'});
 
 module.exports.User = User;
 module.exports.Service = Service;
