@@ -1,4 +1,3 @@
-const Sequelize = require('sequelize');
 const path = require('path');
 // var cls = require('continuation-local-storage');
 const Sequelize = require('sequelize');
