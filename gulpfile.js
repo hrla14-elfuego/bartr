@@ -22,25 +22,14 @@ gulp.task('seed:wipe', function(cb){
     .catch((err)=>{cb(err)})
 });
 
-gulp.task('nodemon', function () {
-
-  var stream = nodemon({script: 'server/index.js'});
-
-  stream
-    .on('restart', function () {
-      console.log('restarted!')
-    })
-    .on('crash', function() {
-      console.error('Application has crashed!\n');
-      stream.emit('restart', 10)  // restart the server in 10 seconds
-    })
-});
-
 gulp.task('seed', ['seed:wipe']);
 
-gulp.task('watch', function() {
-  gulp.watch('server/model/*.js', ['seed']);
+gulp.task('nodemon', function () {
+  var stream = nodemon({script: 'server/index.js'});
 });
 
+gulp.task('watch', function() {
+  gulp.watch('server/db/*.js', ['seed']);
+});
 
 gulp.task('default', ['nodemon', 'watch']);
