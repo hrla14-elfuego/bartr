@@ -1,11 +1,12 @@
-var Sequelize = require('sequelize');
-var path = require('path');
+const Sequelize = require('sequelize');
+const path = require('path');
 // var cls = require('continuation-local-storage');
+const Sequelize = require('sequelize');
 
 // namespace = cls.createNamespace('my-namespace');
 // Sequelize.cls = namespace;
 
-var sql = new Sequelize('bartrDB', null, null, {
+const sql = new Sequelize('bartrDB', null, null, {
   dialect: 'sqlite',
   storage: path.join(__dirname, 'bartr.sqlite3')
 });
