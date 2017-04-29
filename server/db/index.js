@@ -87,9 +87,8 @@ const Service = sql.define('Service', {
   }
 });
 
-
 User.belongsTo(Service);
-// Services.hasOne(Users);
+Service.hasMany(User);
 
 module.exports.User = User;
 module.exports.Service = Service;
