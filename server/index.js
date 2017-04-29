@@ -1,10 +1,10 @@
-var path = require('path');
-var express = require('express');
-var expressSession = require('express-session');
-var morgan = require('morgan');
-var bodyParser = require('body-parser');
+const path = require('path');
+const express = require('express');
+const expressSession = require('express-session');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
-var app = express();
+const app = express();
 app.use(morgan());
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(expressSession({secret: 'bigboost'}));
