@@ -7,21 +7,17 @@ const path = require('path');
 
 const sql = new Sequelize('bartrDB', null, null, {
   dialect: 'sqlite',
-  storage: path.join(__dirname, 'bartr.sqlite3')
+  storage: path.join(__dirname, 'bartr.sqlite3'),
+  define: {
+    underscored: true
+  }
 });
 
 const Engagement = sql.define('Engagement', {
-		customerId: {
-			type: Sequelize.INTEGER,
-			allowNull: false
-		},
-		providerId: {
-			type: Sequelize.INTEGER,
-			allowNull: false
-		},
 		complete: {
 			type: Sequelize.BOOLEAN,
-			allowNull: false
+			allowNull: false,
+      defaultValue: false
 		}
 });
 
@@ -89,6 +85,13 @@ const Service = sql.define('Service', {
 
 User.belongsTo(Service);
 Service.hasMany(User);
+
+// Engagement.belongsTo(User, {as: 'initiator'});
+// Engagement.belongsTo(User, {as: 'recipient'});
+// User.belongsTo(Engagement, {as: 'initiator'});
+// User.hasMany(Engagement, {foreignKey: 'recipient'});
+// Engagement.belongsToMany(User, {through: 'UserEngagement'});
+// User.belongsToMany(Engagement, {through: 'UserEngagement'});
 
 module.exports.User = User;
 module.exports.Service = Service;
