@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 const path = require('path');
 // var cls = require('continuation-local-storage');
-const Sequelize = require('sequelize');
 
 // namespace = cls.createNamespace('my-namespace');
 // Sequelize.cls = namespace;
@@ -11,7 +10,7 @@ const sql = new Sequelize('bartrDB', null, null, {
   storage: path.join(__dirname, 'bartr.sqlite3')
 });
 
-module.exports.Engagements = sql.define('Engagements', {
+const Engagement = sql.define('Engagement', {
 		customerId: {
 			type: Sequelize.INTEGER,
 			allowNull: false
@@ -24,11 +23,9 @@ module.exports.Engagements = sql.define('Engagements', {
 			type: Sequelize.BOOLEAN,
 			allowNull: false
 		}
-	}, {
-		tableName: 'Engagements'
-	});
+});
 
-module.exports.Messages = sql.define('Messages', {
+const Message = sql.define('Message', {
 		engagementId: {
 			type: Sequelize.INTEGER,
 			allowNull: false
@@ -45,11 +42,9 @@ module.exports.Messages = sql.define('Messages', {
 			type: Sequelize.TEXT,
 			allowNull: false
 		}
-	}, {
-		tableName: 'Messages'
-	});
+});
  
-module.exports.Reviews = sql.define('Reviews', {
+const Review = sql.define('Review', {
 		userId: {
 			type: Sequelize.INTEGER,
 			allowNull: false
@@ -66,22 +61,9 @@ module.exports.Reviews = sql.define('Reviews', {
 			type: Sequelize.TEXT,
 			allowNull: false
 		}
-	}, {
-		tableName: 'Review'
-	});
+});
 
- 
- module.exports.Services = sql.define('Services', {
-		type: {
-			type: Sequelize.STRING,
-			allowNull: false
-		}
-	}, {
-		tableName: 'Services'
-	});
-
-
- module.exports.Users = sql.define('Users', {
+const User = sql.define('User', {
 		email: {
 			type: Sequelize.STRING,
 			allowNull: false,
@@ -96,11 +78,21 @@ module.exports.Reviews = sql.define('Reviews', {
 			type: Sequelize.JSON,
 			allowNull: true
 		},
-		serviceId: {
-			type: Sequelize.INTEGER,
-			allowNull: true
-		}
-	}, {
-		tableName: 'Users'
-	});
- 
+});
+
+const Service = sql.define('Service', {
+  type: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
+});
+
+
+User.belongsTo(Service);
+// Services.hasOne(Users);
+
+module.exports.User = User;
+module.exports.Service = Service;
+module.exports.Review = Review;
+module.exports.Message = Message;
+module.exports.Engagement = Engagement;
