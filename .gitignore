@@ -12,3 +12,6 @@ bundle.js
 #shak
 .idea
 *.ipynb
+
+#justin
+.DS_Store
