@@ -16,11 +16,7 @@ app.use(express.static(path.join(__dirname, '../client')));
 
 const router = require('./router');
 
-require('./db/index');
-
 app.use('/', router);
-
-// app.get('/hello', function(req,res){res.end('hello world')})
 
 app.set('port', (process.env.PORT));
 
