@@ -48,48 +48,5 @@
       "name": "test user 4",
       "service_id": 2
     }
-  },
-  {
-    "model": "Engagement",
-    "data": {
-      "id": 1,
-      "sender_id": 1,
-      "receiver_id": 3
-    }
-  },
-  {
-    "model": "Engagement",
-    "data": {
-      "id": 2,
-      "sender_id": 1,
-      "receiver_id": 3
-    }
-  },
-  {
-    "model": "Engagement",
-    "data": {
-      "id": 3,
-      "sender_id": 2,
-      "receiver_id": 3
-    }
-  },
-  {
-    "model": "Message",
-    "data": {
-      "engagement_id": 1,
-      "sender_id": 1,
-      "receiver_id": 3,
-      "message" : "Lets meet up on thursday"
-    }
-  },
-  {
-    "model": "Review",
-    "data": {
-      "engagement_id": 1,
-      "sender_id": 1,
-      "receiver_id": 3,
-      "score" : 5,
-      "review" : "they did a good job"
-    }
   }
 ]
