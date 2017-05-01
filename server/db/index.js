@@ -73,7 +73,7 @@ const User = sql.define('User', {
 		address: {
 			type: Sequelize.JSON,
 			allowNull: true
-		},
+		}
 });
 
 const Service = sql.define('Service', {
