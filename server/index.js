@@ -6,14 +6,21 @@ const bodyParser = require('body-parser');
 
 const app = express();
 app.use(morgan());
-app.use(express.static(path.join(__dirname, '../client')));
 app.use(expressSession({secret: 'bigboost'}));
 app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({
+//   extended: true
+// }));
 
-// var router = require('./routes.js');
-// app.use('/api', router);
+app.use(express.static(path.join(__dirname, '../client')));
 
-app.get('/hello', function(req,res){res.end('hello world')})
+const router = require('./router');
+
+require('./db/index');
+
+app.use('/', router);
+
+// app.get('/hello', function(req,res){res.end('hello world')})
 
 app.set('port', (process.env.PORT));
 
