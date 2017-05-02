@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import GoogleMap from 'google-maps-react';
 import PropTypes from 'prop-types';
-// import ServiceMarker from './ServiceMarker';
 import _ from 'lodash';
 
 class GoogleMaps extends Component {
