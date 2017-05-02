@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import GoogleMap from 'google-maps-react';
 import PropTypes from 'prop-types';
 // import ServiceMarker from './ServiceMarker';
+import _ from 'lodash';
 
 class GoogleMaps extends Component {
   constructor(){
@@ -12,17 +13,29 @@ class GoogleMaps extends Component {
       currentLocation: {
         lat: null,
         lng: null
-      }
+      },
+      locations: [[34.049837,-118.300708],[34.044917,-118.296672]]
     }
+
+    this.loadMap = this.loadMap.bind(this);
+    this.setMarkers = this.setMarkers.bind(this);
   }
 
   componentDidMount() {
     this.loadMap();
   }
 
+  setMarkers(map) {
+      _.each(this.state.locations, location => {
+        let marker = new google.maps.Marker({
+          position: {lat: location[0], lng: location[1]},
+          map: map
+        })
+      })
+    }
+
   loadMap() {
     if (this.props && this.props.google) {
-      // google is available
       const { google } = this.props;
       const maps = google.maps;
 
@@ -37,12 +50,31 @@ class GoogleMaps extends Component {
         zoom: zoom
       })
       this.map = new maps.Map(node, mapConfig);
+
+      const home = {
+        url: "http://findicons.com/files/icons/1580/devine_icons_part_2/128/home.png",
+        scaledSize: new google.maps.Size(30,30),
+        origin: new google.maps.Point(0,0),
+        anchor: new google.maps.Point(15,15)
+      }
+      const marker = new maps.Marker({
+        map: this.map,
+        draggable: false,
+        animation: maps.Animation.DROP,
+        position: center,
+        icon: home,
+        title: "Your Location"
+      })
+      marker.setMap(this.map);
+      this.setMarkers(this.map);
     }
   }
 
+
   render() {
     return (
-      <div ref="map" style={{width: 300, height: 600}}>
+      <div ref="map" style={{width: 600, height: 600}}>
+        Loading Map...
         <GoogleMap google={this.props.google}>
         </GoogleMap>
       </div>
