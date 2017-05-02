@@ -13,7 +13,7 @@ const sql = new Sequelize('bartrDB', null, null, {
   }
 });
 
-const Engagement = sql.define('Engagement', {
+const Engagement = sql.define('engagement', {
 		complete: {
 			type: Sequelize.BOOLEAN,
 			allowNull: false,
@@ -21,34 +21,14 @@ const Engagement = sql.define('Engagement', {
 		}
 });
 
-const Message = sql.define('Message', {
-		engagementId: {
-			type: Sequelize.INTEGER,
-			allowNull: false
-		},
-		fromId: {
-			type: Sequelize.INTEGER,
-			allowNull: false
-		},
-		toId: {
-			type: Sequelize.INTEGER,
-			allowNull: false
-		},
+const Message = sql.define('message', {
 		message: {
 			type: Sequelize.TEXT,
 			allowNull: false
 		}
 });
  
-const Review = sql.define('Review', {
-		userId: {
-			type: Sequelize.INTEGER,
-			allowNull: false
-		},
-		engagementId: {
-			type: Sequelize.INTEGER,
-			allowNull: false
-		},
+const Review = sql.define('review', {
 		score: {
 			type: Sequelize.INTEGER,
 			allowNull: false
@@ -59,7 +39,7 @@ const Review = sql.define('Review', {
 		}
 });
 
-const User = sql.define('User', {
+const User = sql.define('user', {
 		email: {
 			type: Sequelize.STRING,
 			allowNull: false,
@@ -76,7 +56,7 @@ const User = sql.define('User', {
 		}
 });
 
-const Service = sql.define('Service', {
+const Service = sql.define('service', {
   type: {
     type: Sequelize.STRING,
     allowNull: false
@@ -86,12 +66,24 @@ const Service = sql.define('Service', {
 User.belongsTo(Service);
 Service.hasMany(User);
 
-// Engagement.belongsTo(User, {as: 'initiator'});
-// Engagement.belongsTo(User, {as: 'recipient'});
-// User.belongsTo(Engagement, {as: 'initiator'});
-// User.hasMany(Engagement, {foreignKey: 'recipient'});
-// Engagement.belongsToMany(User, {through: 'UserEngagement'});
-// User.belongsToMany(Engagement, {through: 'UserEngagement'});
+Engagement.belongsTo(User,  { as: 'sender', foreignKey: { name: 'sender_id', allowNull: false }, onDelete: 'CASCADE' });
+Engagement.belongsTo(User, { as: 'receiver', foreignKey: { name: 'receiver_id', allowNull: false }, onDelete: 'CASCADE' });
+User.hasMany(Engagement, { as: 'sent_engagements', foreignKey: 'sender_id'});
+User.hasMany(Engagement, { as: 'received_engagements', foreignKey: 'receiver_id'});
+
+Message.belongsTo(Engagement);
+Engagement.hasMany(Message);
+Message.belongsTo(User,  { as: 'sender', foreignKey: { name: 'sender_id', allowNull: false }, onDelete: 'CASCADE' });
+Message.belongsTo(User,  { as: 'receiver', foreignKey: { name: 'receiver_id', allowNull: false }, onDelete: 'CASCADE' });
+User.hasMany(Message, { as: 'sent_messages', foreignKey: 'sender_id'});
+User.hasMany(Message, { as: 'received_messages', foreignKey: 'receiver_id'});
+
+Review.belongsTo(Engagement);
+Engagement.hasMany(Review);
+Review.belongsTo(User,  { as: 'sender', foreignKey: { name: 'sender_id', allowNull: false }, onDelete: 'CASCADE' });
+Review.belongsTo(User,  { as: 'receiver', foreignKey: { name: 'receiver_id', allowNull: false }, onDelete: 'CASCADE' });
+User.hasMany(Review, { as: 'sent_reviews', foreignKey: 'sender_id'});
+User.hasMany(Review, { as: 'received_reviews',foreignKey: 'receiver_id'});
 
 module.exports.User = User;
 module.exports.Service = Service;

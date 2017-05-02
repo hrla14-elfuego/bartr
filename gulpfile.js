@@ -33,8 +33,11 @@ gulp.task('seed:wipe', function(cb){
 });
 
 gulp.task('seed:seed', ['seed:wipe'], function(cb){
-  sequelize_fixtures.loadFile('./server/db/seedData.json', models)
-    .then(function(){
+  sequelize_fixtures.loadFile('./server/db/seedData/seedData.json', models)
+    .then(() => {
+      return sequelize_fixtures.loadFile('./server/db/seedData/engagement*.json', models)
+    })
+    .then(() => {
       cb()
     })
     .catch((err)=>{cb(err)})
