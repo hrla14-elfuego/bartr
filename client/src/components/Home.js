@@ -11,34 +11,29 @@ import { bindActionCreators } from 'redux';
 class Home extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-        ProfileReducer: this.props.ProfileReducer
-    }
-    this.getUsers = this.getUsers.bind(this);
   }
 
-  getUsers(res) {
-    for(let i = 0; i < res.length; i++){
-      this.setState({ProfileReducer: [...this.state.ProfileReducer,res[i]]})
-    }
-  }
 
   componentDidMount() {
     console.log("this is props on line 22 of home",this.props)
-    this.props.getProfile(this.getUsers);
+    this.props.getProfile();
   }
 
   render () {
       console.log("this is props.profilereducer on line 28", this.props.ProfileReducer)
             console.log("this is props on line 29", this.props)
-    console.log('this is state on line 21 of home: ', this.state.ProfileReducer);
 
 
     return (
-      <div className='home'>
+      <div className="home" >
         <h1>
 Hi
+{this.props.ProfileReducer.map((profile,key) => (
+            <div>
+              <p>{profile.email}</p>
+              <p>{profile.name}</p>
+            </div>
+            ))}
         </h1>
 
       </div>
@@ -46,22 +41,16 @@ Hi
   }
 }
 
-// export default Home;
-
-// function mapStateToProps(state) {
-//   return {
-//     store
-//   }
-// }
-
 
 const mapStateToProps = state => ({
   //  console.log("this is state line 47", state.ProfileReducer)
     ProfileReducer : state.ProfileReducer
 })
 
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators(actionCreator, dispatch);
-// }
 
 export default connect(mapStateToProps, {getProfile})(Home);
+
+  // getUsers(res) {
+  //   for(let i = 0 ; i < res.length; i++){
+  //     this.setState({ProfileReducer: [...this.state.ProfileReducer,res[i]]})
+  //   }}

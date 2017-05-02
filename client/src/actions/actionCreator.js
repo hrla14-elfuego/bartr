@@ -16,18 +16,15 @@ export function searchLocation() {
   }
 }
 
-export function getProfile(callback) {
+export function getProfile() {
   var profileData = axios.get('/api/users')
-    .then(res => {
-      console.log('this is the res of getProfileData ', res);
-      callback(res.data)
-    }).then (() => {
-      return {
-        type: 'GET_PROFILE',
-        payload: profileData
-      }
-    }
-  ).catch(err => {
-    console.log('Error in getProfile ', err);
-  })
+    // .then(res => {
+    //   //console.log(res);
+    //   profileData = res.data;
+    //   console.log("this is profile data: ", profileData)
+    // })
+  return {
+    type: 'GET_PROFILE',
+    payload: profileData
+  }
 }
