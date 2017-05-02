@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 //   extended: true
 // }));
 
-app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 const router = require('./router');
 
