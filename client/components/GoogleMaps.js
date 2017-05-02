@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Marker} from 'google-maps-react';
-import { Button, Header, Image, Modal } from 'semantic-ui-react';
+// import { Button, Header, Image, Modal } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -14,7 +14,7 @@ class GoogleMaps extends Component {
         lat: null,
         lng: null
       },
-      locations: [[34.055136,-118.308628, 'Justin'],[34.044917,-118.296672, 'Jason']]
+      locations: [[34.055136,-118.308628, 'Justin', 'Barber'],[34.044917,-118.296672, 'Jason', 'Tech']]
     }
 
     this.loadMap = this.loadMap.bind(this);
@@ -27,15 +27,17 @@ class GoogleMaps extends Component {
 
   setMarkers(map) {
       const maps = google.maps;
-      let contentString = `<Modal>` + `<Modal.Header>Justin</Modal.Header>` + `<Modal.Content image>` + 
-      `<Image wrapped size="medium" src="/assets/images/avatar/large/rachel.png"/>` + `</Modal>`;
-      let infoWindow = new maps.InfoWindow({
-        content: contentString
-      })
       _.each(this.state.locations, location => {
         let marker = new maps.Marker({
           position: {lat: location[0], lng: location[1]},
           map: map
+        })
+        let contentString = `<div id="content">` + `<div id="siteNotice">` + `</div>` + 
+        `<h1 id="firstHeading" class="firstHeading">${location[2]}</h1>` +
+        `<image wrapped size="medium" src="http://images4.wikia.nocookie.net/marveldatabase/images/9/9b/Ultimate_spiderman.jpg" height="85" width="85"/>` + 
+        `<div id="bodyContent">` + `<h2>${location[3]}</h2>` + `</div>`;
+        let infoWindow = new maps.InfoWindow({
+          content: contentString
         })
         marker.addListener('click', () => {
           infoWindow.open(map, marker);
