@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import GoogleMap from 'google-maps-react';
+import { Marker} from 'google-maps-react';
+import { Button, Header, Image, Modal } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
@@ -13,7 +14,7 @@ class GoogleMaps extends Component {
         lat: null,
         lng: null
       },
-      locations: [[34.049837,-118.300708],[34.044917,-118.296672]]
+      locations: [[34.055136,-118.308628, 'Justin'],[34.044917,-118.296672, 'Jason']]
     }
 
     this.loadMap = this.loadMap.bind(this);
@@ -25,10 +26,19 @@ class GoogleMaps extends Component {
   }
 
   setMarkers(map) {
+      const maps = google.maps;
+      let contentString = `<Modal>` + `<Modal.Header>Justin</Modal.Header>` + `<Modal.Content image>` + 
+      `<Image wrapped size="medium" src="/assets/images/avatar/large/rachel.png"/>` + `</Modal>`;
+      let infoWindow = new maps.InfoWindow({
+        content: contentString
+      })
       _.each(this.state.locations, location => {
-        let marker = new google.maps.Marker({
+        let marker = new maps.Marker({
           position: {lat: location[0], lng: location[1]},
           map: map
+        })
+        marker.addListener('click', () => {
+          infoWindow.open(map, marker);
         })
       })
     }
@@ -51,10 +61,10 @@ class GoogleMaps extends Component {
       this.map = new maps.Map(node, mapConfig);
 
       const home = {
-        url: "http://findicons.com/files/icons/1580/devine_icons_part_2/128/home.png",
-        scaledSize: new google.maps.Size(30,30),
+        url: "https://cdn3.iconfinder.com/data/icons/map-markers-1/512/residence-512.png",
+        scaledSize: new google.maps.Size(40,40),
         origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(15,15)
+        anchor: new google.maps.Point(20,20)
       }
       const marker = new maps.Marker({
         map: this.map,
@@ -72,10 +82,7 @@ class GoogleMaps extends Component {
 
   render() {
     return (
-      <div ref="map" style={{width: 600, height: 600}}>
-        Loading Map...
-        <GoogleMap google={this.props.google}>
-        </GoogleMap>
+      <div className="google-maps" ref="map" style={{width: 600, height: 600}}>
       </div>
     );
   }
@@ -97,82 +104,3 @@ GoogleMaps.defaultProps = {
 }
 
 export default GoogleMaps;
-
-        // {/*defaultZoom={this.state.zoom}*/}
-        {/*center={this.props.initialCenter}*/}
-
-
-
-
-
-
-
-
-
-
-
-        // /*<AnyReactComponent
-        //   lat={59.955413}
-        //   lng={30.337844}
-        //   text={'Kreyser Avrora'}
-        // />*/
-
-//   /*GettingStartedGoogleMap = withGoogleMap(props => (
-//   <GoogleMap
-//     ref={props.onMapLoad}
-//     defaultZoom={3}
-//     defaultCenter={{ lat: -25.363882, lng: 131.044922 }}
-//     onClick={props.onMapClick}>
-//     {props.markers.map((marker, index) => (
-//       <Marker
-//         {...marker}
-//         onRightClick={() => props.onMarkerRightClick(index)}
-//       />
-//     ))}
-//   </GoogleMap>
-// ));
-// // Then, render it:
-//   render(
-//     <GettingStartedGoogleMap
-//       containerElement={
-//         <div style={{ height: `100%` }} />
-//       }
-//       mapElement={
-//         <div style={{ height: `100%` }} />
-//       }
-//       onMapLoad={_.noop}
-//       onMapClick={_.noop}
-//       markers={markers}
-//       onMarkerRightClick={_.noop}
-//     />,
-//     document.getElementById('root')
-//   );*/
-
-  // /*const GettingStartedGoogleMap = withGoogleMap
-
-  // render() {
-  //   const mapContainer = <div style={{height: '100%', width: '100%'}}></div>
-    
-  //   return (
-  //       <withGoogleMap
-  //       containerElement = { mapContainer }
-  //       googleMapElement = {
-  //         <GoogleMap
-  //           defaultZoom={15}
-  //           defaultCenter={this.props.center}
-  //           options={{streetViewControl: false, mapTypeControl: false}}>
-  //         </GoogleMap>
-  //       }>
-  //       </withGoogleMap>
-  //   )
-  // }*/
-
-      // {/*<Map google={this.props.google} zoom={14}>
-      //   <Marker onClick={this.onMarkerClick}
-      //           name={'Current location'} />
-      //   <InfoWindow onClose={this.onInfoWindowClose}>
-      //       <div>
-      //         <h1>{this.state.selectedPlace.name}</h1>
-      //       </div>
-      //   </InfoWindow>
-      // </Map>*/}

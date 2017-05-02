@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import GoogleMaps from './GoogleMaps';
 
 class GoogleMapsContainer extends Component {
+  
+  
   render() {
     return (
       <div>
@@ -12,4 +14,4 @@ class GoogleMapsContainer extends Component {
   }
 }
 
-export default GoogleMapsContainer
+export default GoogleMapsContainer;
