@@ -6,7 +6,7 @@ node_modules
 
 #project specific
 *.sqlite3
-
+bundle.js
 #user specific
 #shak
 .idea

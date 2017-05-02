@@ -1,7 +1,10 @@
-const ProfileReducer = (state = [], action) => {
+// console.log("hi")
+var ProfileReducer = (state = [], action) => {
   switch (action.type) {
     case 'GET_PROFILE':
-      return action.payload.profileData;
+      // console.log("this is action.payload.profileData in profilereducer line 4",action.payload.data)
+      return action.payload.data
+      
     default: return state;
   }
 };

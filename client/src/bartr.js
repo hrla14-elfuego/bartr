@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleWare } from 'redux';
+// import { createStore, applyMiddleWare } from 'redux';
 import Promise from 'redux-promise';
 
 import App from './components/App';
@@ -14,19 +14,23 @@ import Home from './components/Home';
 import UserProfile from './components/UserProfile';
 import PastEngagements from './components/PastEngagements';
 import EditProfile from './components/EditProfile';
-import store, { history } from './store';
-
+import Reducers from "./reducers";
+// import store, { history } from './store';
+import rootReducer from "./reducers/index"
+import { createStore, applyMiddleware } from 'redux';
 
 
 class Routing extends React.Component {
   constructor() {
     super();
 
+this.createStoreWithMiddleware = applyMiddleware(Promise)(createStore);
+
   }
   render() {
     return (
-      <Provider store={store}>
-        <Router history={history}>
+      <Provider store={this.createStoreWithMiddleware(rootReducer)}>
+        <Router history={browserHistory}>
           <Route path='/' component={App}>
             <IndexRoute component={Home}></IndexRoute>
             <Route path='/login' component={Login}></Route>
