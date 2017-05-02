@@ -20,8 +20,8 @@ export function getProfile() {
   var profileData;
   axios.get('/api/users')
     .then(res => {
-      console.log(res);
-      profileData = res;
+      // console.log(res.data);
+      profileData = res.data;
     })
   return {
     type: 'GET_PROFILE',
