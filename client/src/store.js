@@ -5,13 +5,8 @@ import rootReducer from './reducers/index';
 
 import ProfileReducer from './reducers/profileReducer';
 
-const defaultState = {
-  ProfileReducer: ProfileReducer
-  // engagements
-}
-console.log(defaultState);
-
-const store = createStore(rootReducer, defaultState);
+const store = createStore(rootReducer);
+console.log(store);
 
 export const history = syncHistoryWithStore(browserHistory, store);
 
