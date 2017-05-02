@@ -19,6 +19,3 @@ class App extends Component {
 }
 
 export default App;
-// {/*<div style={{width: 300, height:600, background:'red'}}>
-// */}
-// </div>
