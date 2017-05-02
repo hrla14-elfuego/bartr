@@ -66,24 +66,24 @@ const Service = sql.define('Service', {
 User.belongsTo(Service);
 Service.hasMany(User);
 
-Engagement.belongsTo(User,  { foreignKey: { name: 'sender_id', allowNull: false }, onDelete: 'CASCADE' });
-Engagement.belongsTo(User, { foreignKey: { name: 'receiver_id', allowNull: false }, onDelete: 'CASCADE' });
-User.hasMany(Engagement, {foreignKey: 'sender_id'});
-User.hasMany(Engagement, {foreignKey: 'receiver_id'});
+Engagement.belongsTo(User,  { as: 'sender', foreignKey: { name: 'sender_id', allowNull: false }, onDelete: 'CASCADE' });
+Engagement.belongsTo(User, { as: 'receiver', foreignKey: { name: 'receiver_id', allowNull: false }, onDelete: 'CASCADE' });
+User.hasMany(Engagement, { as: 'sent_engagements', foreignKey: 'sender_id'});
+User.hasMany(Engagement, { as: 'received_engagements', foreignKey: 'receiver_id'});
 
 Message.belongsTo(Engagement);
 Engagement.hasMany(Message);
-Message.belongsTo(User,  { foreignKey: { name: 'sender_id', allowNull: false }, onDelete: 'CASCADE' });
-Message.belongsTo(User,  { foreignKey: { name: 'receiver_id', allowNull: false }, onDelete: 'CASCADE' });
-User.hasMany(Message, {foreignKey: 'sender_id'});
-User.hasMany(Message, {foreignKey: 'receiver_id'});
+Message.belongsTo(User,  { as: 'sender', foreignKey: { name: 'sender_id', allowNull: false }, onDelete: 'CASCADE' });
+Message.belongsTo(User,  { as: 'receiver', foreignKey: { name: 'receiver_id', allowNull: false }, onDelete: 'CASCADE' });
+User.hasMany(Message, { as: 'sent_messages', foreignKey: 'sender_id'});
+User.hasMany(Message, { as: 'received_messages', foreignKey: 'receiver_id'});
 
 Review.belongsTo(Engagement);
 Engagement.hasMany(Review);
-Review.belongsTo(User,  { foreignKey: { name: 'sender_id', allowNull: false }, onDelete: 'CASCADE' });
-Review.belongsTo(User,  { foreignKey: { name: 'receiver_id', allowNull: false }, onDelete: 'CASCADE' });
-User.hasMany(Review, {foreignKey: 'sender_id'});
-User.hasMany(Review, {foreignKey: 'receiver_id'});
+Review.belongsTo(User,  { as: 'sender', foreignKey: { name: 'sender_id', allowNull: false }, onDelete: 'CASCADE' });
+Review.belongsTo(User,  { as: 'receiver', foreignKey: { name: 'receiver_id', allowNull: false }, onDelete: 'CASCADE' });
+User.hasMany(Review, { as: 'sent_reviews', foreignKey: 'sender_id'});
+User.hasMany(Review, { as: 'received_reviews',foreignKey: 'receiver_id'});
 
 module.exports.User = User;
 module.exports.Service = Service;
