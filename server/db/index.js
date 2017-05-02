@@ -13,7 +13,7 @@ const sql = new Sequelize('bartrDB', null, null, {
   }
 });
 
-const Engagement = sql.define('Engagement', {
+const Engagement = sql.define('engagement', {
 		complete: {
 			type: Sequelize.BOOLEAN,
 			allowNull: false,
@@ -21,14 +21,14 @@ const Engagement = sql.define('Engagement', {
 		}
 });
 
-const Message = sql.define('Message', {
+const Message = sql.define('message', {
 		message: {
 			type: Sequelize.TEXT,
 			allowNull: false
 		}
 });
  
-const Review = sql.define('Review', {
+const Review = sql.define('review', {
 		score: {
 			type: Sequelize.INTEGER,
 			allowNull: false
@@ -39,7 +39,7 @@ const Review = sql.define('Review', {
 		}
 });
 
-const User = sql.define('User', {
+const User = sql.define('user', {
 		email: {
 			type: Sequelize.STRING,
 			allowNull: false,
@@ -56,7 +56,7 @@ const User = sql.define('User', {
 		}
 });
 
-const Service = sql.define('Service', {
+const Service = sql.define('service', {
   type: {
     type: Sequelize.STRING,
     allowNull: false
