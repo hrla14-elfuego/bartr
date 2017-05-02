@@ -4,13 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-<<<<<<< baa5e6c5940ed092746c97147a0885ce029ffb98
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "webpack -d -w"
-=======
-    "compile": "webpack -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
->>>>>>> Added google-react-maps
   },
   "repository": {
     "type": "git",
@@ -36,7 +31,9 @@
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-google-autocomplete": "^1.0.13",
     "react-router-dom": "^4.1.1",
+    "semantic-ui-react": "^0.68.2",
     "sequelize-fixtures": "^0.5.6",
     "sqlite3": "^3.1.8",
     "webpack": "^2.4.1"
