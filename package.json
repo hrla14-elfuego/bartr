@@ -4,8 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+<<<<<<< baa5e6c5940ed092746c97147a0885ce029ffb98
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "webpack -d -w"
+=======
+    "compile": "webpack -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+>>>>>>> Added google-react-maps
   },
   "repository": {
     "type": "git",
@@ -27,6 +32,7 @@
     "gulp": "^3.9.1",
     "gulp-env": "^0.4.0",
     "gulp-nodemon": "^2.2.1",
+    "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-router-dom": "^4.1.1",
