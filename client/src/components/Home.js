@@ -4,7 +4,7 @@ import './styles/styles.css'
 import { connect } from 'react-redux';
 import { getProfile } from '../actions/actionCreator';
 import store from '../store';
-import actionCreator from '../actions/actionCreator';
+import * as actionCreator from '../actions/actionCreator';
 import { bindActionCreators } from 'redux';
 
 
@@ -33,8 +33,9 @@ class Home extends React.Component {
 // export default Home;
 
 function mapStateToProps(state) {
+  console.log(state);
   return {
-    ProfileReducer: state.ProfileReducer
+    profile: state.profile
   }
 }
 
@@ -42,4 +43,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(actionCreator, dispatch);
 }
 
-export default connect(mapStateToProps, mapStateToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
