@@ -5,7 +5,6 @@ const User = require('../db').User;
 const Service = require('../db/index').Service;
 const router = require('express').Router();
 
-
 router.get('/:email', (req, res, next) => {
   User.findOne({
     where: {
@@ -29,7 +28,8 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-    User.create(req.body)
+    req.user['auth0_id'] = req.user['sub'];
+    User.upsert(req.user)
     .then(data => {
       console.log('User POST Request Successful')
       res.status(201);
@@ -57,29 +57,6 @@ router.put('/:email', (req, res, next) => {
     })
     .catch(next)
 })
-
-// router.post('/users/login', (req, res, next) => {
-//   if(!req.body.email) {
-//     return res.status(404).json({
-//       error: {
-//         email: 'cannot be blank'
-//       }
-//     })
-//   }
-
-//   if(!req.body.password) {
-//     return res.status(404).json({
-//       error: {
-//         password: 'cannot be blank'
-//       }
-//     })
-//   }
-
-//   // Add authentication here
-
-  
-// })
-
 
 module.exports = router;
 
