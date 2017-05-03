@@ -10,15 +10,16 @@ const NavBar = ({ isAuthenticated, profile, error, onLoginClick, onLogoutClick }
       <h1 className='left'>
         <Link to='/'>BARTR</Link>
       </h1>
-      <h1 className='right'>
-        <Link to='profile'>Profile</Link>
-      </h1>
       { !isAuthenticated ? (
-        <button className='button' onClick={onLoginClick}>Login</button>
+        <button className='button' onClick={onLoginClick}>Login / Sign Up</button>
       ) : (
         <div>
           <img src={profile.picture} height="40px" />
+          <h1 style={{float: 'right'}}>
+            <Link to='profile'>Profile</Link>
+          </h1>
           {/*<span>Welcome, {profile.nickname}</span>*/}
+          {/*<Link>Current Engagements</Link>*/}
           <button className='button' onClick={onLogoutClick}>Logout</button>
         </div>
       )}
