@@ -11,10 +11,18 @@ const Message = db.Message;
 const findAuth0User = require('./util').findAuth0User;
 
 router.post('/', (req, res, next) => {
-  findAuth0User(req)
+  let thisEngagement = null;
+  Engagement.findByPrimary(req.body.engagement_id)
+    .then((result)=>{
+      thisEngagement = result;
+      return findAuth0User(req)
+      })
     .then((user)=>{
+        // sender id comes from looking up the Auth0 user id
+        // receiver id comes from grabbing the engagement and seeing who is the other party on the engagement besides the sender
         req.body['sender_id'] = user.id
-      return Message.create(req.body)
+        req.body['receiver_id'] = (thisEngagement.sender_id === user.id) ? thisEngagement.receiver_id : thisEngagement.sender_id;
+        return Message.create(req.body)
     })
     .then(data => {
       console.log('Message POST Successful');
