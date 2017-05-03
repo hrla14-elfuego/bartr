@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Autocomplete from 'react-google-autocomplete'
 import { geocodeByAddress } from 'react-places-autocomplete'
-import { Input, Button, Header, Image, Modal } from 'semantic-ui-react';
+import { Dropdown, Input, Button, Header, Image, Modal } from 'semantic-ui-react';
+import { ServiceOptions } from '../Services/ServiceOptions';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import axios from 'axios';
@@ -12,37 +13,56 @@ class GoogleMaps extends Component {
     super()
 
     this.state = {
+      service: '',
       currentAddress: '',
       currentLocation: {
         lat: null,
         lng: null
       },
-      locations: [[34.055136,-118.308628, 'Justin', 'Barber'],[34.044917,-118.296672, 'Jason', 'Tech']]
+      users: [[34.055136,-118.308628, 'Justin', 'Barber'],[34.044917,-118.296672, 'Jason', 'Mechanic']]
     }
 
     this.loadMap = this.loadMap.bind(this);
     this.setMarkers = this.setMarkers.bind(this);
     this.handleCurrentAddress = this.handleCurrentAddress.bind(this);
     this.handleSubmitCurrentLocation = this.handleSubmitCurrentLocation.bind(this);
+    this.handleService = this.handleService.bind(this);
+    this.serviceFilter = this.handleService.bind(this);
   }
 
   componentDidMount() {
     this.loadMap();
   }
 
+  componentDidUpdate() {
+    this.serviceFilter();
+  }
+/////////////////////// Sets Markers on Map and ties them to an info window/////////////////////////////
+
+  fetchUsers() {
+    axios.get('/services')
+         .then(data => {
+           _.each(data, datum => {
+             this.setState({users:[...this.state.users, datum]})
+           })
+         }).catch(err => {
+           console.log('Error with fetchUsers: ', err);
+         })
+  }
+
 /////////////////////// Sets Markers on Map and ties them to an info window/////////////////////////////
 
   setMarkers(map) {
       const maps = google.maps;
-      _.each(this.state.locations, location => {
+      _.each(this.state.users, user => {
         let marker = new maps.Marker({
-          position: {lat: location[0], lng: location[1]},
+          position: {lat: user[0], lng: user[1]},
           map: map
         })
         let contentString = `<div id="content">` + `<div id="siteNotice">` + `</div>` + 
-        `<h1 id="firstHeading" class="firstHeading">${location[2]}</h1>` +
+        `<h1 id="firstHeading" class="firstHeading">${user[2]}</h1>` +
         `<image wrapped size="medium" src="http://images4.wikia.nocookie.net/marveldatabase/images/9/9b/Ultimate_spiderman.jpg" height="85" width="85"/>` + 
-        `<div id="bodyContent">` + `<h2>${location[3]}</h2>` + `</div>`;
+        `<div id="bodyContent">` + `<h2>${user[3]}</h2>` + `</div>`;
         let infoWindow = new maps.InfoWindow({
           content: contentString
         })
@@ -93,44 +113,93 @@ class GoogleMaps extends Component {
 
 //////////////////////////////////// Changes state of currentAddress to geocode ///////////////////////////////
 
-handleCurrentAddress(event) {
-  event.preventDefault();
-  this.setState({currentAddress: event.target.value});
-}
+  handleCurrentAddress(event) {
+    event.preventDefault();
+    this.setState({currentAddress: event.target.value});
+  }
 
 ///////////////////////////// Geocodes location to give lat and lng and runs loadMap ///////////////////////////////
+///////////////////////////// Need to control submit occurring before place selected ///////////////////////////////
 
-handleSubmitCurrentLocation(event) {
-  event.preventDefault();
-  geocodeByAddress(this.state.currentAddress, (err, latLng) => {
-    if(err) {
-      console.log('Error with geocoding: ', err);
-    } else {
-      console.log('Lat and Lng obtained: ', latLng.lat, latLng.lng);
-      this.setState({currentLocation:{lat:latLng.lat, lng:latLng.lng}});
-      this.loadMap();
+  handleSubmitCurrentLocation(event) {
+    event.preventDefault();
+    geocodeByAddress(this.state.currentAddress, (err, latLng) => {
+      if(err) {
+        console.log('Error with geocoding: ', err);
+      } else {
+        console.log('Lat and Lng obtained: ', latLng.lat, latLng.lng);
+        this.setState({currentLocation:{lat:latLng.lat, lng:latLng.lng}});
+        this.loadMap();
+      }
+    })
+  }
+
+//////////////////////////////////// Filter through services ///////////////////////////////
+
+  serviceFilter() {
+    // event.preventDefault();
+    axios.get(`/services/${this.state.service}/${this.state.currentLocation}`)
+         .then(data => {
+           console.log(data);
+           _.each(data, datum => {
+            datum.service === this.state.service && withinRange(this.state.currentLocation.lat, this.state.currentLocation.lng, data.lat, data.lng) <= 10 ? this.setState({users:[...this.state.users, datum]}) : null
+           })
+         })
+  }
+
+//////////////////////////////////// Set state of chosen service from drop down ///////////////////////////////
+
+  handleService(event, result) {
+    event.preventDefault();
+    this.setState({service: result.value});
+    console.log('This is the state of service ', this.state.service);
+  }
+
+//////////////////////////////////// Find if the coordinates are within range of the user ///////////////////////////////
+
+  withinRange(lat1,lng1,lat2,lng2) {
+      const R = 3959; // Radius of the earth in km
+      let deg2rad = (deg) => {
+        return deg * (Math.PI/180)
+      }
+      let dLat = deg2rad(lat2-lat1);  // deg2rad below
+      let dLng = deg2rad(lng2-lng1); 
+      let a = 
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+        Math.sin(dLng/2) * Math.sin(dLng/2)
+        ; 
+      let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      let d = R * c; // Distance in km
+      return d;
     }
-  })
-}
 
 //////////////////////////////////// Search Bar to render coordinates ///////////////////////////////
 
   render() {
     return (
-      <div>
+      <div style={{textAlign:'center'}}>
         <form onSubmit={this.handleSubmitCurrentLocation}>
-          <Input placeholder="Enter your location">
+          <Input placeholder="Enter Your Location">
             <Autocomplete
               style={{width: 600}}
               onChange={this.handleCurrentAddress}
               onPlaceSelected={(place) => {
                 console.log(place);
+                this.setState({currentAddress: place.formatted_address});
+                console.log('in autocomplete form: ', this.state.currentAddress);
               }}
               types={['address']}
               componentRestrictions={{country: "USA"}}
             />
           </Input>
         </form>
+        <br/>
+        <form>
+          <Dropdown onChange={this.handleService} placeholder="Select Your Service" fluid selection options={ServiceOptions} style={{width: 600}}>
+          </Dropdown>
+        </form>
+        <br/>
         <div className="google-maps" ref="map" style={{width: 600, height: 600}}>
         </div>
       </div>
@@ -155,3 +224,5 @@ GoogleMaps.defaultProps = {
 
 export default GoogleMaps;
 
+// When we have more services
+// fluid search selection options={ServiceOptions}
