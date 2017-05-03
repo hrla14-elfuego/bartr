@@ -12,7 +12,7 @@ class App extends React.Component {
     return(
       <div>
         <NavBarContainer></NavBarContainer>
-        <div style={{textAlign: 'center'}}>
+        <div style={{textAlign: 'center'}} className='app'>
           {React.cloneElement(this.props.children, this.props)}
           {/*why???*/}
           {/*{this.props.children}*/}

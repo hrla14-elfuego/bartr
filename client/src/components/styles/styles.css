@@ -6,6 +6,7 @@
   float: right;
   padding: 10px;
   font-size: 20px;
+  margin-right: 20px;
 }
 
 /*body {
@@ -13,3 +14,21 @@
   background-size: cover;
   clear: both;
 }*/
+
+.app {
+  /*display: inline-block;*/
+  background-size: 100%;
+  min-height: 100%;
+  margin: auto;
+}
+
+.parallax-div {
+  /*display: inline-block;*/
+  background-size: 100%;
+  min-height: 100%;
+}
+
+html,body {
+  height: 100%;
+  width: 100%;
+}
