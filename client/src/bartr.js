@@ -9,12 +9,12 @@ import rootReducer from './reducers/index';
 import createStoreWithMiddleware from './store';
 
 import AppContainer from './containers/AppContainer';
-import Main from './components/Main';
 import HomeContainer from './containers/HomeContainer';
 import UserProfile from './components/UserProfile';
 import PastEngagements from './components/PastEngagements';
 import EditProfile from './components/EditProfile';
 import AuthService from './utils/AuthService';
+import GoogleMapContainer from './components/GoogleMapsContainer';
 
 
 
@@ -44,6 +44,7 @@ class Routing extends React.Component {
             <IndexRedirect to='/home'/>
             <Route path='/home' component={HomeContainer}/>
             <Route path='/profile' component={UserProfile} onEnter={requireAuth}/>
+            <Route path='/map' component={GoogleMapContainer}/>
             <Route path='/editprofile' component={EditProfile}/>
             <Route path='/pastengagements' component={PastEngagements}/>
           </Route>

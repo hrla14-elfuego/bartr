@@ -91,7 +91,8 @@ class GoogleMaps extends Component {
       const node = ReactDOM.findDOMNode(mapRef);
 
       let { initialCenter, zoom } = this.props;
-      const { lat, lng } = !this.state.currentLocation.lat || !this.state.currentLocation.lng ? initialCenter : this.state.currentLocation;
+      const { lat, lng } = !this.props.address ? this.state.currentLocation : this.props.address;
+        // !this.state.currentLocation.lat || !this.state.currentLocation.lng ? initialCenter : this.state.currentLocation;
       const center = new maps.LatLng(lat, lng);
       const mapConfig = Object.assign({}, {
         center: center,

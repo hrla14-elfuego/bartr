@@ -7,7 +7,7 @@ class GoogleMapsContainer extends Component {
   render() {
     return (
       <div>
-        <GoogleMaps google={this.props.google}>
+        <GoogleMaps google={window.google}>
         </GoogleMaps>
       </div>
     )
