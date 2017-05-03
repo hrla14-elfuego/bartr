@@ -1,48 +1,34 @@
 import React from 'react';
 import NavBar from './NavBar';
 import './styles/styles.css'
-import { connect } from 'react-redux';
-import { getProfile } from '../actions/actionCreator';
-import store from '../store';
-import * as actionCreator from '../actions/actionCreator';
-import { bindActionCreators } from 'redux';
+import { Parallax, Background } from 'react-parallax';
 
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      
-    }
-  }
-  componentDidMount() {
-    this.props.getProfile();
   }
 
   render () {
     console.log('this is props: ', this.props);
     return (
       <div>
-        <h1>
-          This is Home!
-        </h1>
+        <Parallax
+          bgImage='http://i.huffpost.com/gen/3244066/images/o-SILK-ROAD-MAP-facebook.jpg'
+          strength={300}>
+          <Background>
+            <div style={{
+              width: 1000,
+              height: 1000
+            }}></div>
+            <img src='http://res.freestockphotos.biz/pictures/15/15950-illustrated-silhouette-of-a-camel-pv.png'/>
+          </Background>
+          <h1>This is Home!</h1>
+        </Parallax>
       </div>
     )
   }
 }
 
-// export default Home;
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    ProfileReducer : state.ProfileReducer
-  }
-}
-
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators(actionCreator, dispatch);
-// }
-
-export default connect(mapStateToProps, { getProfile })(Home);
+export default Home;
