@@ -41,11 +41,11 @@ class Routing extends React.Component {
         <Router history={history}>
           <Route path='/' component={AppContainer}>
             {/*<IndexRoute component={Home}/>*/}
-            <IndexRedirect to='home'/>
-            <Route path='home' component={Home}/>
-            <Route path='profile' component={UserProfile} onEnter={requireAuth}/>
-            <Route path='editprofile' component={EditProfile}/>
-            <Route path='pastengagements' component={PastEngagements}/>
+            <IndexRedirect to='/home'/>
+            <Route path='/home' component={Home}/>
+            <Route path='/profile' component={UserProfile} onEnter={requireAuth}/>
+            <Route path='/editprofile' component={EditProfile}/>
+            <Route path='/pastengagements' component={PastEngagements}/>
           </Route>
         </Router>
       </Provider>

@@ -6,6 +6,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_ERROR = 'LOGIN_ERROR'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 
+
 const authService = new AuthService('UdN-x_zIrEAok74rlhBGRDHcdJzASbC5', 'bartr.auth0.com')
 
 // Listen to authenticated event from AuthService and get the profile of the user
@@ -35,7 +36,8 @@ export function loginRequest() {
 }
 
 export function loginSuccess(profile) {
-  browserHistory.push('/')
+  hashHistory.push('/')
+
   return {
     type: LOGIN_SUCCESS,
     profile
@@ -51,7 +53,7 @@ export function loginError(error) {
 
 export function logoutSuccess() {
   authService.logout()
-  browserHistory.push('/')
+  hashHistory.push('/')
   return {
     type: LOGOUT_SUCCESS
   }
