@@ -42,17 +42,21 @@ const Review = sql.define('review', {
 const User = sql.define('user', {
 		email: {
 			type: Sequelize.STRING,
-			allowNull: false,
+			allowNull: true,
 			unique: true,
       validate: { isEmail: true }
 		},
 		name: {
 			type: Sequelize.STRING,
-			allowNull: false
+			allowNull: true
 		},
 		address: {
 			type: Sequelize.JSON,
 			allowNull: true
+		},
+		auth0_id: {
+			type: Sequelize.STRING,
+			allowNull: false
 		}
 });
 
