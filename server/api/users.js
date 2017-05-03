@@ -10,22 +10,19 @@ router.get('/:email', (req, res, next) => {
     where: {
       email: req.params.email
     }
-  })
-    .then(data => {
+  }).then(data => {
       console.log('User GET Request Successful');
       res.status(200).send(data);
-    })
-    .catch(next)
-})
+    }).catch(next)
+  })
 
 router.get('/', (req, res, next) => {
   User.findAll()
     .then(data => {
       console.log('User GET Request Successful');
       res.status(200).send(data);
-    })
-    .catch(next)
-})
+    }).catch(next)
+  })
 
 router.post('/', (req, res, next) => {
     req.user['auth0_id'] = req.user['sub'];
@@ -34,29 +31,26 @@ router.post('/', (req, res, next) => {
       console.log('User POST Request Successful')
       res.status(201);
       res.json(data);
-    })
-    .catch(Sequelize.UniqueConstraintError, () => {
+    }).catch(Sequelize.UniqueConstraintError, () => {
       res.status(400).end('User creation failed due to duplicate email address');
     })
-})
+  })
 
 router.put('/:email', (req, res, next) => {
     User.find({
       where: {
         email: req.params.email
       }
-    })
-    .then(data => {
-        data.updateAttributes({
-          email: req.body.email,
-          name: req.body.name,
-          address: req.body.address,
-          serviceId: req.body.serviceId
-        })
-        res.status(202).send(data);
-    })
-    .catch(next)
-})
+    }).then(data => {
+      data.updateAttributes({
+        email: req.body.email,
+        name: req.body.name,
+        address: req.body.address,
+        serviceId: req.body.serviceId
+      })
+      res.status(202).send(data);
+    }).catch(next)
+  })
 
 module.exports = router;
 

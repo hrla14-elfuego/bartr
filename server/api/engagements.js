@@ -24,32 +24,27 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  Engagement.findOrCreate({
-    where:{
-      createdAt: req.body.createdAt
-    }
-  })
-    .then(data => {
-      console.log('Engagement POST Request Sucessful')
-      res.status(201).send(data);
-    })
-    .catch(next)
+  Engagement.create({
+    sender_id: req.body.sender_id,
+    receiver_id: req.body.receiver_id
+  }).then(data => {
+    console.log('Engagement POST Request Sucessful');
+    res.status(201).send(data);
+  }).catch(next)
 })
 
-router.put('/', (req, res, next) => {
+router.put('/:id', (req, res, next) => {
   Engagement.find({
     where:{
+      id: req.params.id,
       complete: false
     }
-  })
-    .on('success', data => {
-      if(data){
-        data.updateAttributes({
-          complete: req.body.compelte
-        })
-      }
+  }).then(data => {
+    data.updateAttributes({
+      complete: req.body.complete
     })
-    .catch(next)
+    res.status(202).send(data);
+  }).catch(next)
 })
 
 module.exports = router;
