@@ -2,22 +2,26 @@
 
 const Sequelize = require('sequelize');
 const router = require('express').Router();
-const Engagement = require('../db').Engagement;
+const db = require('../db');
+
+const Engagement = db.Engagement;
+const User = db.User;
 
 
 router.get('/', (req, res, next) => {
-  Engagement.findAll({
-    where: {
-      customerID: req.body.customerID,
-      providerID: req.body.providerID
-    }
-  })
-    .then(data => {
-      console.log('Engagement GET Request Successful');
-      res.status(200).send(data);
+  db.User.find({
+    where: {auth0_id: req.user.sub}
     })
-    .catch(next)
-})
+    .then((user)=>{
+      return db.Engagement.findAll({
+        where:{ $or: [{sender_id: user.id}, {receiver_id: user.id}] },
+      })
+    })
+    .then(data => {
+      // console.log('Engagement GET Request Successful');
+      res.status(200).json(data);
+    })
+});
 
 router.post('/', (req, res, next) => {
   Engagement.findOrCreate({

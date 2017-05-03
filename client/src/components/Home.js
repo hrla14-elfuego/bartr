@@ -12,11 +12,14 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
 
-
+    this.state = {
+      
+    }
   }
   componentDidMount() {
-    getProfile();
+    this.props.getProfile();
   }
+
   render () {
     console.log('this is props: ', this.props);
     return (
@@ -24,7 +27,6 @@ class Home extends React.Component {
         <h1>
           This is Home!
         </h1>
-
       </div>
     )
   }
@@ -32,15 +34,15 @@ class Home extends React.Component {
 
 // export default Home;
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   console.log(state);
   return {
-    profile: state.profile
+    ProfileReducer : state.ProfileReducer
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actionCreator, dispatch);
-}
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators(actionCreator, dispatch);
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, { getProfile })(Home);
