@@ -1,5 +1,5 @@
-.left {
-  text-align: left;
+.jumbo {
+  text-align: center;
 }
 
 .button {
@@ -8,8 +8,8 @@
   font-size: 20px;
 }
 
-.home {
+/*body {
   background-image: url('http://i.huffpost.com/gen/3244066/images/o-SILK-ROAD-MAP-facebook.jpg');
   background-size: cover;
   clear: both;
-}
+}*/

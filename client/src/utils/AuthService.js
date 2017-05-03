@@ -1,5 +1,6 @@
 import Auth0Lock from 'auth0-lock'
 import jwtDecode from 'jwt-decode'
+import { hashHistory } from 'react-router';
 
 // import LogoImg from 'images/test-icon.png';
 
@@ -11,16 +12,23 @@ export default class AuthService {
         redirectUrl: 'http://localhost:5000/',
         responseType: 'token'
       },
-      // theme: {
-      //   logo: LogoImg,
-      //   primaryColor: "#b81b1c"
-      // },
+      theme: {
+        logo: 'https://openclipart.org/download/240346/Low-Poly-Camel-Sunset.svg',
+        primaryColor: "red"
+      },
       languageDictionary: {
-        title: 'Bartr Login'
+        title: 'Bartr'
       }
     })
+    this.lock.on('authenticated', this._doAuthentication.bind(this));
     // binds login functions to keep this context
-    this.login = this.login.bind(this)
+    this.login = this.login.bind(this);
+  }
+
+  _doAuthentication(authResult) {
+    AuthService.setToken(authResult.idToken);
+    // console.log('AUTHRESULT: ', authResult);
+    hashHistory.push('home');
   }
 
   // ======================================================

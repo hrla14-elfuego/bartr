@@ -10,7 +10,7 @@ import createStoreWithMiddleware from './store';
 
 import AppContainer from './containers/AppContainer';
 import Main from './components/Main';
-import Home from './components/Home';
+import HomeContainer from './containers/HomeContainer';
 import UserProfile from './components/UserProfile';
 import PastEngagements from './components/PastEngagements';
 import EditProfile from './components/EditProfile';
@@ -41,11 +41,11 @@ class Routing extends React.Component {
         <Router history={history}>
           <Route path='/' component={AppContainer}>
             {/*<IndexRoute component={Home}/>*/}
-            <IndexRedirect to='home'/>
-            <Route path='home' component={Home}/>
-            <Route path='profile' component={UserProfile} onEnter={requireAuth}/>
-            <Route path='editprofile' component={EditProfile}/>
-            <Route path='pastengagements' component={PastEngagements}/>
+            <IndexRedirect to='/home'/>
+            <Route path='/home' component={HomeContainer}/>
+            <Route path='/profile' component={UserProfile} onEnter={requireAuth}/>
+            <Route path='/editprofile' component={EditProfile}/>
+            <Route path='/pastengagements' component={PastEngagements}/>
           </Route>
         </Router>
       </Provider>
