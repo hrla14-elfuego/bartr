@@ -25,6 +25,9 @@ app.use('/', router);
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
     res.status(401).send('invalid token...');
+  } else {
+    console.log(err)
+    res.status(500).end('error unknown')
   }
 });
 
