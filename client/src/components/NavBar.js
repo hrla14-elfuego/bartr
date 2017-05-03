@@ -13,7 +13,7 @@ return (
     ) : (
       <div>
         <img src={profile.picture} height="40px" />
-        <span>Welcome, {profile.nickname}</span>
+        {/*<span>Welcome, {profile.nickname}</span>*/}
         <button className='button' onClick={onLogoutClick}>Logout</button>
       </div>
     )}
