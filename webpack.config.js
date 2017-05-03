@@ -1,11 +1,11 @@
 const webpack = require('webpack');
 const path = require('path');
 
-const SRC_DIR = path.resolve(__dirname, 'client');
-const BUILD_DIR = path.resolve(__dirname, 'client');
+const SRC_DIR = path.resolve(__dirname, 'client/src');
+const BUILD_DIR = path.resolve(__dirname, 'client/build');
 
 module.exports = {
-  entry: path.resolve(SRC_DIR, 'index.js'),
+  entry: path.resolve(SRC_DIR, 'bartr.js'),
   output: {
     filename: 'bundle.js',
     path: BUILD_DIR
