@@ -5,6 +5,7 @@ import NavBar from '../components/NavBar';
 const mapStateToProps = (state) => {
   const { isAuthenticated, profile, error } = state.auth;
   console.log('this is state.auth.isAuthenticated: ', state)
+  console.log(localStorage);
   return {
     isAuthenticated,
     profile,

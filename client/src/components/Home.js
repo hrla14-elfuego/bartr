@@ -10,13 +10,10 @@ class Home extends React.Component {
   }
 
   render () {
-      console.log("this is props.profilereducer on line 28", this.props.ProfileReducer)
-            console.log("this is props on line 29", this.props)
-
-
     return (
-      <div>
+      <div className='parallax-div'>
         <Parallax
+          className='parallax'
           bgImage='http://i.huffpost.com/gen/3244066/images/o-SILK-ROAD-MAP-facebook.jpg'
           strength={300}>
           <Background>
