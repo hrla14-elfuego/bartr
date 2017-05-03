@@ -28,15 +28,17 @@ class GoogleMaps extends Component {
     this.handleSubmitCurrentLocation = this.handleSubmitCurrentLocation.bind(this);
     this.handleService = this.handleService.bind(this);
     this.serviceFilter = this.handleService.bind(this);
+    this.withinRange = this.withinRange.bind(this);
+    this.fetchUsers = this.fetchUsers.bind(this);
   }
 
   componentDidMount() {
     this.loadMap();
   }
 
-  componentDidUpdate() {
-    this.serviceFilter();
-  }
+  // componentDidUpdate() {
+  //   this.serviceFilter();
+  // }
 /////////////////////// Sets Markers on Map and ties them to an info window/////////////////////////////
 
   fetchUsers() {
@@ -76,10 +78,11 @@ class GoogleMaps extends Component {
 
 
   loadMap() {
+    const homeUrl = "https://cdn3.iconfinder.com/data/icons/map-markers-1/512/residence-512.png";
     if (this.props && this.props.google) {
       const { google } = this.props;
       const maps = google.maps;
-
+      
       const mapRef = this.refs.map;
       const node = ReactDOM.findDOMNode(mapRef);
 
@@ -93,7 +96,7 @@ class GoogleMaps extends Component {
       this.map = new maps.Map(node, mapConfig);
 
       const home = {
-        url: "https://cdn3.iconfinder.com/data/icons/map-markers-1/512/residence-512.png",
+        url: homeUrl,
         scaledSize: new google.maps.Size(40,40),
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,20)
@@ -136,8 +139,8 @@ class GoogleMaps extends Component {
 
 //////////////////////////////////// Filter through services ///////////////////////////////
 
-  serviceFilter() {
-    // event.preventDefault();
+  serviceFilter(event) {
+    event.preventDefault();
     axios.get(`/services/${this.state.service}/${this.state.currentLocation}`)
          .then(data => {
            console.log(data);
@@ -152,17 +155,16 @@ class GoogleMaps extends Component {
   handleService(event, result) {
     event.preventDefault();
     this.setState({service: result.value});
-    console.log('This is the state of service ', this.state.service);
   }
 
 //////////////////////////////////// Find if the coordinates are within range of the user ///////////////////////////////
 
   withinRange(lat1,lng1,lat2,lng2) {
-      const R = 3959; // Radius of the earth in km
+      const R = 3959; 
       let deg2rad = (deg) => {
         return deg * (Math.PI/180)
       }
-      let dLat = deg2rad(lat2-lat1);  // deg2rad below
+      let dLat = deg2rad(lat2-lat1);  
       let dLng = deg2rad(lng2-lng1); 
       let a = 
         Math.sin(dLat/2) * Math.sin(dLat/2) +
@@ -170,7 +172,7 @@ class GoogleMaps extends Component {
         Math.sin(dLng/2) * Math.sin(dLng/2)
         ; 
       let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-      let d = R * c; // Distance in km
+      let d = R * c; 
       return d;
     }
 
@@ -187,7 +189,6 @@ class GoogleMaps extends Component {
               onPlaceSelected={(place) => {
                 console.log(place);
                 this.setState({currentAddress: place.formatted_address});
-                console.log('in autocomplete form: ', this.state.currentAddress);
               }}
               types={['address']}
               componentRestrictions={{country: "USA"}}
