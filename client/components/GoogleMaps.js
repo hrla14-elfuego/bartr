@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+
 import Autocomplete from 'react-google-autocomplete'
 import { geocodeByAddress } from 'react-places-autocomplete'
-import { Dropdown, Input, Button, Header, Image, Modal } from 'semantic-ui-react';
+import { Dropdown, Input, Button, Header, Image, Grid } from 'semantic-ui-react';
 import { ServiceOptions } from '../Services/ServiceOptions';
-import PropTypes from 'prop-types';
+
+import ServiceProviderList from './ServiceProviderList';
+
 import _ from 'lodash';
 import axios from 'axios';
 
@@ -19,7 +23,7 @@ class GoogleMaps extends Component {
         lat: null,
         lng: null
       },
-      users: [[34.055136,-118.308628, 'Justin', 'Barber'],[34.044917,-118.296672, 'Jason', 'Mechanic']]
+      users: [{lat: 34.055136, lng: -118.308628, name: 'Justin', service: 'Barber'},{lat: 34.044917, lng: -118.296672, name: 'Jason', service: 'Mechanic'}]
     }
 
     this.loadMap = this.loadMap.bind(this);
@@ -58,13 +62,13 @@ class GoogleMaps extends Component {
       const maps = google.maps;
       _.each(this.state.users, user => {
         let marker = new maps.Marker({
-          position: {lat: user[0], lng: user[1]},
+          position: {lat: user.lat, lng: user.lng},
           map: map
         })
         let contentString = `<div id="content">` + `<div id="siteNotice">` + `</div>` + 
-        `<h1 id="firstHeading" class="firstHeading">${user[2]}</h1>` +
+        `<h1 id="firstHeading" class="firstHeading">${user.name}</h1>` +
         `<image wrapped size="medium" src="http://images4.wikia.nocookie.net/marveldatabase/images/9/9b/Ultimate_spiderman.jpg" height="85" width="85"/>` + 
-        `<div id="bodyContent">` + `<h2>${user[3]}</h2>` + `</div>`;
+        `<div id="bodyContent">` + `<h2>${user.service}</h2>` + `</div>`;
         let infoWindow = new maps.InfoWindow({
           content: contentString
         })
@@ -201,8 +205,11 @@ class GoogleMaps extends Component {
           </Dropdown>
         </form>
         <br/>
-        <div className="google-maps" ref="map" style={{width: 600, height: 600}}>
-        </div>
+        <div className="google-maps" ref="map" style={{width: 600, height: 600}}></div>
+        <br/>
+        <br/>
+        <br/>
+        <ServiceProviderList users={this.state.users}/>
       </div>
     );
   }
