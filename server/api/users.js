@@ -13,9 +13,8 @@ router.get('/:email', (req, res, next) => {
   })
     .then(data => {
       console.log('User GET Request Successful');
-      res.status(200).send(data);
+      res.status(200).json(data);
     })
-    .catch(next)
 })
 
 router.get('/', (req, res, next) => {
@@ -33,7 +32,7 @@ router.post('/', (req, res, next) => {
     .then(data => {
       console.log('User POST Request Successful')
       res.status(201);
-      res.json(data);
+      res.send('user posted successfully');
     })
     .catch(Sequelize.UniqueConstraintError, () => {
       res.status(400).end('User creation failed due to duplicate email address');
