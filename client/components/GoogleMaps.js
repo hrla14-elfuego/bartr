@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Marker} from 'google-maps-react';
-// import { Button, Header, Image, Modal } from 'semantic-ui-react';
+import Autocomplete from 'react-google-autocomplete'
+import { geocodeByAddress } from 'react-places-autocomplete'
+import { Input, Button, Header, Image, Modal } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import axios from 'axios';
 
 class GoogleMaps extends Component {
   constructor(){
     super()
 
     this.state = {
+      currentAddress: '',
       currentLocation: {
         lat: null,
         lng: null
@@ -19,11 +22,15 @@ class GoogleMaps extends Component {
 
     this.loadMap = this.loadMap.bind(this);
     this.setMarkers = this.setMarkers.bind(this);
+    this.handleCurrentAddress = this.handleCurrentAddress.bind(this);
+    this.handleSubmitCurrentLocation = this.handleSubmitCurrentLocation.bind(this);
   }
 
   componentDidMount() {
     this.loadMap();
   }
+
+/////////////////////// Sets Markers on Map and ties them to an info window/////////////////////////////
 
   setMarkers(map) {
       const maps = google.maps;
@@ -44,6 +51,9 @@ class GoogleMaps extends Component {
         })
       })
     }
+
+/////////////////////// Loads map at their location. Adds marker for their location too/////////////////////////////
+
 
   loadMap() {
     if (this.props && this.props.google) {
@@ -81,10 +91,48 @@ class GoogleMaps extends Component {
     }
   }
 
+//////////////////////////////////// Changes state of currentAddress to geocode ///////////////////////////////
+
+handleCurrentAddress(event) {
+  event.preventDefault();
+  this.setState({currentAddress: event.target.value});
+}
+
+///////////////////////////// Geocodes location to give lat and lng and runs loadMap ///////////////////////////////
+
+handleSubmitCurrentLocation(event) {
+  event.preventDefault();
+  geocodeByAddress(this.state.currentAddress, (err, latLng) => {
+    if(err) {
+      console.log('Error with geocoding: ', err);
+    } else {
+      console.log('Lat and Lng obtained: ', latLng.lat, latLng.lng);
+      this.setState({currentLocation:{lat:latLng.lat, lng:latLng.lng}});
+      this.loadMap();
+    }
+  })
+}
+
+//////////////////////////////////// Search Bar to render coordinates ///////////////////////////////
 
   render() {
     return (
-      <div className="google-maps" ref="map" style={{width: 600, height: 600}}>
+      <div>
+        <form onSubmit={this.handleSubmitCurrentLocation}>
+          <Input placeholder="Enter your location">
+            <Autocomplete
+              style={{width: 600}}
+              onChange={this.handleCurrentAddress}
+              onPlaceSelected={(place) => {
+                console.log(place);
+              }}
+              types={['address']}
+              componentRestrictions={{country: "USA"}}
+            />
+          </Input>
+        </form>
+        <div className="google-maps" ref="map" style={{width: 600, height: 600}}>
+        </div>
       </div>
     );
   }
@@ -106,3 +154,4 @@ GoogleMaps.defaultProps = {
 }
 
 export default GoogleMaps;
+
