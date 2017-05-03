@@ -10,7 +10,10 @@ class Home extends React.Component {
   }
 
   render () {
-    console.log('this is props: ', this.props);
+      console.log("this is props.profilereducer on line 28", this.props.ProfileReducer)
+            console.log("this is props on line 29", this.props)
+
+
     return (
       <div>
         <Parallax
@@ -25,7 +28,6 @@ class Home extends React.Component {
           </Background>
           <h1>This is Home!</h1>
         </Parallax>
-      </div>
     )
   }
 }

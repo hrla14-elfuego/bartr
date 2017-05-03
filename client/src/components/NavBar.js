@@ -7,7 +7,12 @@ const NavBar = ({ isAuthenticated, profile, error, onLoginClick, onLogoutClick }
 // console.log(state);
 return (
   <div>
-      <h1 className='jumbo'><Link to='/'>BARTR</Link>
+    <h1 className='left'>
+      <Link to='/'>BARTR</Link>
+    </h1>
+    <h1 className='right'>
+      <Link to='profile'>Profile</Link>
+    </h1>
     { !isAuthenticated ? (
       <button className='button' onClick={onLoginClick}>Login</button>
     ) : (
