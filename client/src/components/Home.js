@@ -11,11 +11,12 @@ import { bindActionCreators } from 'redux';
 class Home extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      
+    }
   }
-
-
   componentDidMount() {
-    console.log("this is props on line 22 of home",this.props)
     this.props.getProfile();
   }
 
@@ -35,22 +36,21 @@ Hi
             </div>
             ))}
         </h1>
-
       </div>
     )
   }
 }
 
 
-const mapStateToProps = state => ({
-  //  console.log("this is state line 47", state.ProfileReducer)
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
     ProfileReducer : state.ProfileReducer
-})
+  }
+}
 
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators(actionCreator, dispatch);
+// }
 
-export default connect(mapStateToProps, {getProfile})(Home);
-
-  // getUsers(res) {
-  //   for(let i = 0 ; i < res.length; i++){
-  //     this.setState({ProfileReducer: [...this.state.ProfileReducer,res[i]]})
-  //   }}
+export default connect(mapStateToProps, { getProfile })(Home);

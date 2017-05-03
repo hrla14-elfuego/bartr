@@ -17,12 +17,7 @@ export function searchLocation() {
 }
 
 export function getProfile() {
-  var profileData = axios.get('/api/users')
-    // .then(res => {
-    //   //console.log(res);
-    //   profileData = res.data;
-    //   console.log("this is profile data: ", profileData)
-    // })
+  let profileData = axios.get('/api/users')
   return {
     type: 'GET_PROFILE',
     payload: profileData

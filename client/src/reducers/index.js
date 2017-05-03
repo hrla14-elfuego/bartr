@@ -1,9 +1,12 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
-
+import { routerReducer as routing } from 'react-router-redux';
 import ProfileReducer from './profileReducer';
-// console.log("this is profile reducer in index line 5",ProfileReducer);
+import auth from './auth';
 
-const rootReducer = combineReducers({ProfileReducer});
+const rootReducer = combineReducers({
+  routing,
+  ProfileReducer,
+  auth
+});
 
 export default rootReducer;

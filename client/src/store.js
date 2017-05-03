@@ -1,14 +1,13 @@
-import { createStore } from 'redux';
-import { syncHistoryWithStore } from 'react-router-redux';
-import { browserHistory } from 'react-router';
+import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './reducers/index';
+import thunk from 'redux-thunk';
 
-// import ProfileReducer from './reducers/profileReducer';
+function createStoreWithMiddleware (prevState) {
+  return createStore(
+    rootReducer,
+    prevState,
+    applyMiddleware(thunk)
+  )
+};
 
-
-//const store = createStore(rootReducer);
-////console.log("this is store",store)
-
-//export let history = syncHistoryWithStore(browserHistory, store);
-
-// export default store;
+export default createStoreWithMiddleware;
