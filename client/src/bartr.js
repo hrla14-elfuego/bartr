@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, IndexRedirect, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import { Provider } from 'react-redux';
@@ -8,38 +8,44 @@ import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './reducers/index';
 import createStoreWithMiddleware from './store';
 
-import App from './components/App';
+import AppContainer from './containers/AppContainer';
 import Main from './components/Main';
-import SignUp from './components/SignUpLogin/SignUp';
-import Login from './components/SignUpLogin/Login';
 import Home from './components/Home';
 import UserProfile from './components/UserProfile';
 import PastEngagements from './components/PastEngagements';
 import EditProfile from './components/EditProfile';
+import AuthService from './utils/AuthService';
 
 
 
 class Routing extends React.Component {
-  constructor() {
-    super();
-  }
-
 
   render() {
-    console.log(createStoreWithMiddleware());
+
+    const auth = new AuthService('UdN-x_zIrEAok74rlhBGRDHcdJzASbC5', 'bartr.auth0.com');
+    // validating authentication
+    const requireAuth = (nextState, replace) => {
+      if (!AuthService.loggedIn()) {
+        replace({
+          pathname: '/home'
+        })
+      }
+    }
+
+    // creating store and history
     const store = createStoreWithMiddleware();
-    const history = syncHistoryWithStore(browserHistory, store);
+    const history = syncHistoryWithStore(hashHistory, store);
     
     return (
       <Provider store={store}>
         <Router history={history}>
-          <Route path='/' component={App}>
-            <IndexRoute component={Home}></IndexRoute>
-            <Route path='/login' component={Login}></Route>
-            <Route path='/signup' component={SignUp}></Route>
-            <Route path='/profile' component={UserProfile}></Route>
-            <Route path='/editprofile' component={EditProfile}></Route>
-            <Route path='/pastengagements' component={PastEngagements}></Route>
+          <Route path='/' component={AppContainer}>
+            {/*<IndexRoute component={Home}/>*/}
+            <IndexRedirect to='home'/>
+            <Route path='home' component={Home}/>
+            <Route path='profile' component={UserProfile} onEnter={requireAuth}/>
+            <Route path='editprofile' component={EditProfile}/>
+            <Route path='pastengagements' component={PastEngagements}/>
           </Route>
         </Router>
       </Provider>
