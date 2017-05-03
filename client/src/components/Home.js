@@ -28,6 +28,7 @@ class Home extends React.Component {
           </Background>
           <h1>This is Home!</h1>
         </Parallax>
+      </div>
     )
   }
 }
