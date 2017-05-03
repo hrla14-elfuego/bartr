@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
 
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleWare } from 'redux';
-import Promise from 'redux-promise';
+import { createStore, applyMiddleware } from 'redux';
+import rootReducer from './reducers/index';
+import createStoreWithMiddleware from './store';
 
 import App from './components/App';
 import Main from './components/Main';
@@ -14,16 +16,20 @@ import Home from './components/Home';
 import UserProfile from './components/UserProfile';
 import PastEngagements from './components/PastEngagements';
 import EditProfile from './components/EditProfile';
-import store, { history } from './store';
 
 
 
 class Routing extends React.Component {
   constructor() {
     super();
-
   }
+
+
   render() {
+    console.log(createStoreWithMiddleware());
+    const store = createStoreWithMiddleware();
+    const history = syncHistoryWithStore(browserHistory, store);
+    
     return (
       <Provider store={store}>
         <Router history={history}>
