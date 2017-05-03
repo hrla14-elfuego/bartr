@@ -50,7 +50,7 @@ gulp.task('nodemon', function () {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('server/db/*.js', ['seed']);
+  gulp.watch(['server/db/index.js', 'server/db/seedData/*.json'], ['seed']);
 });
 
 gulp.task('default', ['nodemon', 'watch']);
