@@ -3,6 +3,7 @@
 const Sequelize = require('sequelize');
 const router = require('express').Router();
 const Engagement = require('../db').Engagement;
+const Message = require('../db').Message;
 
 
 router.get('/', (req, res, next) => {
@@ -10,7 +11,8 @@ router.get('/', (req, res, next) => {
     where: {
       customerID: req.body.customerID,
       providerID: req.body.providerID
-    }
+    },
+    include:[Message]
   })
     .then(data => {
       console.log('Engagement GET Request Successful');

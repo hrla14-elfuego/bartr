@@ -43,7 +43,7 @@ class Routing extends React.Component {
             {/*<IndexRoute component={Home}/>*/}
             <IndexRedirect to='home'/>
             <Route path='home' component={Home}/>
-            <Route path='profile' component={UserProfile} onEnter={requireAuth}/>
+            <Route path='profile' component={UserProfile} />
             <Route path='editprofile' component={EditProfile}/>
             <Route path='pastengagements' component={PastEngagements}/>
           </Route>

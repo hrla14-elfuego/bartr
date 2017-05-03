@@ -29,12 +29,12 @@ class Home extends React.Component {
       <div className="home" >
         <h1>
 Hi
-{this.props.ProfileReducer.map((profile,key) => (
+{/*{this.props.ProfileReducer.map((profile,key) => (
             <div>
               <p>{profile.email}</p>
               <p>{profile.name}</p>
             </div>
-            ))}
+            ))}*/}
         </h1>
       </div>
     )

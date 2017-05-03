@@ -7,10 +7,9 @@ const NavBar = ({ isAuthenticated, profile, error, onLoginClick, onLogoutClick }
     <h1 className='left'>
       <Link to='/'>BARTR</Link>
     </h1>
-    {/*<h1 className='right'>
+    <h1 className='right'>
       <Link to='profile'>Profile</Link>
-      <Link to='login'>Login</Link>
-    </h1>*/}
+    </h1>
     { !isAuthenticated ? (
       <button className='button' onClick={onLoginClick}>Login</button>
     ) : (
