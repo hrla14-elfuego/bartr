@@ -1,9 +1,10 @@
 import { connect } from 'react-redux'
-import { loginRequest, logoutSuccess } from '../actions/auth0';
+import { loginRequest, logoutSuccess, setToken } from '../actions/auth0';
 import NavBar from '../components/NavBar';
 
 const mapStateToProps = (state) => {
-  const { isAuthenticated, profile, error } = state.auth
+  const { isAuthenticated, profile, error } = state.auth;
+  console.log('this is state.auth.isAuthenticated: ', state)
   return {
     isAuthenticated,
     profile,
