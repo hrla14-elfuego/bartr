@@ -2,11 +2,14 @@
   text-align: left;
 }
 
-.right {
-  text-align: right;
+.button {
+  float: right;
+  padding: 10px;
+  font-size: 20px;
 }
 
 .home {
   background-image: url('http://i.huffpost.com/gen/3244066/images/o-SILK-ROAD-MAP-facebook.jpg');
   background-size: cover;
+  clear: both;
 }
