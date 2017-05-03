@@ -1312,6 +1312,7 @@ debug@2.6.1:
   dependencies:
     ms "0.7.2"
 
+
 debug@2.6.3, debug@^2.1.1, debug@^2.4.5:
   version "2.6.3"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.3.tgz#0f7eb8c30965ec08c72accfa0130c8b79984141d"
@@ -2007,6 +2008,13 @@ glogg@^1.0.0:
   resolved "https://registry.yarnpkg.com/glogg/-/glogg-1.0.0.tgz#7fe0f199f57ac906cf512feead8f90ee4a284fc5"
   dependencies:
     sparkles "^1.0.0"
+
+google-maps-react@^1.0.19:
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/google-maps-react/-/google-maps-react-1.0.19.tgz#4ac6e337d7e2c28235e8890e4fa611fba7d00eaf"
+  dependencies:
+    history "^3.0.0"
+    invariant "^2.2.1"
 
 got@^3.2.0:
   version "3.3.1"

@@ -12,3 +12,9 @@ bundle.js
 #shak
 .idea
 *.ipynb
+
+#justin
+.DS_Store
+npm-debug.log
+bundle.js
+API_KEY.js
