@@ -37,9 +37,9 @@ var getBoundingBox = function (centerPoint, distance) {
   MIN_LON = (-180).degToRad();
   MAX_LON = (180).degToRad();
   // Earth's radius (km)
-  R = 6378.1;
+  // R = 6378.1;
   // Earth's radius (miles)
-  // R = 3959;
+  R = 3959;
   // angular distance in radians on a great circle
   radDist = distance / R;
   // center point coordinates (deg)
