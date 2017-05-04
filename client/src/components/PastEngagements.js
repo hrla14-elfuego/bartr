@@ -20,9 +20,9 @@ class PastEngagements extends React.Component {
 
   fetchPast() {
     const config = {
-      headers: {'Authorization': 'Bearer ' + token}
+      headers: {'Authorization': 'Bearer ' + localStorage.id_token}
     };
-    axios.get('/engagements?completed=true', config)
+    axios.get('/api/engagements', config)
          .then(data => {
            console.log(data);
            _.each(data, datum => {
@@ -37,7 +37,7 @@ class PastEngagements extends React.Component {
   render() {
     return(
       <div>
-        <PastEngagementsList engagements={this.state.engagements}/>
+        <PastEngagementsList engagements={this.state.pastEngagements}/>
       </div>
     )
   }
