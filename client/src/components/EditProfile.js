@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Button, Checkbox, Form, Dropdown } from 'semantic-ui-react';
-import {ServiceOptions} from '../Services';
+import {ServiceOptions} from '../Services/ServiceOptions';
 
 class EditProfile extends React.Component {
   constructor() {
