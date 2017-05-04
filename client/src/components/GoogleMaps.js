@@ -35,14 +35,16 @@ class GoogleMaps extends Component {
     // this.serviceFilter = this.changeSelectedService.bind(this);
     // this.withinRange = this.withinRange.bind(this);
     // this.fetchUsers = this.fetchUsers.bind(this);
+
+    this.theGoogleMap = null;
   }
 
   componentDidMount() {
-    this.loadServices();
+    this.loadServicesTypes();
     this.loadMap();
   }
 
-  loadServices() {
+  loadServicesTypes() {
     axios.get('/api/services')
       .then(result => {
         _.each(result.data, service => {
@@ -76,8 +78,9 @@ class GoogleMaps extends Component {
   putMarkersOnMap(map) {
       const maps = google.maps;
       _.each(this.state.foundServiceUsers, user => {
+        console.log('put marker', user.geo_lat, user.geo_long);
         let marker = new maps.Marker({
-          position: {lat: user.lat, long: user.long},
+          position: {lat: user.geo_lat, lng: user.geo_long},
           map: map
         })
         let contentString = `<div id="content">` + `<div id="siteNotice">` + `</div>` + 
@@ -114,6 +117,7 @@ class GoogleMaps extends Component {
         zoom: zoom
       })
       this.map = new maps.Map(node, mapConfig);
+      this.theGoogleMap = this.map
 
       const home = {
         url: homeUrl,
@@ -149,7 +153,26 @@ class GoogleMaps extends Component {
 
   displaySelectedAddress(event) {
     event.preventDefault();
-    this.loadMap();
+
+
+    let axios_config = {
+      params: {
+        lat: this.state.coordinates.lat,
+        long: this.state.coordinates.long,
+        distance: 30
+      }
+    };
+
+    axios.get('/api/services/find', axios_config)
+      .then(result => {
+        this.setState({foundServiceUsers: result.data})
+        console.log(this.state.foundServiceUsers)
+        this.loadMap();
+        // this.putMarkersOnMap()
+      }).catch(err => {
+      console.log('Error loading foundServiceUsers: ', err);
+    })
+
     // geocodeByAddress(this.state.currentAddress, (err, latLng) => {
     //   if(err) {
     //     console.log('Error with geocoding: ', err);
@@ -210,12 +233,12 @@ class GoogleMaps extends Component {
             <Autocomplete
               style={{width: 601}}
               // onChange={this.changeSelectedAddress}
-              onPlaceSelected={(location) => {
+              onPlaceSelected={(foundLocation) => {
                 this.setState({
-                  formattedAddress: location.formatted_address,
+                  formattedAddress: foundLocation.formatted_address,
                   coordinates: {
-                    lat: location.geometry.location.lat(),
-                    long: location.geometry.location.long()
+                    lat: foundLocation.geometry.location.lat(),
+                    long: foundLocation.geometry.location.lng()
                     }
                   });
               }}

@@ -12,7 +12,7 @@ const columns = _.map(props.users, user => (
           {user.name}
         </Card.Header>
         <Card.Description>
-          {user.service}
+          {user.service_id}
         </Card.Description>
       </Card.Content>
     </Card>
