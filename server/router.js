@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express');
 const jwt = require('express-jwt');
 
 const checkToken = jwt({
@@ -8,8 +8,20 @@ const checkToken = jwt({
   // audience: process.env.AUTH0_AUDIENCE,
   issuer: `https://${process.env.AUTH0_DOMAIN}/`,
   algorithms: ['HS256']
-})
+});
 
-router.use('/api', checkToken, require('./api/index'));
+const selectiveMiddlewareApply = function(path, middleware) {
+  return function(req, res, next) {
+    if (path.has(req.path)) {
+      return next();
+    } else {
+      return middleware(req, res, next);
+    }
+  };
+};
 
-module.exports = router;
+const api_router = router();
+const skipList = new Set(['/services']);
+api_router.use('/api', selectiveMiddlewareApply(skipList, checkToken), require('./api/index'));
+
+module.exports = api_router;

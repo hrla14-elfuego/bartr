@@ -64,5 +64,18 @@
       "geo_lat": 34.067745,
       "geo_long":  -118.308225
     }
+  },
+  {
+    "model": "User",
+    "data": {
+      "id": 5,
+      "email": "test5@test.com",
+      "name": "test user 5",
+      "service_id": 2,
+      "auth0_id": "auth0|5909471d3614eb59f2bbcb7a",
+      "address": "1142 S Diamond Bar Blvd, Diamond Bar, CA 91765",
+      "geo_lat": 34.001745,
+      "geo_long":  -117.809078
+    }
   }
 ]
