@@ -1,18 +1,15 @@
 import axios from 'axios';
 
-export function searchLocation() {
-  const url = 'https://jsonplaceholder.typicode.com/photos';
-  let info;
-  axios.get(url)
+export const GET_SERVICES = 'GET_SERVICES';
+
+export function getServices() {
+  let services = axios.get('/api/services')
     .then(res => {
-      info = res;
       console.log(res)
     })
-  // console.log(info);
-
   return {
-    type: 'SEARCH',
-    payload: info
+    type: 'GET_SERVICES',
+    services
   }
 }
 

@@ -20,6 +20,8 @@ class Home extends React.Component {
   }
 
   handleAddress(event) {
+    localStorage.address = event.target.value;
+    console.log(localStorage);
     event.preventDefault();
     this.setState({
       address: event.target.value
@@ -31,30 +33,27 @@ class Home extends React.Component {
       <div className='parallax-div'>
         <Parallax
           className='parallax'
-          bgImage='http://i.huffpost.com/gen/3244066/images/o-SILK-ROAD-MAP-facebook.jpg'
-          strength={300}>
-          <Background>
-            <div style={{
-              width: 1000,
-              height: 1000
-            }}></div>
-            <img src='http://res.freestockphotos.biz/pictures/15/15950-illustrated-silhouette-of-a-camel-pv.png'/>
-          </Background>
-          <form onSubmit={this.handleSubmitCurrentLocation}>
-            <Input placeholder="Enter Your Location">
-              <Autocomplete
-                style={{width: 600}}
-                onChange={this.handleAddress}
-                onPlaceSelected={(place) => {
-                  console.log(place);
-                  this.setState({currentAddress: place.formatted_address});
-                }}
-                types={['address']}
-                componentRestrictions={{country: "USA"}}
-              />
-            </Input>
-          <Link to='/map'><Button>Button</Button></Link>
-        </form>
+          bgImage='http://s1.thingpic.com/images/1e/usAoQMdY4zvsZisn1WoUedDs.jpeg'
+          strength={400}>
+          <div className='homelogo' style={{ width: '100%', height: 1200 }}>
+            <Image style={{ margin: 'auto', marginTop: '200px', position: 'relative', height: '15%', width: '15%' }} src='https://cdn.pixabay.com/photo/2016/04/01/09/58/animal-1299698_960_720.png' />
+            <h4 style={{ fontWeight: 750, fontSize: 130, fontFamily: 'Papyrus, fantasy' }}>Bartr</h4>
+            <form className='searchform' onSubmit={this.handleSubmitCurrentLocation}>
+              <Input placeholder="Enter Your Location">
+                <Autocomplete
+                  style={{width: 600}}
+                  onChange={this.handleAddress}
+                  onPlaceSelected={(place) => {
+                    console.log(place);
+                    this.setState({currentAddress: place.formatted_address});
+                  }}
+                  types={['address']}
+                  componentRestrictions={{country: "USA"}}
+                />
+              </Input>
+            <Link to='/map'><Button className='homesearchbutton'>Search</Button></Link>
+          </form>
+          </div>
         </Parallax>
       </div>
     )
@@ -63,3 +62,10 @@ class Home extends React.Component {
 
 
 export default Home;
+
+// red sky, camel silhouette
+  // http://s1.thingpic.com/images/1e/usAoQMdY4zvsZisn1WoUedDs.jpeg
+// big handshake
+  // https://tradewithbxi.files.wordpress.com/2014/10/banner-jointventure.jpg
+// black/red map
+  // https://upload.wikimedia.org/wikipedia/commons/3/39/Shipping_routes_red_black.png

@@ -5,10 +5,10 @@ const User = require('../db').User;
 const Service = require('../db/index').Service;
 const router = require('express').Router();
 
-router.get('/:email', (req, res, next) => {
+router.get('/:auth0_id', (req, res, next) => {
   User.findOne({
     where: {
-      email: req.params.email
+      auth0_id: req.params.auth0_id
     }
   })
     .then(data => {
@@ -39,10 +39,11 @@ router.post('/', (req, res, next) => {
     })
 })
 
-router.put('/:email', (req, res, next) => {
+router.put('/:auth0_id', (req, res, next) => {
+  console.log(req.params);
     User.find({
       where: {
-        email: req.params.email
+        auth0_id: req.params.auth0_id
       }
     })
     .then(data => {
@@ -50,7 +51,10 @@ router.put('/:email', (req, res, next) => {
           email: req.body.email,
           name: req.body.name,
           address: req.body.address,
-          serviceId: req.body.serviceId
+          geo_lat: req.body.address.lat,
+          geo_long: req.body.address.lng,
+          service_id: req.body.service_id,
+          auth0_id: req.body.auth0_id
         })
         res.status(202).send(data);
     })
