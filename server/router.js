@@ -21,7 +21,7 @@ const selectiveMiddlewareApply = function(path, middleware) {
 };
 
 const api_router = router();
-const skipList = new Set(['/services']);
+const skipList = new Set(['/services', '/services/find']);
 api_router.use('/api', selectiveMiddlewareApply(skipList, checkToken), require('./api/index'));
 
 module.exports = api_router;

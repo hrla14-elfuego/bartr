@@ -10,7 +10,8 @@ export default class AuthService {
     this.lock = new Auth0Lock(clientId, domain, {
       auth: {
         redirectUrl: 'http://localhost:5000/',
-        responseType: 'token'
+        responseType: 'token',
+        params: {scope: 'openid profile'}
       },
       theme: {
         logo: 'https://openclipart.org/download/240346/Low-Poly-Camel-Sunset.svg',

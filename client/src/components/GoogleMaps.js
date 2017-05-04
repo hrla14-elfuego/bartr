@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import Autocomplete from 'react-google-autocomplete'
 import { geocodeByAddress } from 'react-places-autocomplete'
 import { Dropdown, Input, Button, Header, Image, Grid } from 'semantic-ui-react';
-import { ServiceOptions } from '../Services/ServiceOptions';
 
 import ServiceProviderList from './ServiceProviderList';
 
@@ -17,58 +16,91 @@ class GoogleMaps extends Component {
     super()
 
     this.state = {
-      service: '',
-      currentAddress: '',
-      currentLocation: {
-        lat: null,
-        lng: null
+      selectedServiceType: null,
+      formattedAddress: null,
+      coordinates: {
+        lat: 34.061811,
+        long: -118.318316
       },
-      users: [{lat: 34.055136, lng: -118.308628, name: 'Justin', service: 'Barber'},{lat: 34.044917, lng: -118.296672, name: 'Jason', service: 'Mechanic'}]
+      foundServiceUsers: [],
+      serviceTypes: []
     }
 
     this.loadMap = this.loadMap.bind(this);
-    this.setMarkers = this.setMarkers.bind(this);
-    this.handleCurrentAddress = this.handleCurrentAddress.bind(this);
-    this.handleSubmitCurrentLocation = this.handleSubmitCurrentLocation.bind(this);
-    this.handleService = this.handleService.bind(this);
-    this.serviceFilter = this.handleService.bind(this);
-    this.withinRange = this.withinRange.bind(this);
-    this.fetchUsers = this.fetchUsers.bind(this);
+    this.putMarkersOnMap = this.putMarkersOnMap.bind(this);
+    this.displaySelectedAddress = this.displaySelectedAddress.bind(this);
+    this.changeSelectedService = this.changeSelectedService.bind(this);
+    this.clearMarkers = this.clearMarkers.bind(this);
+    this.loadServices = this.loadServices.bind(this);
+
+    this.googleMap = null;
+    this.googleMapMarkers = [];
   }
 
   componentDidMount() {
+    this.loadServicesTypes();
     this.loadMap();
-    geo
+    this.loadServices()
   }
 
-  // componentDidUpdate() {
-  //   this.serviceFilter();
-  // }
-/////////////////////// Sets Markers on Map and ties them to an info window/////////////////////////////
-
-  fetchUsers() {
-    axios.get('/services')
-         .then(data => {
-           _.each(data, datum => {
-             this.setState({users:[...this.state.users, datum]})
-           })
-         }).catch(err => {
-           console.log('Error with fetchUsers: ', err);
-         })
+  loadServicesTypes() {
+    axios.get('/api/services')
+      .then(result => {
+        _.each(result.data, service => {
+          this.setState({
+            serviceTypes: this.state.serviceTypes.concat([{text: service.type, value: service.id, key: service.id}])
+          })
+        })
+      }).catch(err => {
+      console.log('Error loading serviceTypes: ', err);
+    })
   }
 
-/////////////////////// Sets Markers on Map and ties them to an info window/////////////////////////////
+  loadServices() {
+    let axios_config = {
+      params: {
+        lat: this.state.coordinates.lat,
+        long: this.state.coordinates.long,
+        distance: 30,
+      }
+    };
 
-  setMarkers(map) {
+    if(this.state.selectedServiceType){
+      axios_config.params['services'] = this.state.selectedServiceType;
+    }
+
+    console.log(axios_config)
+    axios.get('/api/services/find', axios_config)
+      .then(result => {
+        this.setState({foundServiceUsers: result.data}, ()=>{
+          console.log(this.state.foundServiceUsers, this.state.selectedServiceType)
+          this.putMarkersOnMap(this.googleMap)
+        })
+      }).catch(err => {
+      console.log('Error loading foundServiceUsers: ', err);
+    })
+  }
+
+  clearMarkers() {
+    _.each(this.googleMapMarkers, (marker) => {
+      marker.setMap(null)
+    })
+    this.googleMapMarkers = [];
+  }
+
+  putMarkersOnMap(map) {
       const maps = google.maps;
-      _.each(this.state.users, user => {
+      this.clearMarkers();
+      _.each(this.state.foundServiceUsers, user => {
+        console.log('put marker', user.geo_lat, user.geo_long);
         let marker = new maps.Marker({
-          position: {lat: user.lat, lng: user.lng},
+          position: {lat: user.geo_lat, lng: user.geo_long},
           map: map
         })
-        let contentString = `<div id="content">` + `<div id="siteNotice">` + `</div>` + 
+        this.googleMapMarkers.push(marker);
+        let contentString = `<div id="content">` + `<div id="siteNotice">` + `</div>` +
         `<h1 id="firstHeading" class="firstHeading">${user.name}</h1>` +
-        `<image wrapped size="medium" src="http://images4.wikia.nocookie.net/marveldatabase/images/9/9b/Ultimate_spiderman.jpg" height="85" width="85"/>` + 
+        `<image wrapped size="medium" src="http://images4.wikia.nocookie.net/marveldatabase/images/9/9b/Ultimate_spiderman.jpg" height="85" width="85"/>` +
         `<div id="bodyContent">` + `<h2>${user.service}</h2>` + `</div>`;
         let infoWindow = new maps.InfoWindow({
           content: contentString
@@ -92,14 +124,14 @@ class GoogleMaps extends Component {
       const node = ReactDOM.findDOMNode(mapRef);
 
       let { initialCenter, zoom } = this.props;
-      const { lat, lng } = !this.props.address ? this.state.currentLocation : this.props.address;
-        // !this.state.currentLocation.lat || !this.state.currentLocation.lng ? initialCenter : this.state.currentLocation;
-      const center = new maps.LatLng(lat, lng);
+      const { lat, long } = this.state.formattedAddress ? this.state.coordinates : initialCenter;
+      const center = new maps.LatLng(lat, long);
       const mapConfig = Object.assign({}, {
         center: center,
         zoom: zoom
       })
       this.map = new maps.Map(node, mapConfig);
+      this.googleMap = this.map
 
       const home = {
         url: homeUrl,
@@ -107,7 +139,7 @@ class GoogleMaps extends Component {
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,20)
       }
-      const homeMarker = new maps.Marker({
+      const marker = new maps.Marker({
         map: this.map,
         draggable: false,
         animation: maps.Animation.DROP,
@@ -115,86 +147,40 @@ class GoogleMaps extends Component {
         icon: home,
         title: "Your Location"
       })
-      homeMarker.setMap(this.map);
-      this.setMarkers(this.map);
+      marker.setMap(this.map);
     }
   }
 
-//////////////////////////////////// Changes state of currentAddress to geocode ///////////////////////////////
-
-  handleCurrentAddress(event) {
+  displaySelectedAddress(event) {
     event.preventDefault();
-    this.setState({currentAddress: event.target.value});
+    this.loadMap();
+    this.loadServices();
   }
 
-///////////////////////////// Geocodes location to give lat and lng and runs loadMap ///////////////////////////////
-///////////////////////////// Need to control submit occurring before place selected ///////////////////////////////
 
-  handleSubmitCurrentLocation(event) {
+  changeSelectedService(event, result) {
     event.preventDefault();
-    geocodeByAddress(this.state.currentAddress, (err, latLng) => {
-      if(err) {
-        console.log('Error with geocoding: ', err);
-      } else {
-        console.log('Lat and Lng obtained: ', latLng.lat, latLng.lng);
-        this.setState({currentLocation:{lat:latLng.lat, lng:latLng.lng}});
-        this.loadMap();
-      }
-    })
+    this.setState({selectedServiceType: result.value}, ()=>{
+      this.loadServices()
+    });
   }
-
-//////////////////////////////////// Filter through services ///////////////////////////////
-
-  serviceFilter(event) {
-    event.preventDefault();
-    axios.get(`/services/${this.state.service}/${this.state.currentLocation}`)
-         .then(data => {
-           console.log(data);
-           _.each(data, datum => {
-            datum.service === this.state.service && withinRange(this.state.currentLocation.lat, this.state.currentLocation.lng, data.lat, data.lng) <= 10 ? this.setState({users:[...this.state.users, datum]}) : null
-           })
-         })
-  }
-
-//////////////////////////////////// Set state of chosen service from drop down ///////////////////////////////
-
-  handleService(event, result) {
-    event.preventDefault();
-    this.setState({service: result.value});
-  }
-
-//////////////////////////////////// Find if the coordinates are within range of the user ///////////////////////////////
-
-  withinRange(lat1,lng1,lat2,lng2) {
-      const R = 3959; 
-      let deg2rad = (deg) => {
-        return deg * (Math.PI/180)
-      }
-      let dLat = deg2rad(lat2-lat1);  
-      let dLng = deg2rad(lng2-lng1); 
-      let a = 
-        Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-        Math.sin(dLng/2) * Math.sin(dLng/2)
-        ; 
-      let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-      let d = R * c; 
-      return d;
-    }
-
-//////////////////////////////////// Search Bar to render coordinates ///////////////////////////////
 
   render() {
     return (
       <div style={{textAlign:'center'}}>
-        <form onSubmit={this.handleSubmitCurrentLocation}>
+        <form onSubmit={this.displaySelectedAddress}>
           <Input placeholder="Enter Your Location">
             <Autocomplete
-              style={{width: 600}}
-              onChange={this.handleCurrentAddress}
-              onPlaceSelected={(place) => {
-                console.log(place);
-                this.setState({currentAddress: place.formatted_address});
+              style={{width: 601}}
+              // onChange={this.changeSelectedAddress}
+              onPlaceSelected={(foundLocation) => {
+                this.setState({
+                  formattedAddress: foundLocation.formatted_address,
+                  coordinates: {
+                    lat: foundLocation.geometry.location.lat(),
+                    long: foundLocation.geometry.location.lng()
+                    }
+                  });
               }}
               types={['address']}
               componentRestrictions={{country: "USA"}}
@@ -203,7 +189,7 @@ class GoogleMaps extends Component {
         </form>
         <br/>
         <form>
-          <Dropdown onChange={this.handleService} placeholder="Select Your Service" fluid selection options={ServiceOptions} style={{width: 600}}>
+          <Dropdown onChange={this.changeSelectedService} placeholder="Select Your Service" fluid selection options={this.state.serviceTypes} style={{width: 600}}>
           </Dropdown>
         </form>
         <br/>
@@ -211,7 +197,7 @@ class GoogleMaps extends Component {
         <br/>
         <br/>
         <br/>
-        <ServiceProviderList users={this.state.users}/>
+        <ServiceProviderList users={this.state.foundServiceUsers}/>
       </div>
     );
   }
@@ -225,10 +211,10 @@ GoogleMaps.propTypes = {
 }
 
 GoogleMaps.defaultProps = {
-  zoom: 15,
+  zoom: 12,
   initialCenter: {
-    lat: 34.049963,
-    lng: -118.300709
+    lat: 34.061811,
+    long: -118.318316
   }
 }
 

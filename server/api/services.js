@@ -21,13 +21,18 @@ router.get('/find', (req, res) => {
   let boundingBox = getBoundingBox([provided_lat, provided_long], provided_distance)
   console.log('location', provided_lat, provided_long)
   console.log('box', boundingBox)
+  let buildWhere = {};
+  if (requested_services){
+    buildWhere = {id: requested_services}
+  }
     db.User.findAll({
       where: {
         geo_long: {$gte: boundingBox[0], $lte: boundingBox[2]},
         geo_lat: {$gte: boundingBox[1], $lte: boundingBox[3]}
       },
       include: [{
-        model: db.Service
+        model: db.Service,
+        where: buildWhere
       }]
     })
       .then((results)=>{
