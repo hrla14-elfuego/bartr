@@ -19,8 +19,8 @@ class GoogleMaps extends Component {
       selectedServiceType: null,
       formattedAddress: null,
       coordinates: {
-        lat: null,
-        long: null
+        lat: 34.061811,
+        long: -118.318316
       },
       foundServiceUsers: [],
       serviceTypes: []
@@ -40,6 +40,7 @@ class GoogleMaps extends Component {
   componentDidMount() {
     this.loadServicesTypes();
     this.loadMap();
+    this.loadServices()
   }
 
   loadServicesTypes() {
