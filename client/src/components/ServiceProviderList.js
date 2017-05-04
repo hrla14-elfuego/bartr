@@ -12,7 +12,9 @@ const columns = _.map(props.users, user => (
           {user.name}
         </Card.Header>
         <Card.Description>
-          {user.service_id}
+          {user.service.type}
+          <br />
+            {user.address}
         </Card.Description>
       </Card.Content>
     </Card>
