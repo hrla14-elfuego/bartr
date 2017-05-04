@@ -35,6 +35,8 @@ class GoogleMaps extends Component {
     // this.serviceFilter = this.changeSelectedService.bind(this);
     // this.withinRange = this.withinRange.bind(this);
     // this.fetchUsers = this.fetchUsers.bind(this);
+    this.clearMarkers = this.clearMarkers.bind(this);
+    this.loadServices = this.loadServices.bind(this);
 
     this.googleMap = null;
     this.googleMapMarkers = [];
@@ -73,9 +75,10 @@ class GoogleMaps extends Component {
 
     axios.get('/api/services/find', axios_config)
       .then(result => {
-        this.setState({foundServiceUsers: result.data})
-        console.log(this.state.foundServiceUsers)
-        this.putMarkersOnMap(this.googleMap)
+        this.setState({foundServiceUsers: result.data}, ()=>{
+          console.log(this.state.foundServiceUsers, this.state.selectedServiceType)
+          this.putMarkersOnMap(this.googleMap)
+        })
       }).catch(err => {
       console.log('Error loading foundServiceUsers: ', err);
     })
@@ -100,17 +103,22 @@ class GoogleMaps extends Component {
 /////////////////////// Sets Markers on Map and ties them to an info window/////////////////////////////
 
   clearMarkers() {
-
+    _.each(this.googleMapMarkers, (marker) => {
+      marker.setMap(null)
+    })
+    this.googleMapMarkers = [];
   }
 
   putMarkersOnMap(map) {
       const maps = google.maps;
+      this.clearMarkers();
       _.each(this.state.foundServiceUsers, user => {
         console.log('put marker', user.geo_lat, user.geo_long);
         let marker = new maps.Marker({
           position: {lat: user.geo_lat, lng: user.geo_long},
           map: map
         })
+        this.googleMapMarkers.push(marker);
         let contentString = `<div id="content">` + `<div id="siteNotice">` + `</div>` +
         `<h1 id="firstHeading" class="firstHeading">${user.name}</h1>` +
         `<image wrapped size="medium" src="http://images4.wikia.nocookie.net/marveldatabase/images/9/9b/Ultimate_spiderman.jpg" height="85" width="85"/>` +
