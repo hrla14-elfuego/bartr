@@ -4,7 +4,7 @@ import { Jumbotron } from 'react-bootstrap';
 import './styles/styles.css';
 
 const NavBar = ({ isAuthenticated, profile, error, onLoginClick, onLogoutClick }) => {
-// console.log(state);
+console.log(profile);
   return (
     <div>
       <h1 className='left'>
@@ -14,8 +14,7 @@ const NavBar = ({ isAuthenticated, profile, error, onLoginClick, onLogoutClick }
         <button className='button' onClick={onLoginClick}>Login / Sign Up</button>
       ) : (
         <div>
-          <img src={profile.picture} height="40px" />
-          <h1 style={{float: 'right'}}>
+          <h1>
             <Link to='profile'>Profile</Link>
           </h1>
           {/*<span>Welcome, {profile.nickname}</span>*/}
