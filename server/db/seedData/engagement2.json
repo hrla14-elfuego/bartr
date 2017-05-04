@@ -4,7 +4,8 @@
     "data": {
       "id": 2,
       "sender_id": 2,
-      "receiver_id": 3
+      "receiver_id": 3,
+      "complete": true
     }
   },
   {
