@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from './NavBar';
-import './styles/styles.css'
+// import './styles/styles.css'
 import { Parallax, Background } from 'react-parallax';
 import { Dropdown, Input, Button, Header, Image, Grid } from 'semantic-ui-react';
 import Autocomplete from 'react-google-autocomplete';

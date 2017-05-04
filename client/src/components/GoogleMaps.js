@@ -107,7 +107,7 @@ class GoogleMaps extends Component {
         origin: new google.maps.Point(0,0),
         anchor: new google.maps.Point(20,20)
       }
-      const marker = new maps.Marker({
+      const homeMarker = new maps.Marker({
         map: this.map,
         draggable: false,
         animation: maps.Animation.DROP,
@@ -115,7 +115,7 @@ class GoogleMaps extends Component {
         icon: home,
         title: "Your Location"
       })
-      marker.setMap(this.map);
+      homeMarker.setMap(this.map);
       this.setMarkers(this.map);
     }
   }
