@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { each } from 'lodash';
 import { Button, Checkbox, Form, Dropdown, Input } from 'semantic-ui-react';
 import { ServiceOptions } from '../Services/ServiceOptions';
 import { geocodeByAddress } from 'react-places-autocomplete';
@@ -11,13 +12,16 @@ class EditProfile extends React.Component {
     super();
 
     this.state = {
-      email: '',
-      name: '',
-      address: {
+      userInfo: {
+        email: '',
+        name: '',
+        address: '',
         lat: '',
-        lng: ''
+        lng: '',
+        service_id: null,
+        auth0_id: localStorage.profile.user_id
       },
-      service: null
+      listOfServices: []
     }
     this.getServices = this.getServices.bind(this);
     this.emailChange = this.emailChange.bind(this);
@@ -29,36 +33,55 @@ class EditProfile extends React.Component {
 
   componentDidMount() {
     this.getServices();
+    const auth0_id = JSON.parse(localStorage.profile).user_id;
+    this.setState({
+      userInfo: {...this.state.userInfo, auth0_id: auth0_id}
+    })
   }
 
   getServices() {
+    // const config = {
+    //   headers: {
+    //     'Authorization': 'Bearer ' + localStorage.id_token
+    //   }
+    // }
+    axios.get('/api/services')
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          listOfServices: res.data
+        })
+      })
+      .catch((err) => {
+        console.log('Err: ', err);
+      })
+  }
+
+  handleSubmit() {
     const config = {
       headers: {
         'Authorization': 'Bearer ' + localStorage.id_token
       }
     }
-    axios.get('/api/services', config)
-      .then((err, res) => {
-        err ? console.log('Err: ', err) : console.log(res);
+    axios.put(`/api/users/${this.state.userInfo.auth0_id}`, this.state.userInfo, config)
+      .then((res) => {
+        console.log(res);
       })
-  }
-
-  handleSubmit() {
-    console.log(this.state);
-    const token = localStorage.id_token;
-    console.log(token);
+      .catch((err) => {
+        console.log('Err: ', err);
+      })
   }
 
   emailChange(event) {
     this.setState({
-      email: event.target.value
+      userInfo: {...this.state.userInfo, email: event.target.value}
     })
     // console.log(event.target.value);
   }
 
   nameChange(event) {
     this.setState({
-      name: event.target.value
+      userInfo: {...this.state.userInfo, name: event.target.value}
     })
     // console.log(event.target.value);
   }
@@ -70,7 +93,8 @@ class EditProfile extends React.Component {
       } else {
         // console.log(latLng.lat, latLng.lng);
         this.setState({
-          address: {
+          userInfo: {...this.state.userInfo,
+            address: address || event,
             lat: latLng.lat,
             lng: latLng.lng
           }
@@ -80,12 +104,20 @@ class EditProfile extends React.Component {
   }
 
   serviceChange(event, result) {
+    let service_id = null;
+    each(this.state.listOfServices, (service) => {
+      if (service.type === result.value) {
+        service_id = service.id;
+      }
+    })
     this.setState({
-      service: result.value
+      userInfo: {...this.state.userInfo, service_id: service_id}
     })
   }
   
   render() {
+    console.log(this.state);
+    console.log(JSON.parse(localStorage.profile));
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Field>
