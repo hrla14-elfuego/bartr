@@ -31,16 +31,15 @@ class Home extends React.Component {
       <div className='parallax-div'>
         <Parallax
           className='parallax'
-          bgImage='http://i.huffpost.com/gen/3244066/images/o-SILK-ROAD-MAP-facebook.jpg'
+          bgImage='http://s1.thingpic.com/images/1e/usAoQMdY4zvsZisn1WoUedDs.jpeg'
+          bgWidth='auto'
+          bgHeight='1450px'
           strength={300}>
-          <Background>
-            <div style={{
-              width: 1000,
-              height: 1000
-            }}></div>
-            <img src='http://res.freestockphotos.biz/pictures/15/15950-illustrated-silhouette-of-a-camel-pv.png'/>
-          </Background>
-          <form onSubmit={this.handleSubmitCurrentLocation}>
+          <div style={{ width: '100%', height: 1200 }}>
+            <Image style={{ margin: 'auto', position: 'relative', height: '15%', width: '15%' }} src='https://cdn.pixabay.com/photo/2016/04/01/09/58/animal-1299698_960_720.png' />
+            <h4 style={{ fontWeight: 300, fontSize: 100 }}>Bartr</h4>
+          </div>
+          <form className='searchform' onSubmit={this.handleSubmitCurrentLocation}>
             <Input placeholder="Enter Your Location">
               <Autocomplete
                 style={{width: 600}}
@@ -63,3 +62,6 @@ class Home extends React.Component {
 
 
 export default Home;
+
+
+// http://s1.thingpic.com/images/1e/usAoQMdY4zvsZisn1WoUedDs.jpeg
