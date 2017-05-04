@@ -29,6 +29,9 @@ export default class AuthService {
     AuthService.setToken(authResult.idToken);
     // console.log('AUTHRESULT: ', authResult);
     hashHistory.push('home');
+    this.lock.getProfile(authResult.idToken, (err, profile) => {
+      err ? console.log('Error loading profile: ', err) : AuthService.setProfile(profile);
+    })
   }
 
   // ======================================================
@@ -64,13 +67,14 @@ export default class AuthService {
     // Saves profile data to localStorage
     localStorage.setItem('profile', JSON.stringify(profile))
     // Triggers profile_updated event to update the UI
+    AuthService.emit('profile updated', profile);
   }
 
-  // getProfile(){
-  //   // Retrieves the profile data from localStorage
-  //   const profile = localStorage.getItem('profile')
-  //   return profile ? JSON.parse(localStorage.profile) : {}
-  // }
+  static getProfile(){
+    // Retrieves the profile data from localStorage
+    const profile = localStorage.getItem('profile')
+    return profile ? JSON.parse(localStorage.profile) : {}
+  }
 
   static setToken(idToken) {
     // Saves user token to localStorage
