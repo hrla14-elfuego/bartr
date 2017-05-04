@@ -5,7 +5,7 @@ const PastEngagementsList = (props) => {
   return(
     <div>
       {props.engagements.map(engagement => 
-        <PastEngagementsListEntry engagement={engagement}/>
+        <PastEngagementsListEntry key={engagement.id} engagement={engagement}/>
       )}
     </div>
   )

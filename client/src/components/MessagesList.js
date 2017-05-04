@@ -2,10 +2,11 @@ import React from 'react';
 import MessagesListEntry from './MessagesListEntry';
 
 const MessagesList = (props) => {
+  console.log('inside messagelist ', props.messages)
   return(
     <div>
       {props.messages.map(message => 
-        <MessagesListEntry message={message}/>
+        <MessagesListEntry key={message.id} message={message}/>
       )}
     </div>
   )
