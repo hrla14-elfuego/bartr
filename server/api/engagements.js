@@ -16,9 +16,12 @@ router.get('/', (req, res, next) => {
     .then((user)=>{
       return Engagement.findAll({
         where:{ $or: [{sender_id: user.id}, {receiver_id: user.id}], complete: showComplete },
-        include: [{
-          model: db.Message,
-        }],
+        include: [
+          { model: db.Message },
+          { model: db.User, as: 'sender' },
+          { model: db.User, as: 'receiver' },
+          { model: db.Review },
+      ],
         order: [
           [ 'created_at', 'DESC' ],
           [ db.Message, 'created_at', 'DESC' ]

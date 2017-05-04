@@ -51,13 +51,25 @@ const User = sql.define('user', {
 			allowNull: true
 		},
 		address: {
-			type: Sequelize.JSON,
+			type: Sequelize.STRING,
+			allowNull: true
+		},
+		geo_long: {
+			type: Sequelize.FLOAT(10,6),
+			allowNull: true
+		},
+		geo_lat: {
+			type: Sequelize.FLOAT(10,6),
 			allowNull: true
 		},
 		auth0_id: {
 			type: Sequelize.STRING,
 			allowNull: false
 		}
+}, {
+	indexes: [
+		{fields: ['geo_long', 'geo_lat']}
+	]
 });
 
 const Service = sql.define('service', {
