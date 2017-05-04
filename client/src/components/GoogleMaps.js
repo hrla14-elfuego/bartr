@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import Autocomplete from 'react-google-autocomplete'
 import { geocodeByAddress } from 'react-places-autocomplete'
 import { Dropdown, Input, Button, Header, Image, Grid } from 'semantic-ui-react';
-import { ServiceOptions } from '../Services/ServiceOptions';
 
 import ServiceProviderList from './ServiceProviderList';
 
@@ -23,39 +22,54 @@ class GoogleMaps extends Component {
         lat: null,
         lng: null
       },
-      users: [{lat: 34.055136, lng: -118.308628, name: 'Justin', service: 'Barber'},{lat: 34.044917, lng: -118.296672, name: 'Jason', service: 'Mechanic'}]
+       users: [{lat: 34.055136, lng: -118.308628, name: 'Justin', service: 'Barber'},{lat: 34.044917, lng: -118.296672, name: 'Jason', service: 'Mechanic'}],
+      serviceTypes: []
     }
 
     this.loadMap = this.loadMap.bind(this);
     this.setMarkers = this.setMarkers.bind(this);
-    this.handleCurrentAddress = this.handleCurrentAddress.bind(this);
-    this.handleSubmitCurrentLocation = this.handleSubmitCurrentLocation.bind(this);
-    this.handleService = this.handleService.bind(this);
-    this.serviceFilter = this.handleService.bind(this);
-    this.withinRange = this.withinRange.bind(this);
-    this.fetchUsers = this.fetchUsers.bind(this);
+    this.changeSelectedAddress = this.changeSelectedAddress.bind(this);
+    this.displaySelectedAddress = this.displaySelectedAddress.bind(this);
+    this.changeSelectedService = this.changeSelectedService.bind(this);
+    // this.serviceFilter = this.changeSelectedService.bind(this);
+    // this.withinRange = this.withinRange.bind(this);
+    // this.fetchUsers = this.fetchUsers.bind(this);
   }
 
   componentDidMount() {
+    this.loadServices();
     this.loadMap();
     geo
+  }
+
+  loadServices() {
+    axios.get('/api/services')
+      .then(result => {
+        _.each(result.data, service => {
+          this.setState({
+            serviceTypes: this.state.serviceTypes.concat([{text: service.type, value: service.id, key: service.id}])
+          })
+        })
+      }).catch(err => {
+      console.log('Error loading serviceTypes: ', err);
+    })
   }
 
   // componentDidUpdate() {
   //   this.serviceFilter();
   // }
 /////////////////////// Sets Markers on Map and ties them to an info window/////////////////////////////
-
-  fetchUsers() {
-    axios.get('/services')
-         .then(data => {
-           _.each(data, datum => {
-             this.setState({users:[...this.state.users, datum]})
-           })
-         }).catch(err => {
-           console.log('Error with fetchUsers: ', err);
-         })
-  }
+//
+//   fetchUsers() {
+//     axios.get('/services')
+//          .then(data => {
+//            _.each(data, datum => {
+//              this.setState({users:[...this.state.users, datum]})
+//            })
+//          }).catch(err => {
+//            console.log('Error with fetchUsers: ', err);
+//          })
+//   }
 
 /////////////////////// Sets Markers on Map and ties them to an info window/////////////////////////////
 
@@ -122,7 +136,7 @@ class GoogleMaps extends Component {
 
 //////////////////////////////////// Changes state of currentAddress to geocode ///////////////////////////////
 
-  handleCurrentAddress(event) {
+  changeSelectedAddress(event) {
     event.preventDefault();
     this.setState({currentAddress: event.target.value});
   }
@@ -130,7 +144,7 @@ class GoogleMaps extends Component {
 ///////////////////////////// Geocodes location to give lat and lng and runs loadMap ///////////////////////////////
 ///////////////////////////// Need to control submit occurring before place selected ///////////////////////////////
 
-  handleSubmitCurrentLocation(event) {
+  displaySelectedAddress(event) {
     event.preventDefault();
     geocodeByAddress(this.state.currentAddress, (err, latLng) => {
       if(err) {
@@ -158,42 +172,42 @@ class GoogleMaps extends Component {
 
 //////////////////////////////////// Set state of chosen service from drop down ///////////////////////////////
 
-  handleService(event, result) {
+  changeSelectedService(event, result) {
     event.preventDefault();
     this.setState({service: result.value});
   }
 
 //////////////////////////////////// Find if the coordinates are within range of the user ///////////////////////////////
 
-  withinRange(lat1,lng1,lat2,lng2) {
-      const R = 3959; 
-      let deg2rad = (deg) => {
-        return deg * (Math.PI/180)
-      }
-      let dLat = deg2rad(lat2-lat1);  
-      let dLng = deg2rad(lng2-lng1); 
-      let a = 
-        Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
-        Math.sin(dLng/2) * Math.sin(dLng/2)
-        ; 
-      let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-      let d = R * c; 
-      return d;
-    }
+  // withinRange(lat1,lng1,lat2,lng2) {
+  //     const R = 3959;
+  //     let deg2rad = (deg) => {
+  //       return deg * (Math.PI/180)
+  //     }
+  //     let dLat = deg2rad(lat2-lat1);
+  //     let dLng = deg2rad(lng2-lng1);
+  //     let a =
+  //       Math.sin(dLat/2) * Math.sin(dLat/2) +
+  //       Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+  //       Math.sin(dLng/2) * Math.sin(dLng/2)
+  //       ;
+  //     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  //     let d = R * c;
+  //     return d;
+  //   }
 
 //////////////////////////////////// Search Bar to render coordinates ///////////////////////////////
 
   render() {
     return (
       <div style={{textAlign:'center'}}>
-        <form onSubmit={this.handleSubmitCurrentLocation}>
+        <form onSubmit={this.displaySelectedAddress}>
           <Input placeholder="Enter Your Location">
             <Autocomplete
-              style={{width: 600}}
-              onChange={this.handleCurrentAddress}
+              style={{width: 601}}
+              onChange={this.changeSelectedAddress}
               onPlaceSelected={(place) => {
-                console.log(place);
+                console.log('autocomplete place', place, place.geometry.location.lat(), place.geometry.location.lng());
                 this.setState({currentAddress: place.formatted_address});
               }}
               types={['address']}
@@ -203,7 +217,7 @@ class GoogleMaps extends Component {
         </form>
         <br/>
         <form>
-          <Dropdown onChange={this.handleService} placeholder="Select Your Service" fluid selection options={ServiceOptions} style={{width: 600}}>
+          <Dropdown onChange={this.changeSelectedService} placeholder="Select Your Service" fluid selection options={this.state.serviceTypes} style={{width: 600}}>
           </Dropdown>
         </form>
         <br/>
