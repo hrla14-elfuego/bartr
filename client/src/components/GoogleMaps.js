@@ -22,19 +22,14 @@ class GoogleMaps extends Component {
         lat: null,
         long: null
       },
-       // foundServiceUsers: [{lat: 34.055136, lng: -118.308628, name: 'Justin', service: 'Barber'},{lat: 34.044917, lng: -118.296672, name: 'Jason', service: 'Mechanic'}],
       foundServiceUsers: [],
       serviceTypes: []
     }
 
     this.loadMap = this.loadMap.bind(this);
     this.putMarkersOnMap = this.putMarkersOnMap.bind(this);
-    // this.changeSelectedAddress = this.changeSelectedAddress.bind(this);
     this.displaySelectedAddress = this.displaySelectedAddress.bind(this);
     this.changeSelectedService = this.changeSelectedService.bind(this);
-    // this.serviceFilter = this.changeSelectedService.bind(this);
-    // this.withinRange = this.withinRange.bind(this);
-    // this.fetchUsers = this.fetchUsers.bind(this);
     this.clearMarkers = this.clearMarkers.bind(this);
     this.loadServices = this.loadServices.bind(this);
 
@@ -73,6 +68,7 @@ class GoogleMaps extends Component {
       axios_config.params['services'] = this.state.selectedServiceType;
     }
 
+    console.log(axios_config)
     axios.get('/api/services/find', axios_config)
       .then(result => {
         this.setState({foundServiceUsers: result.data}, ()=>{
@@ -83,24 +79,6 @@ class GoogleMaps extends Component {
       console.log('Error loading foundServiceUsers: ', err);
     })
   }
-
-  // componentDidUpdate() {
-  //   this.serviceFilter();
-  // }
-/////////////////////// Sets Markers on Map and ties them to an info window/////////////////////////////
-//
-//   fetchUsers() {
-//     axios.get('/services')
-//          .then(data => {
-//            _.each(data, datum => {
-//              this.setState({users:[...this.state.users, datum]})
-//            })
-//          }).catch(err => {
-//            console.log('Error with fetchUsers: ', err);
-//          })
-//   }
-
-/////////////////////// Sets Markers on Map and ties them to an info window/////////////////////////////
 
   clearMarkers() {
     _.each(this.googleMapMarkers, (marker) => {
@@ -146,7 +124,6 @@ class GoogleMaps extends Component {
 
       let { initialCenter, zoom } = this.props;
       const { lat, long } = this.state.formattedAddress ? this.state.coordinates : initialCenter;
-        // !this.state.currentLocation.lat || !this.state.currentLocation.lng ? initialCenter : this.state.currentLocation;
       const center = new maps.LatLng(lat, long);
       const mapConfig = Object.assign({}, {
         center: center,
@@ -170,80 +147,22 @@ class GoogleMaps extends Component {
         title: "Your Location"
       })
       marker.setMap(this.map);
-      // this.putMarkersOnMap(this.map);
     }
   }
-
-//////////////////////////////////// Changes state of currentAddress to geocode ///////////////////////////////
-
-  // changeSelectedAddress(event) {
-  //   event.preventDefault();
-  //   console.log(event.target)
-  //   this.setState({
-  //     formattedAddress: event.target.value
-  //   });
-  // }
-
-///////////////////////////// Geocodes location to give lat and lng and runs loadMap ///////////////////////////////
-///////////////////////////// Need to control submit occurring before place selected ///////////////////////////////
 
   displaySelectedAddress(event) {
     event.preventDefault();
     this.loadMap();
     this.loadServices();
-
-    // geocodeByAddress(this.state.currentAddress, (err, latLng) => {
-    //   if(err) {
-    //     console.log('Error with geocoding: ', err);
-    //   } else {
-    //     console.log('Lat and Lng obtained: ', latLng.lat, latLng.lng);
-    //     this.setState({currentLocation:{lat:latLng.lat, lng:latLng.lng}});
-    //
-    //   }
-    // })
   }
 
-//////////////////////////////////// Filter through services ///////////////////////////////
-
-  // serviceFilter(event) {
-  //   event.preventDefault();
-  //   axios.get(`/services/${this.state.service}/${this.state.currentLocation}`)
-  //        .then(data => {
-  //          console.log(data);
-  //          _.each(data, datum => {
-  //           datum.service === this.state.service && withinRange(this.state.currentLocation.lat, this.state.currentLocation.lng, data.lat, data.lng) <= 10 ? this.setState({foundServiceUsers:[...this.state.foundServiceUsers, datum]}) : null
-  //          })
-  //        })
-  // }
-
-//////////////////////////////////// Set state of chosen service from drop down ///////////////////////////////
 
   changeSelectedService(event, result) {
     event.preventDefault();
-    this.setState({selectedServiceType: result.value});
-    this.loadServices()
+    this.setState({selectedServiceType: result.value}, ()=>{
+      this.loadServices()
+    });
   }
-
-//////////////////////////////////// Find if the coordinates are within range of the user ///////////////////////////////
-
-  // withinRange(lat1,lng1,lat2,lng2) {
-  //     const R = 3959;
-  //     let deg2rad = (deg) => {
-  //       return deg * (Math.PI/180)
-  //     }
-  //     let dLat = deg2rad(lat2-lat1);
-  //     let dLng = deg2rad(lng2-lng1);
-  //     let a =
-  //       Math.sin(dLat/2) * Math.sin(dLat/2) +
-  //       Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-  //       Math.sin(dLng/2) * Math.sin(dLng/2)
-  //       ;
-  //     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  //     let d = R * c;
-  //     return d;
-  //   }
-
-//////////////////////////////////// Search Bar to render coordinates ///////////////////////////////
 
   render() {
     return (
