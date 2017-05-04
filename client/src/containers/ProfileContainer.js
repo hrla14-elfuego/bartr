@@ -3,7 +3,7 @@ import UserProfile from '../components/UserProfile';
 
 const mapStateToProps = (state) => {
   const { profile, error } = state.auth;
-
+  
   return {
     profile,
     error
