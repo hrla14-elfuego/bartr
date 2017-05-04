@@ -16,7 +16,7 @@ class GoogleMaps extends Component {
     super()
 
     this.state = {
-      service: '',
+      selectedServiceType: null,
       formattedAddress: '',
       coordinates: {
         lat: null,
@@ -36,7 +36,8 @@ class GoogleMaps extends Component {
     // this.withinRange = this.withinRange.bind(this);
     // this.fetchUsers = this.fetchUsers.bind(this);
 
-    this.theGoogleMap = null;
+    this.googleMap = null;
+    this.googleMapMarkers = [];
   }
 
   componentDidMount() {
@@ -54,6 +55,29 @@ class GoogleMaps extends Component {
         })
       }).catch(err => {
       console.log('Error loading serviceTypes: ', err);
+    })
+  }
+
+  loadServices() {
+    let axios_config = {
+      params: {
+        lat: this.state.coordinates.lat,
+        long: this.state.coordinates.long,
+        distance: 30,
+      }
+    };
+
+    if(this.state.selectedServiceType){
+      axios_config.params['services'] = this.state.selectedServiceType;
+    }
+
+    axios.get('/api/services/find', axios_config)
+      .then(result => {
+        this.setState({foundServiceUsers: result.data})
+        console.log(this.state.foundServiceUsers)
+        this.putMarkersOnMap(this.googleMap)
+      }).catch(err => {
+      console.log('Error loading foundServiceUsers: ', err);
     })
   }
 
@@ -75,6 +99,10 @@ class GoogleMaps extends Component {
 
 /////////////////////// Sets Markers on Map and ties them to an info window/////////////////////////////
 
+  clearMarkers() {
+
+  }
+
   putMarkersOnMap(map) {
       const maps = google.maps;
       _.each(this.state.foundServiceUsers, user => {
@@ -83,9 +111,9 @@ class GoogleMaps extends Component {
           position: {lat: user.geo_lat, lng: user.geo_long},
           map: map
         })
-        let contentString = `<div id="content">` + `<div id="siteNotice">` + `</div>` + 
+        let contentString = `<div id="content">` + `<div id="siteNotice">` + `</div>` +
         `<h1 id="firstHeading" class="firstHeading">${user.name}</h1>` +
-        `<image wrapped size="medium" src="http://images4.wikia.nocookie.net/marveldatabase/images/9/9b/Ultimate_spiderman.jpg" height="85" width="85"/>` + 
+        `<image wrapped size="medium" src="http://images4.wikia.nocookie.net/marveldatabase/images/9/9b/Ultimate_spiderman.jpg" height="85" width="85"/>` +
         `<div id="bodyContent">` + `<h2>${user.service}</h2>` + `</div>`;
         let infoWindow = new maps.InfoWindow({
           content: contentString
@@ -117,7 +145,7 @@ class GoogleMaps extends Component {
         zoom: zoom
       })
       this.map = new maps.Map(node, mapConfig);
-      this.theGoogleMap = this.map
+      this.googleMap = this.map
 
       const home = {
         url: homeUrl,
@@ -134,7 +162,7 @@ class GoogleMaps extends Component {
         title: "Your Location"
       })
       marker.setMap(this.map);
-      this.putMarkersOnMap(this.map);
+      // this.putMarkersOnMap(this.map);
     }
   }
 
@@ -153,25 +181,8 @@ class GoogleMaps extends Component {
 
   displaySelectedAddress(event) {
     event.preventDefault();
-
-
-    let axios_config = {
-      params: {
-        lat: this.state.coordinates.lat,
-        long: this.state.coordinates.long,
-        distance: 30
-      }
-    };
-
-    axios.get('/api/services/find', axios_config)
-      .then(result => {
-        this.setState({foundServiceUsers: result.data})
-        console.log(this.state.foundServiceUsers)
-        this.loadMap();
-        // this.putMarkersOnMap()
-      }).catch(err => {
-      console.log('Error loading foundServiceUsers: ', err);
-    })
+    this.loadMap();
+    this.loadServices();
 
     // geocodeByAddress(this.state.currentAddress, (err, latLng) => {
     //   if(err) {
@@ -201,7 +212,8 @@ class GoogleMaps extends Component {
 
   changeSelectedService(event, result) {
     event.preventDefault();
-    this.setState({service: result.value});
+    this.setState({selectedServiceType: result.value});
+    this.loadServices()
   }
 
 //////////////////////////////////// Find if the coordinates are within range of the user ///////////////////////////////
