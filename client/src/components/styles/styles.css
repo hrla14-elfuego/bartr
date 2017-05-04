@@ -8,23 +8,30 @@
   margin-right: 20px;
 }
 
-/*body {
-  background-image: url('http://i.huffpost.com/gen/3244066/images/o-SILK-ROAD-MAP-facebook.jpg');
-  background-size: cover;
-  clear: both;
-}*/
-
-.app {
-  /*display: inline-block;*/
-  background-size: 100%;
-  min-height: 100%;
-  margin: auto;
-}
-
 .navbar {
   margin-bottom: 0;
 }
 
+.navbarprofile {
+  float: right;
+}
+
 .searchform {
   margin-bottom: auto;
+}
+
+.parallax {
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 1500px;
+  background-position: center;
+}
+
+.homelogo {
+  opacity: 0.75;
+}
+
+.homesearchbutton {
+  padding: 10px;
+  font-size: 100px;
 }

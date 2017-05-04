@@ -38,6 +38,7 @@ class GoogleMaps extends Component {
 
   componentDidMount() {
     this.loadMap();
+    geo
   }
 
   // componentDidUpdate() {
