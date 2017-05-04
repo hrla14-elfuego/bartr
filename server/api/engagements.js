@@ -11,10 +11,11 @@ const Message = db.Message;
 const findAuth0User = require('./util').findAuth0User;
 
 router.get('/', (req, res, next) => {
+  let showComplete = req.query.completed === 'true';
   findAuth0User(req)
     .then((user)=>{
       return Engagement.findAll({
-        where:{ $or: [{sender_id: user.id}, {receiver_id: user.id}] },
+        where:{ $or: [{sender_id: user.id}, {receiver_id: user.id}], complete: showComplete },
         include: [{
           model: db.Message,
         }],
