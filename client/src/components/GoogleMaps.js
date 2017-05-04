@@ -17,7 +17,7 @@ class GoogleMaps extends Component {
 
     this.state = {
       selectedServiceType: null,
-      formattedAddress: '',
+      formattedAddress: null,
       coordinates: {
         lat: null,
         long: null
@@ -145,9 +145,9 @@ class GoogleMaps extends Component {
       const node = ReactDOM.findDOMNode(mapRef);
 
       let { initialCenter, zoom } = this.props;
-      // const { lat, lng } = !this.props.address ? this.state.coordinates : this.props.address;
+      const { lat, long } = this.state.formattedAddress ? this.state.coordinates : initialCenter;
         // !this.state.currentLocation.lat || !this.state.currentLocation.lng ? initialCenter : this.state.currentLocation;
-      const center = new maps.LatLng(this.state.coordinates.lat, this.state.coordinates.long);
+      const center = new maps.LatLng(lat, long);
       const mapConfig = Object.assign({}, {
         center: center,
         zoom: zoom
@@ -291,10 +291,10 @@ GoogleMaps.propTypes = {
 }
 
 GoogleMaps.defaultProps = {
-  zoom: 15,
+  zoom: 12,
   initialCenter: {
-    lat: 34.049963,
-    long: -118.300709
+    lat: 34.061811,
+    long: -118.318316
   }
 }
 
