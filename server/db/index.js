@@ -54,11 +54,11 @@ const User = sql.define('user', {
 			type: Sequelize.STRING,
 			allowNull: true
 		},
-		geo_long: {
+		geo_lat: {
 			type: Sequelize.FLOAT(10,6),
 			allowNull: true
 		},
-		geo_lat: {
+		geo_long: {
 			type: Sequelize.FLOAT(10,6),
 			allowNull: true
 		},

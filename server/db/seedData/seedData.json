@@ -22,8 +22,8 @@
       "service_id": 1,
       "auth0_id": "auth0|590914e09d6860661e3fb7fb",
       "address": "1128 Irolo St, Los Angeles, CA 90006",
-      "geo_long": 34.050274,
-      "geo_lat":  -118.300763
+      "geo_lat": 34.050274,
+      "geo_long":  -118.300763
     }
   },
   {
@@ -35,8 +35,8 @@
       "service_id": 1,
       "auth0_id": "auth0|590929df6a75e447a8cad216",
       "address": "970 S Gramercy Pl",
-      "geo_long": 34.053739,
-      "geo_lat":  -118.312972
+      "geo_lat": 34.053739,
+      "geo_long":  -118.312972
     }
   },
   {
@@ -48,8 +48,8 @@
       "service_id": 2,
       "auth0_id": "auth0|59092cb09d6860661e3fbaa6",
       "address": "2634 W 17th St, Los Angeles, CA 90019",
-      "geo_long": 34.041782,
-      "geo_lat":  -118.318982
+      "geo_lat": 34.041782,
+      "geo_long":  -118.318982
     }
   },
   {
@@ -61,8 +61,8 @@
       "service_id": 2,
       "auth0_id": "auth0|59092cb89d6860661e3fbaa7",
       "address": "345 S Oxford Ave, Los Angeles, CA 90020",
-      "geo_long": 34.067745,
-      "geo_lat":  -118.308225
+      "geo_lat": 34.067745,
+      "geo_long":  -118.308225
     }
   }
 ]
