@@ -23,8 +23,8 @@ class PastEngagementsListEntry extends Component {
   fetchMessages() {
     let msgs = [];
     _.each(this.props.engagement.messages, message => {
-      console.log(message);
-      msgs = [message, ...msgs]
+      console.log('in msgssgs',message);
+      msgs = [...msgs, message]
     })
     console.log('inside fetch msgs', msgs);
     this.setState({messages: msgs});
