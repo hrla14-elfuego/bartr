@@ -55,6 +55,7 @@ router.post('/', (req, res, next) => {
     console.log('Engagement POST Request Sucessful')
     res.status(201).json(data);
   })
+  .catch(next)
 })
 
 router.put('/', (req, res, next) => {
