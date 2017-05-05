@@ -45,6 +45,9 @@ const ServiceProviderList = (props) => {
           <Button value={user} onClick={(event, user) => {requestService(event, user.value)}}>
             Request Service
           </Button>
+          <Button >
+            Go to Profile
+          </Button>
         </Card>
       </Grid.Column>
     )
