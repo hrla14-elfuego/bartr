@@ -1,19 +1,19 @@
 import React from 'react';
-import { Header, Image, Modal } from 'semantic-ui-react'
+import { Header, Image, Card } from 'semantic-ui-react'
 
 const ChatListEntry = (props) => {
   return(
-    <Modal>
-      <Modal.Header>Service Provider Name</Modal.Header>
-      <Modal.Content image>
-        <Image wrapped size='medium' src='/assets/images/avatar/large/rachel.png' />
-        <Modal.Description>
+    <Card style={{textAlign: "center"}}>
+      <Card.Content >
+        <Card.Description>
           <Header>Message</Header>
-          <p>props.message</p>
-        </Modal.Description>
-      </Modal.Content>
-    </Modal>
+          <p>{props.message}</p>
+        </Card.Description>
+      </Card.Content>
+    </Card>
   )
 }
 
 export default ChatListEntry;
+// <Image wrapped size='medium' src='/assets/images/avatar/large/rachel.png' />
+{/*<Card.Content image>*/}

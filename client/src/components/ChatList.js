@@ -5,8 +5,8 @@ import { Header, Image, Modal } from 'semantic-ui-react'
 const ChatList = (props) => {
   return (
     <div>
-      {props.messages.map(message => 
-        <ChatListEntry message={message}/>
+      {props.messages.map((message, index) => 
+        <ChatListEntry message={message} key={index}/>
       )}
     </div>
   )

@@ -12,6 +12,7 @@ import AppContainer from './containers/AppContainer';
 import HomeContainer from './containers/HomeContainer';
 import ProfileContainer from './containers/ProfileContainer';
 import PastEngagements from './components/PastEngagements';
+import EngageReq from './components/EngageReq';
 import EditProfile from './components/EditProfile';
 import AuthService from './utils/AuthService';
 import GoogleMapContainer from './components/GoogleMapsContainer';
@@ -45,6 +46,7 @@ class Routing extends React.Component {
             <IndexRedirect to='/home'/>
             <Route path='/home' component={HomeContainer}/>
             <Route path='/profile' component={ProfileContainer} onEnter={requireAuth}/>
+            <Route path='/currentengagements' component={EngageReq}/>
             <Route path='/map' component={GoogleMapContainer}/>
             <Route path='/editprofile' component={EditProfile}/>
             <Route path='/pastengagements' component={PastEngagements}/>
