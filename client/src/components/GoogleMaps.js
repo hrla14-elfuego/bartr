@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 
 import Autocomplete from 'react-google-autocomplete'
 import { geocodeByAddress } from 'react-places-autocomplete'
-import { Dropdown, Input, Button, Header, Image, Grid } from 'semantic-ui-react';
-
+import { Dropdown, Input, Header, Image, Grid } from 'semantic-ui-react';
+// import { Button, ButtonControl} from 'react-bootstrap';
 import ServiceProviderList from './ServiceProviderList';
 
 import _ from 'lodash';
@@ -32,6 +32,7 @@ class GoogleMaps extends Component {
     this.changeSelectedService = this.changeSelectedService.bind(this);
     this.clearMarkers = this.clearMarkers.bind(this);
     this.loadServices = this.loadServices.bind(this);
+    // this.requestService = this.requestService.bind(this);
 
     this.googleMap = null;
     this.googleMapMarkers = [];
@@ -88,10 +89,22 @@ class GoogleMaps extends Component {
     this.googleMapMarkers = [];
   }
 
+  // requestService(event) {
+  //   event.preventDefault();
+  //   axios.post('/api/engagements')
+  //       .then(data => {
+  //         console.log('Engagement Created! ', data);
+  //       })
+  //       .catch(err => {
+  //         console.log('Error: ', err);
+  //       })
+  // }
+
   putMarkersOnMap(map) {
       const maps = google.maps;
       this.clearMarkers();
       _.each(this.state.foundServiceUsers, user => {
+      console.log('this is the user.service ', user)
         console.log('put marker', user.geo_lat, user.geo_long);
         let marker = new maps.Marker({
           position: {lat: user.geo_lat, lng: user.geo_long},
@@ -101,7 +114,13 @@ class GoogleMaps extends Component {
         let contentString = `<div id="content">` + `<div id="siteNotice">` + `</div>` +
         `<h1 id="firstHeading" class="firstHeading">${user.name}</h1>` +
         `<image wrapped size="medium" src="http://images4.wikia.nocookie.net/marveldatabase/images/9/9b/Ultimate_spiderman.jpg" height="85" width="85"/>` +
-        `<div id="bodyContent">` + `<h2>${user.service}</h2>` + `</div>`;
+        `<div id="bodyContent">` + `<h2>${user.service.type}</h2>` + `</div>`;
+        
+//////////////////// If we want to add something so they can send a message with their request///////////////////////
+
+        // `<form id="map-form">` + `<input id="request-engage" type="text" placeholder="Send a Request!"/>` + 
+        // `<input type='submit' id="submit-request" />` + `</form>`
+
         let infoWindow = new maps.InfoWindow({
           content: contentString
         })
@@ -110,6 +129,9 @@ class GoogleMaps extends Component {
         })
       })
     }
+
+/////////////////////// Button to Request Service to the Provider on the marker/////////////////////////////
+
 
 /////////////////////// Loads map at their location. Adds marker for their location too/////////////////////////////
 

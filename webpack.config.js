@@ -11,7 +11,8 @@ module.exports = {
     path: BUILD_DIR
   },
   module: {
-    rules: [{
+    rules: [
+    {
       loader: 'babel-loader',
       exclude: /node_modules/,
       test: /\.js$/,
@@ -19,10 +20,12 @@ module.exports = {
         presets: ['es2015', 'react'],
         plugins: ['transform-object-rest-spread']
       }
-    }, {
+    }, 
+    {
       test: /\.css$/,
       use: ['style-loader', 'css-loader']
-    }]
+    }
+    ]
   },
   watch: true
 };

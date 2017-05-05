@@ -15,6 +15,7 @@ import PastEngagements from './components/PastEngagements';
 import EditProfile from './components/EditProfile';
 import AuthService from './utils/AuthService';
 import GoogleMapContainer from './components/GoogleMapsContainer';
+import '../../node_modules/sweetalert/dist/sweetalert.css'
 
 
 
