@@ -29,16 +29,12 @@ class EngageReq extends React.Component {
     };
     axios.get("/api/engagements", config)
     .then(res => {
-        console.log("this is res in engagereq: ",res);
-        console.log("this is res.data.messages in engagereq: ",res.data[0].messages);
       _.each(res.data, data =>{
         this.setState({currentEngagement: [data, ...this.state.currentEngagement]})
       })
     })
     .catch(err =>{
-      if(err){
-        console.log("there was err fetching data", err)
-      }
+        console.log("Error fetchCurrentEngagement", err);
     })
   }
 

@@ -104,8 +104,6 @@ class GoogleMaps extends Component {
       const maps = google.maps;
       this.clearMarkers();
       _.each(this.state.foundServiceUsers, user => {
-      console.log('this is the user.service ', user)
-        console.log('put marker', user.geo_lat, user.geo_long);
         let marker = new maps.Marker({
           position: {lat: user.geo_lat, lng: user.geo_long},
           map: map
