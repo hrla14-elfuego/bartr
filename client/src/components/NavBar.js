@@ -8,6 +8,7 @@ import './styles/styles.css';
 import { hashHistory } from 'react-router';
 import { loginRequest, loginSuccess, logoutSuccess, setToken } from '../actions/auth0';
 import { emitr } from '../utils/AuthService';
+import swal from 'sweetalert'
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -28,7 +29,10 @@ class NavBar extends React.Component {
     localStorage.removeItem('profile');
     this.props.onLogoutClick();
     hashHistory.push('/');
-    alert('Logout Successful!');
+    swal({
+      title: 'Logout Successful!',
+      type: 'success'
+    });
     console.log('invoked');
   }
 
