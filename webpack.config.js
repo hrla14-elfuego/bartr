@@ -23,6 +23,7 @@ module.exports = {
       loader: 'babel-loader?cacheDirectory',
       exclude: /node_modules/,
       query: {
+        cacheDirectory: true,
         presets: ['es2015', 'react'],
         plugins: ['transform-object-rest-spread','react-hot-loader/babel']
       }
@@ -39,7 +40,8 @@ module.exports = {
     hot: true,
     inline: true
   },
-  devtool: 'sourcemap',
+  devtool: 'eval',
+  cache: true,
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
   ]
