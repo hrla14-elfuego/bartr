@@ -36,12 +36,12 @@ module.exports = {
     }
     ]
   },
-  devServer: {
-    contentBase: "./client/static",
-    publicPath: "/",
-    hot: true,
-    inline: true
-  },
+  // devServer: {
+  //   contentBase: "./client/static",
+  //   publicPath: "/",
+  //   hot: true,
+  //   inline: true
+  // },
   devtool: 'eval',
   cache: true,
   plugins: [
