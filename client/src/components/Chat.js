@@ -30,7 +30,7 @@ class Chat extends React.Component {
   }
   
   updateChatHistory() {
-    var config = {
+    const config = {
       headers: {'Authorization': 'Bearer ' + localStorage.id_token,
                 'Content-Type': 'application/json' }
       };

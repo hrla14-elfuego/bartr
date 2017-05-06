@@ -73,6 +73,7 @@ class GoogleMaps extends Component {
 
     axios.get('/api/services/find', axios_config)
       .then(result => {
+        console.log('this is the result.data ', result.data)
         this.setState({foundServiceUsers: result.data}, () => {
           this.putMarkersOnMap(this.googleMap)
         })
@@ -222,7 +223,7 @@ class GoogleMaps extends Component {
           </Dropdown>
         </form>
         <br/>
-        <div className="google-maps" ref="map" style={{width: 600, height: 600}}></div>
+        <div className="google-maps" ref="map" style={{width: 'absolute', height: 600}}></div>
         <br/>
         <br/>
         <br/>

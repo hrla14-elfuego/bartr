@@ -111,8 +111,6 @@ class EditProfile extends React.Component {
   }
   
   render() {
-    console.log(this.state);
-    console.log(JSON.parse(localStorage.profile));
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Field>
