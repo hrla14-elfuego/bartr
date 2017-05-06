@@ -24,7 +24,7 @@ class EngageReq extends React.Component {
   }
 
   fetchCurrentEngagement() {
-    var config = {
+    const config = {
       headers: {'Authorization': 'Bearer ' + localStorage.id_token}
     };
     axios.get("/api/engagements", config)
