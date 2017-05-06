@@ -4,7 +4,7 @@ import MessagesList from './MessagesList';
 import { Well } from 'react-bootstrap';
 import { Button, Form, TextArea } from 'semantic-ui-react';
 import { Dropdown } from 'semantic-ui-react';
-import options from '../Options/ScoreOptions';
+import options from '../options/ScoreOptions';
 import axios from 'axios';
 
 class PastEngagementsListEntry extends Component {
