@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import NavBar from './NavBar';
 import './styles/styles.css'
 import { each } from 'lodash';
@@ -18,23 +19,44 @@ class Home extends React.Component {
     this.state = {
       address: ''
     }
-    console.log('props in home: ', this.props);
+    
     this.handleAddress = this.handleAddress.bind(this);
   }
 
-  // componentDidMount() {
-  //   if (this.props.isAuthenticated) {
-  //     axios.get('/api/users')
-  //       .then((res) => {
-  //         const inDb = false;
-  //         each(res.data, (user) => {
-  //           if (user.auth0_id === this.props.profile.user_id) {
+  componentDidMount() {
+    console.log(localStorage.getItem('id_token'));
+    if (localStorage.profile) {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${localStorage.id_token}`
+        }
+      }
+      axios.get('/api/users', config)
+        .then((res) => {
+          let inDb = false;
+          each(res.data, (user) => {
+            if (user.auth0_id === this.props.profile.user_id) {
+              inDb = true;
+            }
+          })
+          if (!inDb) {
+            console.log('NOT IN DB');
+            this.getAuth0UserInfo();
+          }
+        })
+    }
+  }
 
-  //           }
-  //         })
-  //       })
-  //   }
-  // }
+  getAuth0UserInfo() {
+    const header = {
+      Authorization: `Bearer ${localStorage.id_token}`
+    }
+    console.log(localStorage.getItem('id_token'));
+    axios.get('https://bartr.auth0.com/userinfo', header)
+      .then((res) => {
+        console.log(res.data);
+      })
+  }
 
   postNewUser() {
     const profile = this.props.profile;
@@ -131,6 +153,8 @@ class Home extends React.Component {
 
 export default Home;
 
+// city network bg
+  //https://media.osram.info/im/img/osram-dam-1182425//c,x,71,y,407,w,5257,h,2993/f,p/s,x,1230,y,0/725965_Network_business_conection_system_on_cityscape_background
 // red sky, camel silhouette
   // http://s1.thingpic.com/images/1e/usAoQMdY4zvsZisn1WoUedDs.jpeg
 // big handshake
