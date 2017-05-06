@@ -49,19 +49,11 @@ class EngageReq extends React.Component {
 
   fetchEngagements(eng) {
     let completed;
-    for (let i = 0 ; i < this.state.currentEngagement.length ; i++) {
-      for( let key in this.state.currentEngagement[i]) {
-        if(this.state.currentEngagement[i].id === eng.id) {
-          completed = i
-        }
-      }
-    }
-    // _.each(this.state.currentEngagement, (engagements, index) => {
-    //   _.each(engagements, engagement => {
-    //     engagment.id === eng.id ? completed = index : null
-    //   })
-    // })
-    // let completed = this.state.currentEngagement.indexOf(eng);
+    _.each(this.state.currentEngagement, (engagements, index) => {
+      _.each(engagements, (value, key) => {
+        value === eng.id ? completed = index : null
+      })
+    })
     this.state.currentEngagement.splice(completed, 1);
     this.setState({currentEngagement: this.state.currentEngagement});
   }
