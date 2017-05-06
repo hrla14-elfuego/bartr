@@ -45,7 +45,7 @@ class Routing extends React.Component {
             {/*<IndexRoute component={Home}/>*/}
             <IndexRedirect to='/home'/>
             <Route path='/home' component={HomeContainer}/>
-            <Route path='/profile' component={ProfileContainer} onEnter={requireAuth}/>
+            <Route path='/profile' component={ProfileContainer}/>
             <Route path='/currentengagements' component={EngageReq}/>
             <Route path='/map' component={GoogleMapContainer}/>
             <Route path='/editprofile' component={EditProfile}/>

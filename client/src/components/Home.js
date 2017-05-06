@@ -59,7 +59,7 @@ class Home extends React.Component {
           bgImage='http://s1.thingpic.com/images/1e/usAoQMdY4zvsZisn1WoUedDs.jpeg'
           strength={400}>
           <div className='homelogo' style={{ width: '100%', height: 1200 }}>
-            <Image style={{ margin: 'auto', marginTop: '200px', position: 'relative', height: '15%', width: '15%' }} src='https://cdn.pixabay.com/photo/2016/04/01/09/58/animal-1299698_960_720.png' />
+            <Image style={{ margin: 'auto', marginTop: '200px', position: 'relative', height: '15%', width: '15%' }} src='https://img.clipartfest.com/77b4203fc002a2aa8f4140997f66f303_silhouette-clip-art-of-camel-christmas-camel-clipart-png_919-945.png' />
             <h4 style={{ fontWeight: 750, fontSize: 130, fontFamily: 'Papyrus, fantasy' }}>Bartr</h4>
             <form className='searchform' onSubmit={this.handleSubmitCurrentLocation}>
               <Input placeholder="Enter Your Location">

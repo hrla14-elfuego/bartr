@@ -52,9 +52,11 @@ class NavBar extends React.Component {
                 <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">
                   {/*<LinkContainer to='profile'>*/}
                   <MenuItem eventKey={3.1}><Link to='profile'>Profile</Link></MenuItem>
+                  <MenuItem eventKey={3.2}><Link to='pastengagements'>Past Engagements</Link></MenuItem>
+                  <MenuItem eventKey={3.3}><Link to='currentengagements'>Current Engagements</Link></MenuItem>
                   {/*</LinkContainer>*/}
                   <MenuItem divider />
-                  <MenuItem eventKey={3.2} onClick={this.logoutSequence}>Logout</MenuItem>
+                  <MenuItem eventKey={3.4} onClick={this.logoutSequence}>Logout</MenuItem>
                 </NavDropdown>
               )}
             </Nav>
