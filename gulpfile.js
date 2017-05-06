@@ -50,14 +50,16 @@ gulp.task('seed:seed', ['seed:wipe'], function(cb){
 gulp.task('seed', ['seed:wipe', 'seed:seed']);
 
 gulp.task('nodemon', function () {
-  const stream = nodemon({script: 'server/index.js'});
+  const stream = nodemon({
+    script: 'server/index.js',
+    watch: ["server/**"],
+    ignore: ["client/**"]
+  });
 });
 
 gulp.task('watch', function() {
   gulp.watch(['server/db/index.js', 'server/db/seedData/*.json'], ['seed']);
 });
-
-gulp.task('default', ['nodemon', 'watch']);
 
 gulp.task("webpackhot", function(callback) {
   // Start a webpack-dev-server
@@ -67,7 +69,8 @@ gulp.task("webpackhot", function(callback) {
     contentBase: "./client/static",
     publicPath: "/",
     hot: true,
-    inline: true
+    inline: true,
+    stats: true
   }).listen(8080, "localhost", function(err) {
     if(err) throw new gutil.PluginError("webpack-dev-server", err);
     // Server listening
@@ -77,3 +80,5 @@ gulp.task("webpackhot", function(callback) {
     //  callback();
   });
 });
+
+gulp.task('default', ['nodemon', 'watch', 'webpackhot']);
