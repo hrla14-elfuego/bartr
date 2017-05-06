@@ -18,7 +18,8 @@ const ServiceProviderList = (props) => {
             console.log('Engagement Created! ', data);
             swal({
               title: 'Requested Service!',
-              text: user.name + " for " + user.service.type + " service"
+              text: user.name + " for " + user.service.type + " service",
+              type: 'success'
             })
           })
           .catch(err => {
