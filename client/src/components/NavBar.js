@@ -36,6 +36,7 @@ class NavBar extends React.Component {
       type: 'success'
     });
     console.log('invoked');
+  }
 
   render() {
     console.log('this.props in navbar: ', this.props);
