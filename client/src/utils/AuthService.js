@@ -13,7 +13,7 @@ export default class AuthService extends EventEmitter {
     // Configure Auth0 lock
     this.lock = new Auth0Lock(clientId, domain, {
       auth: {
-        redirectUrl: 'http://localhost:5000/',
+        redirectUrl: 'http://localhost:8080/',
         responseType: 'token',
         params: {scope: 'openid profile'}
       },
