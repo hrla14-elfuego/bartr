@@ -77,7 +77,9 @@ class Home extends React.Component {
 
   render () {
     return (
+
     <div>
+
             <form className='searchform' onSubmit={this.handleSubmitCurrentLocation}>
               <Icon size='big' name='search' /><Input placeholder="Enter Your Location">
                 <Autocomplete
