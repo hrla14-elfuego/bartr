@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import NavBar from './NavBar';
-import './styles/styles.css'
 import { each } from 'lodash';
+import './styles/styles.css'
 import { Parallax, Background } from 'react-parallax';
 import { Dropdown, Input, Button, Header, Image, Grid } from 'semantic-ui-react';
 import {Carousel} from "react-bootstrap"
