@@ -1,10 +1,9 @@
 import React from 'react';
+import { Well, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 const MessagesListEntry = (props) => {
   return(
-    <div>
-      <li>{props.message.message}</li>
-    </div>
+    <ListGroupItem>{props.message.message}</ListGroupItem>
   )
 }
 
