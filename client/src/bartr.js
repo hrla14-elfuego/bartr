@@ -57,4 +57,7 @@ class Routing extends React.Component {
   }
 }
 
-ReactDOM.render(<Routing/>, document.getElementById('app'));
+// ReactDOM.render(<Routing/>, document.getElementById('app'));
+
+export default Routing;
+
