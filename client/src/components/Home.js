@@ -8,6 +8,7 @@ import {Carousel} from "react-bootstrap"
 import Autocomplete from 'react-google-autocomplete';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import { Link } from 'react-router';
+import { Icon } from 'semantic-ui-react';
 
 
 class Home extends React.Component {
@@ -56,7 +57,7 @@ class Home extends React.Component {
     return (
     <div>
             <form className='searchform' onSubmit={this.handleSubmitCurrentLocation}>
-              <Input placeholder="Enter Your Location">
+              <Icon size='big' name='search' /><Input placeholder="Enter Your Location">
                 <Autocomplete
                   style={{width: 600}}
                   onChange={this.handleAddress}

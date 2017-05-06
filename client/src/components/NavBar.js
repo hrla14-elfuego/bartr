@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { Jumbotron } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, MenuItem, NavItem, NavDropdown, Nav } from 'react-bootstrap';
+import { Icon } from 'semantic-ui-react';
 import './styles/styles.css';
 import { hashHistory } from 'react-router';
 import { loginRequest, loginSuccess, logoutSuccess, setToken } from '../actions/auth0';
@@ -42,7 +43,7 @@ class NavBar extends React.Component {
         <Navbar inverse collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
-            <Link to='/'>BARTR</Link>
+            <Link to='/home'>BARTR</Link>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
@@ -50,17 +51,17 @@ class NavBar extends React.Component {
             <Nav className='navbar'>
               { !this.props.isAuthenticated ? (
                 <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">
-                  <MenuItem eventKey={3.1} onClick={this.props.onLoginClick}>Login / Sign Up</MenuItem>
+                  <MenuItem eventKey={3.1} onClick={this.props.onLoginClick}><Icon name='arrow circle outline right'/>Login / Sign Up</MenuItem>
                 </NavDropdown>
               ) : (
                 <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">
                   {/*<LinkContainer to='profile'>*/}
-                  <MenuItem eventKey={3.1}><Link to='profile'>Profile</Link></MenuItem>
-                  <MenuItem eventKey={3.2}><Link to='pastengagements'>Past Engagements</Link></MenuItem>
-                  <MenuItem eventKey={3.3}><Link to='currentengagements'>Current Engagements</Link></MenuItem>
+                  <MenuItem eventKey={3.1}><Icon name='user'/><Link to='profile'>Profile</Link></MenuItem>
+                  <MenuItem eventKey={3.2}><Icon name='calendar'/><Link to='pastengagements'>Past Engagements</Link></MenuItem>
+                  <MenuItem eventKey={3.3}><Icon name='comments'/><Link to='currentengagements'>Current Engagements</Link></MenuItem>
                   {/*</LinkContainer>*/}
                   <MenuItem divider />
-                  <MenuItem eventKey={3.4} onClick={this.logoutSequence}>Logout</MenuItem>
+                  <MenuItem eventKey={3.4} onClick={this.logoutSequence}><Icon name='log out'/>Logout</MenuItem>
                 </NavDropdown>
               )}
             </Nav>

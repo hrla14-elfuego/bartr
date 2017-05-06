@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Button } from 'semantic-ui-react';
+import './styles/styles.css';
  
 const UserProfile = ({ profile, error }) => {
   return(
-    <div>
+    <div className='userprofile'>
       <h1 style={{textAlign: 'center', fontSize: '50px'}}>{profile.name ? 'Hello, ' + profile.name : null}</h1>
       <img src={profile.picture_large} height="200px" />
       <br/>
