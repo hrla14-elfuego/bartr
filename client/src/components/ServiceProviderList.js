@@ -21,6 +21,7 @@ const ServiceProviderList = (props) => {
               text: user.name + " for " + user.service.type + " service",
               type: 'success'
             })
+            props.fetchRemainingServiceUsers(data.data);
           })
           .catch(err => {
             console.log('Error: ', err);
