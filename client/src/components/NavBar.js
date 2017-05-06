@@ -16,6 +16,7 @@ class NavBar extends React.Component {
     super(props);
 
     this.logoutSequence = this.logoutSequence.bind(this);
+    console.log('this is props in navbar: ', this.props)
   }
 
   componentDidMount() {
@@ -35,12 +36,11 @@ class NavBar extends React.Component {
       type: 'success'
     });
     console.log('invoked');
-  }
 
   render() {
     console.log('this.props in navbar: ', this.props);
       return (
-        <Navbar inverse collapseOnSelect>
+        <Navbar style={{backgroundColor: '#42E9D7', border: '1px solid gray'}} inverse collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
             <Link to='/home'>BARTR</Link>
@@ -59,6 +59,7 @@ class NavBar extends React.Component {
                   <MenuItem eventKey={3.1}><Icon name='user'/><Link to='profile'>Profile</Link></MenuItem>
                   <MenuItem eventKey={3.2}><Icon name='calendar'/><Link to='pastengagements'>Past Engagements</Link></MenuItem>
                   <MenuItem eventKey={3.3}><Icon name='comments'/><Link to='currentengagements'>Current Engagements</Link></MenuItem>
+                  <MenuItem eventKey={3.3}><Icon name='map'/><Link to='map'>Map</Link></MenuItem>
                   {/*</LinkContainer>*/}
                   <MenuItem divider />
                   <MenuItem eventKey={3.4} onClick={this.logoutSequence}><Icon name='log out'/>Logout</MenuItem>
