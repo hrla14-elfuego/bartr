@@ -1,6 +1,7 @@
 import React from 'react';
 import NavBar from './NavBar';
 import './styles/styles.css'
+import { each } from 'lodash';
 import { Parallax, Background } from 'react-parallax';
 import { Dropdown, Input, Button, Header, Image, Grid } from 'semantic-ui-react';
 import {Carousel} from "react-bootstrap"
@@ -16,8 +17,30 @@ class Home extends React.Component {
     this.state = {
       address: ''
     }
-
+    console.log('props in home: ', this.props);
     this.handleAddress = this.handleAddress.bind(this);
+  }
+
+  // componentDidMount() {
+  //   if (this.props.isAuthenticated) {
+  //     axios.get('/api/users')
+  //       .then((res) => {
+  //         const inDb = false;
+  //         each(res.data, (user) => {
+  //           if (user.auth0_id === this.props.profile.user_id) {
+
+  //           }
+  //         })
+  //       })
+  //   }
+  // }
+
+  postNewUser() {
+    const profile = this.props.profile;
+    axios.post('/api/users',{
+      name: profile.name,
+      auth0_id: profile.user_id
+    })
   }
 
   handleAddress(event) {
@@ -32,7 +55,6 @@ class Home extends React.Component {
   render () {
     return (
     <div>
-
             <form className='searchform' onSubmit={this.handleSubmitCurrentLocation}>
               <Input placeholder="Enter Your Location">
                 <Autocomplete

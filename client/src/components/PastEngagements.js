@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 import PastEngagementsList from './PastEngagementsList';
-// import MessagesList from './MessagesList';
 
 class PastEngagements extends React.Component {
   constructor(){
@@ -10,7 +9,6 @@ class PastEngagements extends React.Component {
 
     this.state = {
       pastEngagements: []
-      // messages: []
     }
     this.fetchPast = this.fetchPast.bind(this);
   }
@@ -44,7 +42,5 @@ class PastEngagements extends React.Component {
     )
   }
 }
-        // <MessagesList messages={this.state.messages}/>
-        // this.setState({messages:[...datum.messages, ...this.state.messages]})
 
 export default PastEngagements;

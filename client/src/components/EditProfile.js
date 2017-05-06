@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import { each } from 'lodash';
 import { Button, Checkbox, Form, Dropdown, Input } from 'semantic-ui-react';
-import { ServiceOptions } from '../Services/ServiceOptions';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import Autocomplete from 'react-google-autocomplete';
 import './styles/styles.css';
@@ -40,20 +39,16 @@ class EditProfile extends React.Component {
   }
 
   getServices() {
-    // const config = {
-    //   headers: {
-    //     'Authorization': 'Bearer ' + localStorage.id_token
-    //   }
-    // }
     axios.get('/api/services')
-      .then((res) => {
-        console.log(res.data);
-        this.setState({
-          listOfServices: res.data
+      .then(result => {
+        _.each(result.data, service => {
+          this.setState({
+            listOfServices: this.state.listOfServices.concat([{text: service.type, value: service.id, key: service.id}])
+          })
         })
       })
-      .catch((err) => {
-        console.log('Err: ', err);
+      .catch(err => {
+        console.log('Error loading listOfServices: ', err);
       })
   }
 
@@ -116,22 +111,21 @@ class EditProfile extends React.Component {
   }
   
   render() {
-    console.log(this.state);
-    console.log(JSON.parse(localStorage.profile));
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Field>
-          <label>Email</label>
-          <Input style={{width: '400px'}} placeholder='Email' onChange={(e) => {this.emailChange(e)}}/>
+          <label style={{fontSize: '20px'}}>Email</label>
+          <Input style={{width: '400px', height: '25px', fontSize: '20px'}} placeholder='Email' onChange={(e) => {this.emailChange(e)}}/>
         </Form.Field>
         <Form.Field>
-          <label>Name</label>
-          <Input style={{width: '400px'}} placeholder='Name' onChange={(e) => {this.nameChange(e)}}/>
+          <label style={{fontSize: '20px'}}>Name</label>
+          <Input style={{width: '400px', height: '25px', fontSize: '20px'}} placeholder='Name' onChange={(e) => {this.nameChange(e)}}/>
         </Form.Field>
         <Form.Field>
-          <label>Address</label>
-          <Input style={{width: '400px'}}placeholder='Address'>
+          <label style={{fontSize: '20px'}}>Address</label>
+          <Input placeholder='Address' style={{ display: 'inline-block' }}>
             <Autocomplete
+              style={{width: '400px', height: '25px', fontSize: '20px'}}
               onChange={(e) => {this.addressChange(e, null)}}
               onPlaceSelected={(place) => {
                 console.log(place);
@@ -142,9 +136,11 @@ class EditProfile extends React.Component {
             </Autocomplete>
           </Input>
         </Form.Field>
-        <Dropdown style={{width: '400px', display: 'inline-block'}}
+        <label style={{fontSize: '20px'}}>Service</label>
+        <br/>
+        <Dropdown style={{width: '400px', display: 'inline-block', height: '10px', fontSize: '20px'}}
           placeholder='Select Service'
-          fluid selection options={ServiceOptions}
+          fluid selection options={this.state.listOfServices}
           onChange={this.serviceChange} />
         <h1><Button type='submit'>Submit</Button></h1>
       </Form>

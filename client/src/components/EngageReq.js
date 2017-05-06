@@ -16,6 +16,7 @@ class EngageReq extends React.Component {
     }
       this.fetchMessages = this.fetchMessages.bind(this);
       this.fetchCurrentEngagement = this.fetchCurrentEngagement.bind(this);
+      this.fetchEngagements = this.fetchEngagements.bind(this);
       this.fetchCurrentId = this.fetchCurrentId.bind(this);
   }
 
@@ -24,21 +25,17 @@ class EngageReq extends React.Component {
   }
 
   fetchCurrentEngagement() {
-    var config = {
+    const config = {
       headers: {'Authorization': 'Bearer ' + localStorage.id_token}
     };
     axios.get("/api/engagements", config)
     .then(res => {
-        console.log("this is res in engagereq: ",res);
-        console.log("this is res.data.messages in engagereq: ",res.data[0].messages);
       _.each(res.data, data =>{
-        this.setState({currentEngagement: [data, ...this.state.currentEngagement]})
+        this.setState({currentEngagement: [...this.state.currentEngagement, data]})
       })
     })
     .catch(err =>{
-      if(err){
-        console.log("there was err fetching data", err)
-      }
+        console.log("Error fetchCurrentEngagement", err);
     })
   }
 
@@ -50,10 +47,25 @@ class EngageReq extends React.Component {
     this.setState({messages: msgs})
   }
 
+  fetchEngagements(eng) {
+    let completed;
+    _.each(this.state.currentEngagement, (engagements, index) => {
+      _.each(engagements, (value, key) => {
+        value === eng.id ? completed = index : null
+      })
+    })
+    this.state.currentEngagement.splice(completed, 1);
+    this.setState({currentEngagement: this.state.currentEngagement});
+  }
+
   render() {
     return(
       <div>
-        <EngageReqList currentEngagement={this.state.currentEngagement} fetchId={this.fetchCurrentId} fetchMessages={this.fetchMessages}/>
+        <EngageReqList 
+          currentEngagement={this.state.currentEngagement} 
+          fetchEngagements={this.fetchEngagements}
+          fetchId={this.fetchCurrentId} 
+          fetchMessages={this.fetchMessages}/>
         <Chat id={this.state.id} messages={this.state.messages}/>
       </div>
     )

@@ -24,15 +24,15 @@ class Routing extends React.Component {
 
   render() {
 
-    const auth = new AuthService('UdN-x_zIrEAok74rlhBGRDHcdJzASbC5', 'bartr.auth0.com');
-    // validating authentication
-    const requireAuth = (nextState, replace) => {
-      if (!AuthService.loggedIn()) {
-        replace({
-          pathname: '/home'
-        })
-      }
-    }
+    // const auth = new AuthService('UdN-x_zIrEAok74rlhBGRDHcdJzASbC5', 'bartr.auth0.com');
+    // // validating authentication
+    // const requireAuth = (nextState, replace) => {
+    //   if (!AuthService.loggedIn()) {
+    //     replace({
+    //       pathname: '/home'
+    //     })
+    //   }
+    // }
 
     // creating store and history
     const store = createStoreWithMiddleware();
@@ -45,7 +45,7 @@ class Routing extends React.Component {
             {/*<IndexRoute component={Home}/>*/}
             <IndexRedirect to='/home'/>
             <Route path='/home' component={HomeContainer}/>
-            <Route path='/profile' component={ProfileContainer} onEnter={requireAuth}/>
+            <Route path='/profile' component={ProfileContainer}/>
             <Route path='/currentengagements' component={EngageReq}/>
             <Route path='/map' component={GoogleMapContainer}/>
             <Route path='/editprofile' component={EditProfile}/>

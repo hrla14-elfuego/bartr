@@ -35,14 +35,14 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:engagement_id', (req, res, next) => {
-    Engagement.find({
-      where: {id: req.params.engagement_id},
-      include: [ Message ]
-    })
-    .then(data => {
-      // console.log('Engagement GET Request Successful');
-      res.status(200).json(data);
-    })
+  Engagement.find({
+    where: {id: req.params.engagement_id},
+    include: [ Message ]
+  })
+  .then(data => {
+    // console.log('Engagement GET Request Successful');
+    res.status(200).json(data);
+  })
 });
 
 router.post('/', (req, res, next) => {
@@ -57,19 +57,15 @@ router.post('/', (req, res, next) => {
   })
 })
 
-router.put('/', (req, res, next) => {
-  Engagement.find({
-    where:{
-      complete: false
-    }
-  })
-    .on('success', data => {
-      if(data){
-        data.updateAttributes({
-          complete: req.body.compelte
-        })
-      }
+router.put('/:engagement_id', (req, res, next) => {
+  Engagement.findById(req.params.engagement_id)
+  .then(data => {
+    data.updateAttributes({
+      complete: 1
     })
+    res.status(202).send(data);
+  })
+  .catch(next)
 })
 
 module.exports = router;

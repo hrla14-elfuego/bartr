@@ -4,8 +4,6 @@ import NavBar from '../components/NavBar';
 
 const mapStateToProps = (state) => {
   const { isAuthenticated, profile, error } = state.auth;
-  console.log(state.auth);
-  console.log(localStorage);
   return {
     isAuthenticated,
     profile,
@@ -16,7 +14,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onLoginClick: () => dispatch(loginRequest()),
-    onLogoutClick: () => dispatch(logoutSuccess())
+    onLogoutClick: () => { console.log('hey were dispatching') 
+    return dispatch({type: 'LOGOUT_SUCCESS'})}
   }
 }
 
