@@ -40,11 +40,6 @@ class EditProfile extends React.Component {
   }
 
   getServices() {
-    // const config = {
-    //   headers: {
-    //     'Authorization': 'Bearer ' + localStorage.id_token
-    //   }
-    // }
     axios.get('/api/services')
       .then((res) => {
         console.log(res.data);
@@ -121,17 +116,18 @@ class EditProfile extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Field>
-          <label>Email</label>
-          <Input style={{width: '400px'}} placeholder='Email' onChange={(e) => {this.emailChange(e)}}/>
+          <label style={{fontSize: '20px'}}>Email</label>
+          <Input style={{width: '400px', height: '25px', fontSize: '20px'}} placeholder='Email' onChange={(e) => {this.emailChange(e)}}/>
         </Form.Field>
         <Form.Field>
-          <label>Name</label>
-          <Input style={{width: '400px'}} placeholder='Name' onChange={(e) => {this.nameChange(e)}}/>
+          <label style={{fontSize: '20px'}}>Name</label>
+          <Input style={{width: '400px', height: '25px', fontSize: '20px'}} placeholder='Name' onChange={(e) => {this.nameChange(e)}}/>
         </Form.Field>
         <Form.Field>
-          <label>Address</label>
-          <Input style={{width: '400px'}}placeholder='Address'>
+          <label style={{fontSize: '20px'}}>Address</label>
+          <Input placeholder='Address' style={{ display: 'inline-block' }}>
             <Autocomplete
+              style={{width: '400px', height: '25px', fontSize: '20px'}}
               onChange={(e) => {this.addressChange(e, null)}}
               onPlaceSelected={(place) => {
                 console.log(place);
@@ -142,7 +138,9 @@ class EditProfile extends React.Component {
             </Autocomplete>
           </Input>
         </Form.Field>
-        <Dropdown style={{width: '400px', display: 'inline-block'}}
+        <label style={{fontSize: '20px'}}>Service</label>
+        <br/>
+        <Dropdown style={{width: '400px', display: 'inline-block', height: '10px', fontSize: '20px'}}
           placeholder='Select Service'
           fluid selection options={ServiceOptions}
           onChange={this.serviceChange} />

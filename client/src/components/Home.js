@@ -1,5 +1,6 @@
 import React from 'react';
 import NavBar from './NavBar';
+import { each } from 'lodash';
 // import './styles/styles.css'
 import { Parallax, Background } from 'react-parallax';
 import { Dropdown, Input, Button, Header, Image, Grid } from 'semantic-ui-react';
@@ -15,8 +16,30 @@ class Home extends React.Component {
     this.state = {
       address: ''
     }
-
+    console.log('props in home: ', this.props);
     this.handleAddress = this.handleAddress.bind(this);
+  }
+
+  // componentDidMount() {
+  //   if (this.props.isAuthenticated) {
+  //     axios.get('/api/users')
+  //       .then((res) => {
+  //         const inDb = false;
+  //         each(res.data, (user) => {
+  //           if (user.auth0_id === this.props.profile.user_id) {
+
+  //           }
+  //         })
+  //       })
+  //   }
+  // }
+
+  postNewUser() {
+    const profile = this.props.profile;
+    axios.post('/api/users',{
+      name: profile.name,
+      auth0_id: profile.user_id
+    })
   }
 
   handleAddress(event) {
@@ -36,7 +59,7 @@ class Home extends React.Component {
           bgImage='http://s1.thingpic.com/images/1e/usAoQMdY4zvsZisn1WoUedDs.jpeg'
           strength={400}>
           <div className='homelogo' style={{ width: '100%', height: 1200 }}>
-            <Image style={{ margin: 'auto', marginTop: '200px', position: 'relative', height: '15%', width: '15%' }} src='https://cdn.pixabay.com/photo/2016/04/01/09/58/animal-1299698_960_720.png' />
+            <Image style={{ margin: 'auto', marginTop: '200px', position: 'relative', height: '15%', width: '15%' }} src='https://img.clipartfest.com/77b4203fc002a2aa8f4140997f66f303_silhouette-clip-art-of-camel-christmas-camel-clipart-png_919-945.png' />
             <h4 style={{ fontWeight: 750, fontSize: 130, fontFamily: 'Papyrus, fantasy' }}>Bartr</h4>
             <form className='searchform' onSubmit={this.handleSubmitCurrentLocation}>
               <Input placeholder="Enter Your Location">

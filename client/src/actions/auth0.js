@@ -1,5 +1,6 @@
 import { hashHistory } from 'react-router'
 import AuthService from '../utils/AuthService'
+import axios from 'axios';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -11,16 +12,22 @@ const authService = new AuthService('UdN-x_zIrEAok74rlhBGRDHcdJzASbC5', 'bartr.a
 
 // Listen to authenticated event from AuthService and get the profile of the user
 // Done on every page startup
-export function checkLogin() {
+export function checkLogin(dispatch) {
+
   return (dispatch) => {
     // Add callback for lock's `authenticated` event
     authService.lock.on('authenticated', (authResult) => {
+      console.log('hi')
       authService.lock.getProfile(authResult.idToken, (error, profile) => {
-        if (error)
+        if (error) {
           return dispatch(loginError(error))
-        AuthService.setToken(authResult.idToken) // static method
-        AuthService.setProfile(profile) // static method
-        return dispatch(loginSuccess(profile))
+        } else {
+          AuthService.setToken(authResult.idToken) // static method
+          AuthService.setProfile(profile) // static method
+          // axios.post('/api/users')
+          console.log('profile from auth0: ', profile);
+          return dispatch(loginSuccess(profile))
+        }
       })
     })
     // Add callback for lock's `authorization_error` event
@@ -36,7 +43,6 @@ export function loginRequest() {
 }
 
 export function loginSuccess(profile) {
-  hashHistory.push('/')
 
   return {
     type: LOGIN_SUCCESS,
@@ -52,8 +58,7 @@ export function loginError(error) {
 }
 
 export function logoutSuccess() {
-  authService.logout()
-  hashHistory.push('/')
+  console.log('log out action creater invoked');
   return {
     type: LOGOUT_SUCCESS
   }

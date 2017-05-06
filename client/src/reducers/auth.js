@@ -1,4 +1,6 @@
-import * as ActionTypes from '../actions';
+// this import isn't working
+// need to figure out how to import action types
+// import { loginSuccess, loginError, loginRequest, logoutSuccess } from '../actions/auth0';
 import AuthService from '../utils/AuthService';
 
 export default function authReducer(state = {
@@ -8,13 +10,13 @@ export default function authReducer(state = {
   error: null
 }, action) {
   switch (action.type) {
-    case ActionTypes.LOGIN_REQUEST:
+    case 'LOGIN_REQUEST':
       return {...state, isFetching: true, error: null}
-    case ActionTypes.LOGIN_SUCCESS:
+    case 'LOGIN_SUCCESS':
       return {...state, isFetching: false, isAuthenticated: true, profile: action.profile}
-    case ActionTypes.LOGIN_ERROR:
+    case 'LOGIN_ERROR':
       return {...state, isFetching: false, isAuthenticated: false, profile: {}, error: action.error}
-    case ActionTypes.LOGOUT_SUCCESS:
+    case 'LOGOUT_SUCCESS':
       return {...state, isAuthenticated: false, profile: {}}
     default:
       return state

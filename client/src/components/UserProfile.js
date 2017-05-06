@@ -9,7 +9,7 @@ const UserProfile = ({ profile, error }) => {
       <h1 style={{textAlign: 'center', fontSize: '50px'}}>{profile.name ? 'Hello, ' + profile.name : null}</h1>
       <img src={profile.picture_large} height="200px" />
       <br/>
-      <h1 style={{}}><Link to='editprofile'><Button>Edit Profile</Button></Link></h1>
+      <h1 style={{margin: 'auto'}}><Link to='editprofile'><Button>Edit Profile</Button></Link></h1>
     </div>
   )
 }
