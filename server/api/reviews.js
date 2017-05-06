@@ -33,14 +33,20 @@ const Message = db.Message;
 const findAuth0User = require('./util').findAuth0User;
 
 router.post('/', (req, res, next) => {
-  let current_user, current_recipient;
+  let current_user, current_engagement;
   findAuth0User(req)
     .then((user)=>{
       current_user = user;
-
+      req.body['sender_id'] = user.id
+      return db.Engagement.findByPrimary(req.body.engagement_id)
+    })
+    .then((engagement)=>{
+      current_engagement = engagement;
+      req.body['receiver_id'] = (current_engagement.sender_id === current_user.id) ? current_engagement.receiver_id : current_engagement.sender_id;
+      return db.Review.create(req.body)
     })
     .then(data => {
-      console.log('Message POST Successful');
+      console.log('Review POST Successful');
       res.status(200).send(data);
     })
 });
