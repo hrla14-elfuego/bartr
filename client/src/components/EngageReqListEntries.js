@@ -43,6 +43,7 @@ const EngageReqListEntries = (props) => {
         text: 'We hope it was a pleasant exerience!',
         type: 'success'
       })
+      props.fetchEngagements(data.data);
     })
     .catch(err => {
       console.log('Error with engagementCompleted: ', err);

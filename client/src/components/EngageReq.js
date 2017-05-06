@@ -16,6 +16,7 @@ class EngageReq extends React.Component {
     }
       this.fetchMessages = this.fetchMessages.bind(this);
       this.fetchCurrentEngagement = this.fetchCurrentEngagement.bind(this);
+      this.fetchEngagements = this.fetchEngagements.bind(this);
       this.fetchCurrentId = this.fetchCurrentId.bind(this);
   }
 
@@ -30,7 +31,7 @@ class EngageReq extends React.Component {
     axios.get("/api/engagements", config)
     .then(res => {
       _.each(res.data, data =>{
-        this.setState({currentEngagement: [data, ...this.state.currentEngagement]})
+        this.setState({currentEngagement: [...this.state.currentEngagement, data]})
       })
     })
     .catch(err =>{
@@ -46,10 +47,33 @@ class EngageReq extends React.Component {
     this.setState({messages: msgs})
   }
 
+  fetchEngagements(eng) {
+    let completed;
+    for (let i = 0 ; i < this.state.currentEngagement.length ; i++) {
+      for( let key in this.state.currentEngagement[i]) {
+        if(this.state.currentEngagement[i].id === eng.id) {
+          completed = i
+        }
+      }
+    }
+    // _.each(this.state.currentEngagement, (engagements, index) => {
+    //   _.each(engagements, engagement => {
+    //     engagment.id === eng.id ? completed = index : null
+    //   })
+    // })
+    // let completed = this.state.currentEngagement.indexOf(eng);
+    this.state.currentEngagement.splice(completed, 1);
+    this.setState({currentEngagement: this.state.currentEngagement});
+  }
+
   render() {
     return(
       <div>
-        <EngageReqList currentEngagement={this.state.currentEngagement} fetchId={this.fetchCurrentId} fetchMessages={this.fetchMessages}/>
+        <EngageReqList 
+          currentEngagement={this.state.currentEngagement} 
+          fetchEngagements={this.fetchEngagements}
+          fetchId={this.fetchCurrentId} 
+          fetchMessages={this.fetchMessages}/>
         <Chat id={this.state.id} messages={this.state.messages}/>
       </div>
     )
