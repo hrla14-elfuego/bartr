@@ -1,11 +1,15 @@
 import Auth0Lock from 'auth0-lock'
+import { EventEmitter } from 'events';
 import jwtDecode from 'jwt-decode'
 import { hashHistory } from 'react-router';
+import { loginSuccess } from '../actions';
 
 // import LogoImg from 'images/test-icon.png';
+const emitter = new EventEmitter();
 
-export default class AuthService {
+export default class AuthService extends EventEmitter {
   constructor(clientId, domain) {
+    super();
     // Configure Auth0 lock
     this.lock = new Auth0Lock(clientId, domain, {
       auth: {
@@ -21,17 +25,22 @@ export default class AuthService {
         title: 'Bartr'
       }
     })
-    this.lock.on('authenticated', this._doAuthentication.bind(this));
     // binds login functions to keep this context
     this.login = this.login.bind(this);
+    this.lock.on('authenticated', AuthService.doAuthentication.bind(this));
   }
 
-  _doAuthentication(authResult) {
+  static doAuthentication(authResult) {
+    console.log('success: ', authResult);
     AuthService.setToken(authResult.idToken);
-    // console.log('AUTHRESULT: ', authResult);
-    hashHistory.push('home');
+    hashHistory.push('/');
     this.lock.getProfile(authResult.idToken, (err, profile) => {
-      err ? console.log('Error loading profile: ', err) : AuthService.setProfile(profile);
+      if (err) {
+        console.log('Error loading profile: ', err)
+      } else {
+        AuthService.setProfile(profile);
+      }
+      emitter.emit('login_sequence_complete', { profile, idToken: authResult.idToken })
     })
   }
 
@@ -68,7 +77,6 @@ export default class AuthService {
     // Saves profile data to localStorage
     localStorage.setItem('profile', JSON.stringify(profile))
     // Triggers profile_updated event to update the UI
-    AuthService.emit('profile updated', profile);
   }
 
   static getProfile(){
@@ -110,3 +118,5 @@ export default class AuthService {
     return !(date.valueOf() > (new Date().valueOf() + (offsetSeconds * 1000)))
   }
 }
+
+export const emitr = emitter;

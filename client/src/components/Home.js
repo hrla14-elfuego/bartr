@@ -1,5 +1,6 @@
 import React from 'react';
 import NavBar from './NavBar';
+import { each } from 'lodash';
 // import './styles/styles.css'
 import { Parallax, Background } from 'react-parallax';
 import { Dropdown, Input, Button, Header, Image, Grid } from 'semantic-ui-react';
@@ -15,8 +16,30 @@ class Home extends React.Component {
     this.state = {
       address: ''
     }
-
+    console.log('props in home: ', this.props);
     this.handleAddress = this.handleAddress.bind(this);
+  }
+
+  // componentDidMount() {
+  //   if (this.props.isAuthenticated) {
+  //     axios.get('/api/users')
+  //       .then((res) => {
+  //         const inDb = false;
+  //         each(res.data, (user) => {
+  //           if (user.auth0_id === this.props.profile.user_id) {
+
+  //           }
+  //         })
+  //       })
+  //   }
+  // }
+
+  postNewUser() {
+    const profile = this.props.profile;
+    axios.post('/api/users',{
+      name: profile.name,
+      auth0_id: profile.user_id
+    })
   }
 
   handleAddress(event) {

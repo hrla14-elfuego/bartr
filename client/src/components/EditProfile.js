@@ -122,16 +122,17 @@ class EditProfile extends React.Component {
       <Form onSubmit={this.handleSubmit}>
         <Form.Field>
           <label>Email</label>
-          <Input style={{width: '400px'}} placeholder='Email' onChange={(e) => {this.emailChange(e)}}/>
+          <Input style={{width: '400px', height: '50px', fontSize: '25px'}} placeholder='Email' onChange={(e) => {this.emailChange(e)}}/>
         </Form.Field>
         <Form.Field>
           <label>Name</label>
-          <Input style={{width: '400px'}} placeholder='Name' onChange={(e) => {this.nameChange(e)}}/>
+          <Input style={{width: '400px', height: '50px', fontSize: '25px'}} placeholder='Name' onChange={(e) => {this.nameChange(e)}}/>
         </Form.Field>
         <Form.Field>
           <label>Address</label>
-          <Input style={{width: '400px'}}placeholder='Address'>
+          <Input placeholder='Address' style={{ display: 'inline-block' }}>
             <Autocomplete
+              style={{width: '400px', height: '50px', fontSize: '25px'}}
               onChange={(e) => {this.addressChange(e, null)}}
               onPlaceSelected={(place) => {
                 console.log(place);
@@ -142,7 +143,7 @@ class EditProfile extends React.Component {
             </Autocomplete>
           </Input>
         </Form.Field>
-        <Dropdown style={{width: '400px', display: 'inline-block'}}
+        <Dropdown style={{width: '400px', display: 'inline-block', height: '50px', fontSize: '25px'}}
           placeholder='Select Service'
           fluid selection options={ServiceOptions}
           onChange={this.serviceChange} />

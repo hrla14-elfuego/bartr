@@ -24,15 +24,15 @@ class Routing extends React.Component {
 
   render() {
 
-    const auth = new AuthService('UdN-x_zIrEAok74rlhBGRDHcdJzASbC5', 'bartr.auth0.com');
-    // validating authentication
-    const requireAuth = (nextState, replace) => {
-      if (!AuthService.loggedIn()) {
-        replace({
-          pathname: '/home'
-        })
-      }
-    }
+    // const auth = new AuthService('UdN-x_zIrEAok74rlhBGRDHcdJzASbC5', 'bartr.auth0.com');
+    // // validating authentication
+    // const requireAuth = (nextState, replace) => {
+    //   if (!AuthService.loggedIn()) {
+    //     replace({
+    //       pathname: '/home'
+    //     })
+    //   }
+    // }
 
     // creating store and history
     const store = createStoreWithMiddleware();
