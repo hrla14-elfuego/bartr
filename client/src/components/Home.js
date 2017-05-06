@@ -1,9 +1,10 @@
 import React from 'react';
 import NavBar from './NavBar';
+import './styles/styles.css'
 import { each } from 'lodash';
-// import './styles/styles.css'
 import { Parallax, Background } from 'react-parallax';
 import { Dropdown, Input, Button, Header, Image, Grid } from 'semantic-ui-react';
+import {Carousel} from "react-bootstrap"
 import Autocomplete from 'react-google-autocomplete';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import { Link } from 'react-router';
@@ -53,14 +54,7 @@ class Home extends React.Component {
 
   render () {
     return (
-      <div className='parallax-div'>
-        <Parallax
-          className='parallax'
-          bgImage='http://s1.thingpic.com/images/1e/usAoQMdY4zvsZisn1WoUedDs.jpeg'
-          strength={400}>
-          <div className='homelogo' style={{ width: '100%', height: 1200 }}>
-            <Image style={{ margin: 'auto', marginTop: '200px', position: 'relative', height: '15%', width: '15%' }} src='https://img.clipartfest.com/77b4203fc002a2aa8f4140997f66f303_silhouette-clip-art-of-camel-christmas-camel-clipart-png_919-945.png' />
-            <h4 style={{ fontWeight: 750, fontSize: 130, fontFamily: 'Papyrus, fantasy' }}>Bartr</h4>
+    <div>
             <form className='searchform' onSubmit={this.handleSubmitCurrentLocation}>
               <Input placeholder="Enter Your Location">
                 <Autocomplete
@@ -76,9 +70,59 @@ class Home extends React.Component {
               </Input>
             <Link to='/map'><Button className='homesearchbutton'>Search</Button></Link>
           </form>
-          </div>
-        </Parallax>
-      </div>
+
+      <section>
+        <div className="parallax-one">
+          <h2>BARTR BITCHESS</h2>
+        </div>
+      </section>
+
+      <section>
+        <div className="block">
+          <p><span className="first-character ny">B</span>artr is the best app in the world.  If you think otherwise you are just trash.  I repeat just trash.  Let me give you a quick rundown on what Bartr is all about.  You trade services and what not with other people for services.  if you dont understand that then you are just a lost cause.  Remeber use our app because its the best not because i told you.  But use this app just this is blah blah blah text here i need this to look nice fuck</p>
+          <p className="line-break margin-top-10"></p>
+          <p className="margin-top-10">Congratulations! You’re not perfect! It’s ridiculous to want to be perfect anyway. But then, everybody’s ridiculous sometimes, except perfect people. You know what perfect is? Perfect is not eating or drinking or talking or moving a muscle or making even the teensiest mistake. Perfect is never doing anything wrong – which means never doing anything at all. Perfect is boring! So you’re not perfect! Wonderful! Have fun! Eat things that give you bad breath! Trip over your own shoelaces! Laugh! Let somebody else laugh at you! Perfect people never do any of those things. All they do is sit around and sip weak tea and think about how perfect they are. But they’re really not one-hundred-percent perfect anyway. You should see them when they get the hiccups! Phooey! Who needs ’em? You can drink pickle juice and imitate gorillas and do silly dances and sing stupid songs and wear funny hats and be as imperfect as you please and still be a good person. Good people are hard to find nowadays. And they’re a lot more fun than perfect people any day of the week.</p>
+        </div>
+      </section>
+          
+      <section>
+        <div className="parallax-two">
+        </div>
+      </section>
+          
+      <Carousel align="right">
+          <Carousel.Item >
+            <img width={200} height={75} alt="900x500" src="http://bostonchamber.com/media/team/Justin-Kang_279.jpg"/>
+            <Carousel.Caption>
+              <h3>Justin Kang</h3>
+              <p>Project Owner</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img width={200} height={75} alt="900x500" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTemWdq1kmDSPAOfOmTzYS9L4Nd9v7HGcR2w8beDC2qWGBVBWsL"/>
+            <Carousel.Caption>
+              <h3>Shak </h3>
+              <p>Scrum Master</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img width={200} height={75} alt="900x500" src="http://bostonchamber.com/media/team/Justin-Kang_279.jpg"/>
+            <Carousel.Caption>
+              <h3>Joe Kim</h3>
+              <p>FrontEnd Monkey</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+            <Carousel.Item>
+            <img width={200} height={75} alt="900x500" src="http://bostonchamber.com/media/team/Justin-Kang_279.jpg"/>
+            <Carousel.Caption>
+              <h3>Jason Kim</h3>
+              <p>FrontEnd Monkey</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
+
+    </div>
+      
     )
   }
 }
@@ -92,3 +136,10 @@ export default Home;
   // https://tradewithbxi.files.wordpress.com/2014/10/banner-jointventure.jpg
 // black/red map
   // https://upload.wikimedia.org/wikipedia/commons/3/39/Shipping_routes_red_black.png
+      {/*<div className='parallax-div'>
+        <Parallax
+          className='parallax'
+          bgImage='http://s1.thingpic.com/images/1e/usAoQMdY4zvsZisn1WoUedDs.jpeg'
+          strength={400}>
+        </Parallax>
+      </div>*/}
