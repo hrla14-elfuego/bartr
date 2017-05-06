@@ -11,7 +11,7 @@ const ServiceProviderList = (props) => {
       const config = {
         headers: {'Authorization': 'Bearer ' + localStorage.id_token}
       };
-      axios.post('/api/engagements', {
+      axios.post(API_ENDPOINT + '/api/engagements', {
         receiver_id: user.id
       }, config)
           .then(data => {

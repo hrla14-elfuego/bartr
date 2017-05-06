@@ -46,7 +46,7 @@ class PastEngagementsListEntry extends Component {
     const config = {
       headers: {'Authorization': 'Bearer ' + localStorage.id_token}
     };
-    axios.post('/api/reviews', {
+    axios.post(API_ENDPOINT + '/api/reviews', {
       "engagement_id": engagement.id,
       "score": this.state.score,
       "review": this.state.review

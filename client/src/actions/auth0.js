@@ -24,7 +24,7 @@ export function checkLogin(dispatch) {
         } else {
           AuthService.setToken(authResult.idToken) // static method
           AuthService.setProfile(profile) // static method
-          // axios.post('/api/users')
+          // axios.post(API_ENDPOINT + '/api/users')
           console.log('profile from auth0: ', profile);
           return dispatch(loginSuccess(profile))
         }

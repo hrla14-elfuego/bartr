@@ -22,7 +22,7 @@ class Home extends React.Component {
     
     this.handleAddress = this.handleAddress.bind(this);
   }
-
+  
   componentDidMount() {
     console.log(localStorage.getItem('id_token'));
     if (localStorage.profile) {
@@ -31,7 +31,7 @@ class Home extends React.Component {
           Authorization: `Bearer ${localStorage.id_token}`
         }
       }
-      axios.get('/api/users', config)
+      axios.get(API_ENDPOINT + '/api/users', config)
         .then((res) => {
           let inDb = false;
           each(res.data, (user) => {
@@ -60,7 +60,7 @@ class Home extends React.Component {
 
   postNewUser() {
     const profile = this.props.profile;
-    axios.post('/api/users',{
+    axios.post(API_ENDPOINT + '/api/users',{
       name: profile.name,
       auth0_id: profile.user_id
     })

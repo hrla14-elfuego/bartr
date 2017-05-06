@@ -46,7 +46,7 @@ class GoogleMaps extends Component {
   }
 
   loadServicesTypes() {
-    axios.get('/api/services')
+    axios.get(API_ENDPOINT + '/api/services')
       .then(result => {
         _.each(result.data, service => {
           this.setState({
@@ -70,8 +70,9 @@ class GoogleMaps extends Component {
     if(this.state.selectedServiceType) {
       axios_config.params['services'] = this.state.selectedServiceType;
     }
-
-    axios.get('/api/services/find', axios_config)
+    
+    console.log(axios_config)
+    axios.get(API_ENDPOINT + '/api/services/find', axios_config)
       .then(result => {
         console.log('this is the result.data ', result.data)
         this.setState({foundServiceUsers: result.data}, () => {
@@ -91,7 +92,7 @@ class GoogleMaps extends Component {
 
   // requestService(event) {
   //   event.preventDefault();
-  //   axios.post('/api/engagements')
+  //   axios.post(API_ENDPOINT + '/api/engagements')
   //       .then(data => {
   //         console.log('Engagement Created! ', data);
   //       })

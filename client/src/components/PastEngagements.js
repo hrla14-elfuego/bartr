@@ -21,7 +21,7 @@ class PastEngagements extends React.Component {
     const config = {
       headers: {'Authorization': 'Bearer ' + localStorage.id_token}
     };
-    axios.get('/api/engagements?completed=true', config)
+    axios.get(API_ENDPOINT + '/api/engagements?completed=true', config)
          .then(res => {
            console.log(res);
            _.each(res.data, datum => {
