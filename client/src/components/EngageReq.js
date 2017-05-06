@@ -34,9 +34,7 @@ class EngageReq extends React.Component {
       })
     })
     .catch(err =>{
-      if(err){
-        console.log("there was err fetching data", err)
-      }
+        console.log("Error fetchCurrentEngagement", err);
     })
   }
 
