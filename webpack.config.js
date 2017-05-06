@@ -5,7 +5,13 @@ const SRC_DIR = path.resolve(__dirname, './client/src/');
 const BUILD_DIR = path.resolve(__dirname, './client/build/');
 
 module.exports = {
-  entry: path.resolve(SRC_DIR, 'index.js'),
+  // entry: path.resolve(SRC_DIR, 'index.js'),
+  entry: {
+    'app': [
+      'react-hot-loader/patch',
+      './client/src/index'
+    ]
+  },
   output: {
     filename: 'bundle.js',
     path: BUILD_DIR
@@ -18,7 +24,7 @@ module.exports = {
       exclude: /node_modules/,
       query: {
         presets: ['es2015', 'react'],
-        plugins: ['transform-object-rest-spread']
+        plugins: ['transform-object-rest-spread','react-hot-loader/babel']
       }
     },
     {
