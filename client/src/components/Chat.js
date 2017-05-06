@@ -19,17 +19,17 @@ class Chat extends React.Component {
   }
 
   changeId(){
-    this.setState({messages:[]})
+    // this.setState({messages:[]})
     this.setState({engagementId: this.props.id})
   }
   
   handleMessage(event) {
     event.preventDefault();
     this.setState({message: event.target.value});
-    console.log("this is message in chat 123: ", this.state.message)
   }
   
-  updateChatHistory() {
+  updateChatHistory(event) {
+    event.preventDefault();
     const config = {
       headers: {'Authorization': 'Bearer ' + localStorage.id_token,
                 'Content-Type': 'application/json' }
@@ -50,15 +50,16 @@ class Chat extends React.Component {
 
   handleIdAndMessage(event) {
     this.handleMessage(event);
-    this.changeId();
+    // this.changeId();
   }
 
   render() {
-    let messages = [...this.props.messages, ...this.state.messages.reverse()];
+    console.log(this.props.currentEngagement)
+    let messages =  [...this.state.messages, ...this.props.messages];
     return (
       <div>
         <Form onSubmit={this.updateChatHistory}>
-          <Form.Field onChange={this.handleIdAndMessage}  control={TextArea} label='Chat!' placeholder='Send em a message' />
+          <Form.Field onClick={this.changeId} onChange={this.handleIdAndMessage}  control={TextArea} label='Chat!' placeholder='Send em a message' />
           <Form.Field control={Button}>Submit</Form.Field>
         </Form>
         <ChatList messages={messages}/>
