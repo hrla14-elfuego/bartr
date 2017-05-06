@@ -46,5 +46,8 @@ module.exports = {
   cache: true,
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'API_ENDPOINT': JSON.stringify("http://localhost:5000")
+    })
   ]
 };
