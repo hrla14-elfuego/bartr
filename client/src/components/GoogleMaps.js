@@ -53,8 +53,8 @@ class GoogleMaps extends Component {
           })
         })
       }).catch(err => {
-      console.log('Error loading serviceTypes: ', err);
-    })
+        console.log('Error loading serviceTypes: ', err);
+      })
   }
 
   loadServices() {
@@ -66,14 +66,14 @@ class GoogleMaps extends Component {
       }
     };
 
-    if(this.state.selectedServiceType){
+    if(this.state.selectedServiceType) {
       axios_config.params['services'] = this.state.selectedServiceType;
     }
 
     console.log(axios_config)
     axios.get('/api/services/find', axios_config)
       .then(result => {
-        this.setState({foundServiceUsers: result.data}, ()=>{
+        this.setState({foundServiceUsers: result.data}, () => {
           console.log(this.state.foundServiceUsers, this.state.selectedServiceType)
           this.putMarkersOnMap(this.googleMap)
         })
@@ -180,7 +180,7 @@ class GoogleMaps extends Component {
 
   changeSelectedService(event, result) {
     event.preventDefault();
-    this.setState({selectedServiceType: result.value}, ()=>{
+    this.setState({selectedServiceType: result.value}, () => {
       this.loadServices()
     });
   }
