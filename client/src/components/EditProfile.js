@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { each } from 'lodash';
 import { Button, Checkbox, Form, Dropdown, Input } from 'semantic-ui-react';
+// import { ServiceOptions } from '../Services/ServiceOptions';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import Autocomplete from 'react-google-autocomplete';
 import './styles/styles.css';
