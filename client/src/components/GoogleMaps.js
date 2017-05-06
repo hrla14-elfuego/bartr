@@ -32,6 +32,7 @@ class GoogleMaps extends Component {
     this.changeSelectedService = this.changeSelectedService.bind(this);
     this.clearMarkers = this.clearMarkers.bind(this);
     this.loadServices = this.loadServices.bind(this);
+    this.fetchRemainingServiceUsers = this.fetchRemainingServiceUsers.bind(this);
     // this.requestService = this.requestService.bind(this);
 
     this.googleMap = null;
@@ -53,8 +54,8 @@ class GoogleMaps extends Component {
           })
         })
       }).catch(err => {
-      console.log('Error loading serviceTypes: ', err);
-    })
+        console.log('Error loading serviceTypes: ', err);
+      })
   }
 
   loadServices() {
@@ -66,15 +67,14 @@ class GoogleMaps extends Component {
       }
     };
 
-    if(this.state.selectedServiceType){
+    if(this.state.selectedServiceType) {
       axios_config.params['services'] = this.state.selectedServiceType;
     }
 
-    console.log(axios_config)
     axios.get('/api/services/find', axios_config)
       .then(result => {
-        this.setState({foundServiceUsers: result.data}, ()=>{
-          console.log(this.state.foundServiceUsers, this.state.selectedServiceType)
+        console.log('this is the result.data ', result.data)
+        this.setState({foundServiceUsers: result.data}, () => {
           this.putMarkersOnMap(this.googleMap)
         })
       }).catch(err => {
@@ -177,12 +177,22 @@ class GoogleMaps extends Component {
     this.loadServices();
   }
 
-
   changeSelectedService(event, result) {
     event.preventDefault();
-    this.setState({selectedServiceType: result.value}, ()=>{
+    this.setState({selectedServiceType: result.value}, () => {
       this.loadServices()
     });
+  }
+
+  fetchRemainingServiceUsers(serviceusers) {
+    let requested;
+    _.each(this.state.foundServiceUsers, (foundServiceUsers, index) => {
+       _.each(foundServiceUsers, (value, key) => {
+         value === serviceusers.receiver_id ? requested = index : null
+       })
+     })
+     this.state.foundServiceUsers.splice(requested, 1);
+     this.setState({currentEngagement: this.state.foundServiceUsers});
   }
 
   render() {
@@ -213,11 +223,11 @@ class GoogleMaps extends Component {
           </Dropdown>
         </form>
         <br/>
-        <div className="google-maps" ref="map" style={{width: 600, height: 600}}></div>
+        <div className="google-maps" ref="map" style={{width: 'absolute', height: 600}}></div>
         <br/>
         <br/>
         <br/>
-        <ServiceProviderList users={this.state.foundServiceUsers}/>
+        <ServiceProviderList fetchRemainingServiceUsers={this.fetchRemainingServiceUsers} users={this.state.foundServiceUsers}/>
       </div>
     );
   }

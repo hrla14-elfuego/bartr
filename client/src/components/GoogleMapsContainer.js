@@ -3,7 +3,6 @@ import GoogleMaps from './GoogleMaps';
 
 class GoogleMapsContainer extends Component {
   
-  
   render() {
     return (
       <div>

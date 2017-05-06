@@ -43,6 +43,7 @@ const EngageReqListEntries = (props) => {
         text: 'We hope it was a pleasant exerience!',
         type: 'success'
       })
+      props.fetchEngagements(data.data);
     })
     .catch(err => {
       console.log('Error with engagementCompleted: ', err);
@@ -63,3 +64,5 @@ const EngageReqListEntries = (props) => {
 }
 
 export default EngageReqListEntries
+
+// Add feature to write reviews from the sweetalert

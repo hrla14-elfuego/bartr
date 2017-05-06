@@ -21,6 +21,7 @@ const ServiceProviderList = (props) => {
               text: user.name + " for " + user.service.type + " service",
               type: 'success'
             })
+            props.fetchRemainingServiceUsers(data.data);
           })
           .catch(err => {
             console.log('Error: ', err);
@@ -28,30 +29,32 @@ const ServiceProviderList = (props) => {
     }
 
   const columns = _.map(props.users, user => {
-    return(
-      <Grid.Column>
-        <Card>
-          <Image src='http://images4.wikia.nocookie.net/marveldatabase/images/9/9b/Ultimate_spiderman.jpg' />
-          <Card.Content>
-            <Card.Header>
-              {user.name}
-            </Card.Header>
-            <Card.Description>
-              {user.service.type}
-              <br />
-                {user.address}
-              <br />
-            </Card.Description>
-          </Card.Content>
-          <Button value={user} onClick={(event, user) => {requestService(event, user.value)}}>
-            Request Service
-          </Button>
-          <Button >
-            Go to Profile
-          </Button>
-        </Card>
-      </Grid.Column>
-    )
+    if(user.email !== JSON.parse(localStorage.profile).name){
+      return(
+        <Grid.Column>
+          <Card>
+            <Image src='http://images4.wikia.nocookie.net/marveldatabase/images/9/9b/Ultimate_spiderman.jpg' />
+            <Card.Content>
+              <Card.Header>
+                {user.name}
+              </Card.Header>
+              <Card.Description>
+                {user.service.type}
+                <br />
+                  {user.address}
+                <br />
+              </Card.Description>
+            </Card.Content>
+            <Button value={user} onClick={(event, user) => {requestService(event, user.value)}}>
+              Request Service
+            </Button>
+            <Button >
+              Go to Profile
+            </Button>
+          </Card>
+        </Grid.Column>
+      )
+    }
   })
 
   return(

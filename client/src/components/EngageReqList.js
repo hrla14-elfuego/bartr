@@ -7,7 +7,7 @@ const EngageReqList = (props) => {
   return (
     <div >
       {props.currentEngagement.map((currentEngagement, index) =>
-        <EngageReqListEntries currentEngagement={currentEngagement} key={index} fetchId={props.fetchId} fetchMessages={props.fetchMessages}/>
+        <EngageReqListEntries currentEngagement={currentEngagement} key={index} fetchEngagements={props.fetchEngagements} fetchId={props.fetchId} fetchMessages={props.fetchMessages}/>
       )}
     </div>
   )

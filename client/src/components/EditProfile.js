@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import { each } from 'lodash';
 import { Button, Checkbox, Form, Dropdown, Input } from 'semantic-ui-react';
-import { ServiceOptions } from '../Services/ServiceOptions';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import Autocomplete from 'react-google-autocomplete';
 import './styles/styles.css';
@@ -41,14 +40,15 @@ class EditProfile extends React.Component {
 
   getServices() {
     axios.get('/api/services')
-      .then((res) => {
-        console.log(res.data);
-        this.setState({
-          listOfServices: res.data
+      .then(result => {
+        _.each(result.data, service => {
+          this.setState({
+            listOfServices: this.state.listOfServices.concat([{text: service.type, value: service.id, key: service.id}])
+          })
         })
       })
-      .catch((err) => {
-        console.log('Err: ', err);
+      .catch(err => {
+        console.log('Error loading listOfServices: ', err);
       })
   }
 
@@ -111,8 +111,6 @@ class EditProfile extends React.Component {
   }
   
   render() {
-    console.log(this.state);
-    console.log(JSON.parse(localStorage.profile));
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Field>
@@ -142,7 +140,7 @@ class EditProfile extends React.Component {
         <br/>
         <Dropdown style={{width: '400px', display: 'inline-block', height: '10px', fontSize: '20px'}}
           placeholder='Select Service'
-          fluid selection options={ServiceOptions}
+          fluid selection options={this.state.listOfServices}
           onChange={this.serviceChange} />
         <h1><Button type='submit'>Submit</Button></h1>
       </Form>

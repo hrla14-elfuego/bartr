@@ -4,7 +4,7 @@ import MessagesList from './MessagesList';
 import { Well } from 'react-bootstrap';
 import { Button, Form, TextArea } from 'semantic-ui-react';
 import { Dropdown } from 'semantic-ui-react';
-import options from '../Options/ScoreOptions';
+import options from '../options/ScoreOptions';
 import axios from 'axios';
 
 class PastEngagementsListEntry extends Component {
@@ -73,43 +73,52 @@ class PastEngagementsListEntry extends Component {
     let engagement = this.props.engagement;
 
     if(this.state.change === false) {
-      return(
+      return (
         <Well onClick={this.handleClick}>
           <div>{this.props.engagement.sender.name}</div>
-          {/*<div>{this.props.engagement.reviews[0].review}</div>*/}
-          {/*<div>{this.props.engagement.reviews[0].score}</div>*/}
           <div>{this.props.engagement.receiver.name}</div>
-          {/*<div>{this.props.engagement.reviews[1].review}</div>*/}
-          {/*<div>{this.props.engagement.reviews[1].score}</div>*/}
         </Well>
       )
     } else {
-      return(
-        <Well>
-          <Well onClick={this.handleClick}>
-            <div>{this.props.engagement.sender.name}</div>
-            {/*<div>{this.props.engagement.reviews[0].review}</div>*/}
-            {/*<div>{this.props.engagement.reviews[0].score}</div>*/}
-            <div>{this.props.engagement.receiver.name}</div>
-            {/*<div>{this.props.engagement.reviews[1].review}</div>*/}
-            {/*<div>{this.props.engagement.reviews[1].score}</div>*/}
+      if(!this.props.engagement.reviews[0] || !this.props.engagement.reviews[1]) {
+        return(
+          <Well>
+            <Well onClick={this.handleClick}>
+              <div>{this.props.engagement.sender.name}</div>
+              <div>{this.props.engagement.receiver.name}</div>
+            </Well>
+            <br/>
+            <Form value={engagement} onSubmit={() => {this.handleReviewSubmit(event, engagement)}}>
+              <Form.Field onChange={this.handleReviewText} control={TextArea} label='Leave a Review!' placeholder='Write your Review' />
+              <Form.Field control={Button}>Submit</Form.Field>
+            </Form>
+            <br/>
+            <Dropdown onChange={this.handleSelectedScore} placeholder="Score this Engagement" fluid selection options={options.options} style={{width: 600}}>
+            </Dropdown>
+            <br/>
+            Message History
+            <MessagesList messages={this.state.messages}/>
           </Well>
-          <br/>
-          <Form value={engagement} onSubmit={() => {this.handleReviewSubmit(event, engagement)}}>
-            <Form.Field onChange={this.handleReviewText} control={TextArea} label='Leave a Review!' placeholder='Write your Review' />
-            <Form.Field control={Button}>Submit</Form.Field>
-          </Form>
-          <br/>
-          <Dropdown onChange={this.handleSelectedScore} placeholder="Score this Engagement" fluid selection options={options.options} style={{width: 600}}>
-          </Dropdown>
-          <br/>
-          Message History
-          <MessagesList messages={this.state.messages}/>
-        </Well>
-      )
+        )
+      } else {
+        return(
+          <Well>
+            <Well onClick={this.handleClick}>
+              <div>{this.props.engagement.sender.name}</div>
+              <div>{this.props.engagement.reviews[0].review}</div>
+              <div>{this.props.engagement.reviews[0].score}</div>
+              <div>{this.props.engagement.receiver.name}</div>
+              <div>{this.props.engagement.reviews[1].review}</div>
+              <div>{this.props.engagement.reviews[1].score}</div>
+            </Well>
+            <br/>
+            Message History
+            <MessagesList messages={this.state.messages}/>
+          </Well>
+        )
+      }
     }
   }
 }
 
-// onChange={this.changeSelectedService} 
 export default PastEngagementsListEntry;

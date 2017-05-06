@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 import { Button } from 'semantic-ui-react';
  
 const UserProfile = ({ profile, error }) => {
-  console.log('this is userprofile PROFILE: ', profile)
   return(
     <div>
       <h1 style={{textAlign: 'center', fontSize: '50px'}}>{profile.name ? 'Hello, ' + profile.name : null}</h1>
