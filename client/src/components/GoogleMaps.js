@@ -70,11 +70,9 @@ class GoogleMaps extends Component {
       axios_config.params['services'] = this.state.selectedServiceType;
     }
 
-    console.log(axios_config)
     axios.get('/api/services/find', axios_config)
       .then(result => {
         this.setState({foundServiceUsers: result.data}, () => {
-          console.log(this.state.foundServiceUsers, this.state.selectedServiceType)
           this.putMarkersOnMap(this.googleMap)
         })
       }).catch(err => {
