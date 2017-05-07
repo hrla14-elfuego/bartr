@@ -72,8 +72,6 @@ class PastEngagementsListEntry extends Component {
   render() {
     let engagement = this.props.engagement;
     let name, currentUser;
-    console.log(JSON.parse(localStorage.profile))
-    console.log(this.props.engagement);
     if(this.state.change === false) {
       return (
         <Well onClick={this.handleClick}>
