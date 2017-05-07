@@ -59,12 +59,12 @@ class Chat extends React.Component {
 
   render() {
       return (
-        <div>
-          <Form onSubmit={this.updateChatHistory}>
-            <Form.Field onClick={this.changeId} onChange={this.handleIdAndMessage}  control={TextArea} label='Chat!' placeholder='Send em a message' />
+        <div className="chatbox">
+          <ChatList messages={this.props.messages}/>
+          <Form onSubmit={this.updateChatHistory} >
+            <Form.Field onClick={this.changeId} onChange={this.handleIdAndMessage}  control={TextArea} label='Chat!' placeholder='Send em a message'  />
             <Form.Field control={Button}>Submit</Form.Field>
           </Form>
-          <ChatList messages={this.props.messages}/>
         </div>
       )
   }

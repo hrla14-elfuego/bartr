@@ -6,7 +6,7 @@ const MessagesList = (props) => {
   return(
     <ListGroup>
       {props.messages.map(message => 
-        <MessagesListEntry key={message.id} message={message}/>
+        <MessagesListEntry key={message.id} message={message}/> 
       )}
     </ListGroup>
   )

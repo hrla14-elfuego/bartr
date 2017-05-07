@@ -35,6 +35,7 @@
   font-size: 100px;
 }
 
+
 /*.parallax {
   background-image: url('http://s1.thingpic.com/images/1e/usAoQMdY4zvsZisn1WoUedDs.jpeg');
   width: fixed;
@@ -60,7 +61,7 @@
   overflow: hidden; 
   position: relative; 
   width: 100%; 
-  background-image: url("http://s1.thingpic.com/images/1e/usAoQMdY4zvsZisn1WoUedDs.jpeg"); 
+  background-image: url("/img/high-resolution-wallpaper-city-wallpaper-picture-night.jpg"); 
   background-attachment: fixed; 
   background-size: cover; 
   -moz-background-size: cover; 
@@ -136,15 +137,7 @@ h3 {
   background: black
 }
 
-h2 {
-    /*width: 100px;
-    height: 100px;*/
-    /*background: red;*/
-    -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
-    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
-    animation-name: example;
-    animation-duration: 7s;
-}
+
 
 /* Safari 4.0 - 8.0 */
 @-webkit-keyframes example {
@@ -160,4 +153,66 @@ h2 {
   to {
     background: yellow;
   }
+}
+
+.container {
+  
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+.container1 {
+  position : relative;
+  
+  left: 50%;
+  max-width: 50%;
+  
+}
+
+
+.bubble {
+  position: relative;
+  display: inline-block;
+  padding: 20px;
+  background-color: lightblue;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+}
+
+
+
+
+
+.engagereqmain{
+    position: absolute;
+    overflow: auto;
+    top: 52px;
+    left: 0;
+    width: 35%;
+    height: 100%;
+    border: 1px solid #73AD21;
+}
+
+.engagereq {
+    position: absolute;
+    overflow: auto;
+    left: 0;
+    width: 35%;
+    height: 100vh;
+    border: 1px solid #73AD21;
+}
+.chatlistentry {
+    
+    right: 50%;
+    width: 200px;
+    margin: 0 auto;
+}
+.chatbox {  
+    position: absolute;
+  right: 0;
+  background: url("http://cdn.wallpapersafari.com/31/35/8LIyzD.jpg");
+  width: 65%;
+  overflow: auto;
+  height: 100vh;
 }
