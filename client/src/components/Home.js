@@ -98,7 +98,7 @@ class Home extends React.Component {
 
       <section>
         <div className="parallax-one">
-          <h2>BARTR BITCHESS</h2>
+          <h2>BARTR </h2>
         </div>
       </section>
 
