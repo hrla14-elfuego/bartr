@@ -9,7 +9,8 @@ const app = express();
 //for dev testing
 app.all('/*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Authorization");
+  res.header("Access-Control-Allow-Headers", "Authorization, Content-Type");
+  res.header("Access-Control-Allow-Methods", 'GET, POST, PUT ,DELETE');
   next();
 });
 

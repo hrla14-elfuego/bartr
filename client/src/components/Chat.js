@@ -34,7 +34,7 @@ class Chat extends React.Component {
       headers: {'Authorization': 'Bearer ' + localStorage.id_token,
                 'Content-Type': 'application/json' }
       };
-    axios.post("/api/messages", {
+    axios.post(API_ENDPOINT + "/api/messages", {
       "engagement_id": this.state.engagementId, 
       "message": this.state.message
     }, config)

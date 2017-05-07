@@ -31,7 +31,7 @@ const EngageReqListEntries = (props) => {
     const config = {
       headers: {'Authorization': 'Bearer ' + localStorage.id_token}
     };
-    axios.put(`/api/engagements/${selectedEngagement.id}`, {
+    axios.put(`${API_ENDPOINT}/api/engagements/${selectedEngagement.id}`, {
       where: {
         id: selectedEngagement.id
       }
