@@ -30,10 +30,19 @@ router.get('/find', (req, res) => {
         geo_long: {$gte: boundingBox[0], $lte: boundingBox[2]},
         geo_lat: {$gte: boundingBox[1], $lte: boundingBox[3]}
       },
-      include: [{
+      include: [
+        {
         model: db.Service,
         where: buildWhere
-      }]
+        },
+        {
+          model: db.Review,
+          as: 'received_reviews',
+          attributes: ['score']
+        }
+      ],
+      attributes: Object.keys(db.User.attributes).concat([[Sequelize.fn('AVG', Sequelize.col('received_reviews.score')), 'avgscore']]),
+      group:['user.id']
     })
       .then((results)=>{
         res.json(results)
