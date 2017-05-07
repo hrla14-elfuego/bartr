@@ -58,11 +58,22 @@ class Home extends React.Component {
   }
 
   postNewUser() {
+    const config = {
+        headers: {
+          Authorization: `Bearer ${localStorage.id_token}`
+        }
+      }
     const profile = this.props.profile;
-    axios.post(API_ENDPOINT + '/api/users',{
+    axios.post(API_ENDPOINT + '/api/users', {
       name: profile.name,
       auth0_id: profile.user_id
-    })
+    }, config)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   handleAddress(event) {
