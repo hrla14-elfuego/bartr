@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { each } from 'lodash';
+import swal from 'sweetalert';
+import _ from 'lodash';
 import { Button, Checkbox, Form, Dropdown, Input } from 'semantic-ui-react';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import Autocomplete from 'react-google-autocomplete';
@@ -13,10 +14,10 @@ class EditProfile extends React.Component {
     this.state = {
       userInfo: {
         address: '',
-        lat: '',
-        lng: '',
-        service_id: null,
-        auth0_id: localStorage.profile.user_id
+        geo_lat: '',
+        geo_lng: '',
+        service_id: '',
+        auth0_id: ''
       },
       service: '',
       listOfServices: []
@@ -28,11 +29,38 @@ class EditProfile extends React.Component {
   }
 
   componentDidMount() {
+    console.log(localStorage.id_token)
+    this.setInitialInfo();
     this.getServices();
     const auth0_id = JSON.parse(localStorage.profile).user_id;
     this.setState({
       userInfo: {...this.state.userInfo, auth0_id: auth0_id}
     })
+  }
+
+  setInitialInfo() {
+    const auth0_id = JSON.parse(localStorage.profile).user_id;
+    const config = {
+        headers: {
+          Authorization: `Bearer ${localStorage.id_token}`
+        }
+      }
+    axios.get(API_ENDPOINT + `/api/users/${auth0_id}`, config)
+      .then((res) => {
+        this.setState({
+          userInfo: {...this.state.userInfo,
+            address: res.data.address,
+            geo_lat: res.data.geo_lat,
+            geo_lng: res.data.geo_lng,
+            service_id: res.data.service_id,
+          }
+        })
+        console.log(res)
+        console.log(this.state)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   getServices() {
@@ -50,6 +78,7 @@ class EditProfile extends React.Component {
   }
 
   handleSubmit() {
+    const auth0_id = JSON.parse(localStorage.profile).user_id;
     const config = {
       headers: {
         'Authorization': 'Bearer ' + localStorage.id_token
@@ -107,27 +136,32 @@ class EditProfile extends React.Component {
         this.setState({
           userInfo: {...this.state.userInfo,
             address: address || event,
-            lat: latLng.lat,
-            lng: latLng.lng
+            geo_lat: latLng.lat,
+            geo_lng: latLng.lng
           }
         })
+        console.log(this.state.userInfo);
       }
     })
   }
 
   serviceChange(event, result) {
     let service_id = null;
-    each(this.state.listOfServices, (service) => {
-      if (service.type === result.value) {
-        service_id = service.id;
+    console.log('list of services: ', this.state.listOfServices)
+    _.each(this.state.listOfServices, (service) => {
+      console.log('result.value: ', result.value)
+      if (service.value === result.value) {
+        service_id = service.value;
       }
     })
     this.setState({
       userInfo: {...this.state.userInfo, service_id: service_id}
     })
+    console.log('STATE: ', this.state.userInfo);
   }
   
   render() {
+    console.log(this.state)
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Field>

@@ -51,8 +51,8 @@ router.put('/:auth0_id', (req, res, next) => {
           email: req.body.email,
           name: req.body.name,
           address: req.body.address,
-          geo_lat: req.body.address.lat,
-          geo_long: req.body.address.lng,
+          geo_lat: req.body.geo_lat,
+          geo_long: req.body.geo_lng,
           service_id: req.body.service_id,
           auth0_id: req.body.auth0_id
         })
