@@ -10,6 +10,7 @@ import ServiceProviderList from './ServiceProviderList';
 
 import _ from 'lodash';
 import axios from 'axios';
+import AddressSearchWithData  from '../containers/AddressSearchContainer'
 
 class GoogleMaps extends Component {
   constructor(){
@@ -199,25 +200,7 @@ class GoogleMaps extends Component {
   render() {
     return (
       <div style={{textAlign:'center'}}>
-        <form onSubmit={this.displaySelectedAddress}>
-          <Input placeholder="Enter Your Location">
-            <Autocomplete
-              style={{width: 601}}
-              // onChange={this.changeSelectedAddress}
-              onPlaceSelected={(foundLocation) => {
-                this.setState({
-                  formattedAddress: foundLocation.formatted_address,
-                  coordinates: {
-                    lat: foundLocation.geometry.location.lat(),
-                    long: foundLocation.geometry.location.lng()
-                    }
-                  });
-              }}
-              types={['address']}
-              componentRestrictions={{country: "USA"}}
-            />
-          </Input>
-        </form>
+        <AddressSearchWithData />
         <br/>
         <form>
           <Dropdown onChange={this.changeSelectedService} placeholder="Select Your Service" fluid selection options={this.state.serviceTypes} style={{width: 600}}>
