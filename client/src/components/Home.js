@@ -10,6 +10,7 @@ import Autocomplete from 'react-google-autocomplete';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import { Link } from 'react-router';
 import { Icon } from 'semantic-ui-react';
+import AddressSearchWithData  from '../containers/AddressSearchContainer'
 
 
 class Home extends React.Component {
@@ -78,21 +79,8 @@ class Home extends React.Component {
   render () {
     return (
     <div>
-            <form className='searchform' onSubmit={this.handleSubmitCurrentLocation}>
-              <Icon size='big' name='search' /><Input placeholder="Enter Your Location">
-                <Autocomplete
-                  style={{width: 600}}
-                  onChange={this.handleAddress}
-                  onPlaceSelected={(place) => {
-                    console.log(place);
-                    this.setState({currentAddress: place.formatted_address});
-                  }}
-                  types={['address']}
-                  componentRestrictions={{country: "USA"}}
-                />
-              </Input>
-            <Link to='/map'><Button className='homesearchbutton'>Search</Button></Link>
-          </form>
+            <AddressSearchWithData />
+      <Link to='/map'><Button className='homesearchbutton'>Search</Button></Link>
 
       <section>
         <div className="parallax-one">
@@ -107,12 +95,12 @@ class Home extends React.Component {
           <p className="margin-top-10">Congratulations! You’re not perfect! It’s ridiculous to want to be perfect anyway. But then, everybody’s ridiculous sometimes, except perfect people. You know what perfect is? Perfect is not eating or drinking or talking or moving a muscle or making even the teensiest mistake. Perfect is never doing anything wrong – which means never doing anything at all. Perfect is boring! So you’re not perfect! Wonderful! Have fun! Eat things that give you bad breath! Trip over your own shoelaces! Laugh! Let somebody else laugh at you! Perfect people never do any of those things. All they do is sit around and sip weak tea and think about how perfect they are. But they’re really not one-hundred-percent perfect anyway. You should see them when they get the hiccups! Phooey! Who needs ’em? You can drink pickle juice and imitate gorillas and do silly dances and sing stupid songs and wear funny hats and be as imperfect as you please and still be a good person. Good people are hard to find nowadays. And they’re a lot more fun than perfect people any day of the week.</p>
         </div>
       </section>
-          
+
       <section>
         <div className="parallax-two">
         </div>
       </section>
-          
+
       <Carousel align="right">
           <Carousel.Item >
             <img width={200} height={75} alt="900x500" src="http://bostonchamber.com/media/team/Justin-Kang_279.jpg"/>
@@ -145,7 +133,7 @@ class Home extends React.Component {
         </Carousel>
 
     </div>
-      
+
     )
   }
 }
