@@ -12,17 +12,12 @@ import _ from 'lodash';
 import axios from 'axios';
 import AddressSearchWithData  from '../containers/AddressSearchContainer'
 
-class GoogleMaps extends Component {
-  constructor(){
-    super()
+class ServiceMap extends Component {
+  constructor(props){
+    super(props)
 
     this.state = {
       selectedServiceType: null,
-      formattedAddress: null,
-      coordinates: {
-        lat: 34.061811,
-        long: -118.318316
-      },
       foundServiceUsers: [],
       serviceTypes: []
     }
@@ -38,6 +33,7 @@ class GoogleMaps extends Component {
 
     this.googleMap = null;
     this.googleMapMarkers = [];
+
   }
 
   componentDidMount() {
@@ -45,6 +41,14 @@ class GoogleMaps extends Component {
     this.loadMap();
     this.loadServices()
   }
+
+  componentDidUpdate() {
+    console.log('componentDidUpdate location', this.props.AddressSearch.lat, this.props.AddressSearch.long)
+    // this.loadServicesTypes();
+    this.loadMap();
+    // this.loadServices()
+  }
+
 
   loadServicesTypes() {
     axios.get(API_ENDPOINT + '/api/services')
@@ -62,8 +66,8 @@ class GoogleMaps extends Component {
   loadServices() {
     let axios_config = {
       params: {
-        lat: this.state.coordinates.lat,
-        long: this.state.coordinates.long,
+        lat: this.props.AddressSearch.lat,
+        long: this.props.AddressSearch.long,
         distance: 30,
       }
     };
@@ -137,17 +141,16 @@ class GoogleMaps extends Component {
 
 
   loadMap() {
+    console.log('loadmap location', this.props.AddressSearch.lat, this.props.AddressSearch.long)
     const homeUrl = "https://cdn3.iconfinder.com/data/icons/map-markers-1/512/residence-512.png";
-    if (this.props && this.props.google) {
-      const { google } = this.props;
+      const google = window.google;
       const maps = google.maps;
       
       const mapRef = this.refs.map;
       const node = ReactDOM.findDOMNode(mapRef);
 
-      let { initialCenter, zoom } = this.props;
-      const { lat, long } = this.state.formattedAddress ? this.state.coordinates : initialCenter;
-      const center = new maps.LatLng(lat, long);
+      let { zoom } = this.props;
+      const center = new maps.LatLng(this.props.AddressSearch.lat, this.props.AddressSearch.long);
       const mapConfig = Object.assign({}, {
         center: center,
         zoom: zoom
@@ -170,7 +173,6 @@ class GoogleMaps extends Component {
         title: "Your Location"
       })
       marker.setMap(this.map);
-    }
   }
 
   displaySelectedAddress(event) {
@@ -218,13 +220,13 @@ class GoogleMaps extends Component {
 
 }
 
-GoogleMaps.propTypes = {
+ServiceMap.propTypes = {
   google: PropTypes.object,
   zoom: PropTypes.number,
   initialCenter: PropTypes.object
 }
 
-GoogleMaps.defaultProps = {
+ServiceMap.defaultProps = {
   zoom: 12,
   initialCenter: {
     lat: 34.061811,
@@ -232,7 +234,7 @@ GoogleMaps.defaultProps = {
   }
 }
 
-export default GoogleMaps;
+export default ServiceMap;
 
 // When we have more services
 // fluid search selection options={ServiceOptions}

@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import { toggleTodo } from '../actions'
 import AddressSearch from '../components/AddressSearch'
 import { addressEntered } from '../actions/AddressSearchActions'
 

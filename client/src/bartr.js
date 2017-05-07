@@ -15,7 +15,7 @@ import PastEngagements from './components/PastEngagements';
 import EngageReq from './components/EngageReq';
 import EditProfile from './components/EditProfile';
 import AuthService from './utils/AuthService';
-import GoogleMapContainer from './components/GoogleMapsContainer';
+import ServiceMapContainer from './containers/ServiceMapContainer';
 import '../../node_modules/sweetalert/dist/sweetalert.css'
 
 
@@ -47,7 +47,7 @@ class Routing extends React.Component {
             <Route path='/home' component={HomeContainer}/>
             <Route path='/profile' component={ProfileContainer}/>
             <Route path='/currentengagements' component={EngageReq}/>
-            <Route path='/map' component={GoogleMapContainer}/>
+            <Route path='/map' component={ServiceMapContainer}/>
             <Route path='/editprofile' component={EditProfile}/>
             <Route path='/pastengagements' component={PastEngagements}/>
           </Route>
