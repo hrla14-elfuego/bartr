@@ -61,7 +61,7 @@
   overflow: hidden; 
   position: relative; 
   width: 100%; 
-  background-image: url("http://s1.thingpic.com/images/1e/usAoQMdY4zvsZisn1WoUedDs.jpeg"); 
+  background-image: url("http://wallpaper-gallery.net/images/high-definition-city-wallpapers/high-definition-city-wallpapers-11.jpg"); 
   background-attachment: fixed; 
   background-size: cover; 
   -moz-background-size: cover; 
@@ -163,3 +163,116 @@ h2 {
   }
 }
 
+
+
+
+
+
+
+
+.content{
+    width: 100px;
+    height: 100px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+    perspective:1700px;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    -webkit-animation: anim 2s linear infinite;
+    -ms-animation: anim 2s linear infinite;
+    -o-animation: anim 2s linear infinite;
+    animation: anim 2s linear infinite;
+
+}
+.content .circle{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    border:20px solid rgba(0,0,0,0.2);
+    top: 10%;
+    left: 10%;
+    border-radius: 50%;
+}
+.content .circle:nth-child(1){
+    transform:rotateY(45deg);
+    border-color: rgba(29, 98, 240, 0.5);
+    box-shadow: 100px 100px 0px rgba(29, 98, 240, 0.5);
+}
+.content .circle:nth-child(2){
+    transform:rotateY(-45deg);
+    border-color: rgba(76, 217, 100, 0.5);
+    box-shadow: 100px 100px 0px rgba(76, 217, 100, 0.5);
+}
+.content .circle:nth-child(3){
+    transform:rotateY(90deg);
+    border-color: rgba(52, 170, 220, 0.5);
+    box-shadow: 100px 100px 0px rgba(52, 170, 220, 0.5);
+}
+.content .circle:nth-child(4){
+    transform:rotateY(-90deg);
+    border-color: rgba(0, 122, 255, 0.5);
+    box-shadow: 100px 100px 0px rgba(0, 122, 255, 0.5);
+}
+.content .circle:nth-child(5){
+    transform:rotateY(135deg);
+    border-color: rgba(88, 86, 214, 0.5);
+    box-shadow: 100px 100px 0px rgba(88, 86, 214, 0.5);
+}
+.content .circle:nth-child(6){
+    transform:rotateY(-135deg);
+    border-color: rgba(26, 214, 253, 0.5);
+    box-shadow: 100px 100px 0px rgba(26, 214, 253, 0.5);
+}
+.content .circle:nth-child(7){
+    transform:rotateY(-180deg);
+    border-color: rgba(82, 237, 199, 0.5);
+    box-shadow: 100px 100px 0px rgba(82, 237, 199, 0.5);
+}
+
+@-webkit-keyframes anim{
+    0%{
+        -webkit-transform:rotateX(0deg)rotateY(0deg);
+    }
+    50%{
+        -webkit-transform:rotateX(-180deg)rotateY(-360deg);
+    }
+}
+
+@-ms-keyframes anim{
+    0%{
+        -ms-transform:rotateX(0deg)rotateY(0deg);
+    }
+    50%{
+        -ms-transform:rotateX(-180deg)rotateY(-360deg);
+    }
+}
+
+@-o-keyframes anim{
+    0%{
+        -o-transform:rotateX(0deg)rotateY(0deg);
+    }
+    50%{
+        -o-transform:rotateX(-180deg)rotateY(-360deg);
+    }
+}
+
+@keyframes anim{
+    0%{
+        transform:rotateX(0deg)rotateY(0deg);
+    }
+    50%{
+        transform:rotateX(-180deg)rotateY(-360deg);
+    }
+}
+
+body{
+    background: #F4F4F4;
+
+}
+
+html,body{
+   height: 100%;
+}
