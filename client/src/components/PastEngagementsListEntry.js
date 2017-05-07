@@ -103,7 +103,7 @@ class PastEngagementsListEntry extends Component {
       } else {
         return(
           <Well>
-            <Well onClick={this.handleClick}>
+            <Well onClick={this.handleClick} >
               <div>{this.props.engagement.sender.name}</div>
               <div>{this.props.engagement.reviews[0].review}</div>
               <div>{this.props.engagement.reviews[0].score}</div>
