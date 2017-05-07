@@ -61,7 +61,7 @@
   overflow: hidden; 
   position: relative; 
   width: 100%; 
-  background-image: url("http://wallpaper-gallery.net/images/high-definition-city-wallpapers/high-definition-city-wallpapers-11.jpg"); 
+  background-image: url("/img/high-resolution-wallpaper-city-wallpaper-picture-night.jpg"); 
   background-attachment: fixed; 
   background-size: cover; 
   -moz-background-size: cover; 
@@ -170,7 +170,7 @@ h2 {
 
 
 
-.content{
+/*.content{
     width: 100px;
     height: 100px;
     position: relative;
@@ -275,4 +275,4 @@ body{
 
 html,body{
    height: 100%;
-}
+}*/
