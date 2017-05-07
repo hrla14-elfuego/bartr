@@ -85,6 +85,7 @@ class Home extends React.Component {
   }
 
   render () {
+    console.log('this.props.profile: ', this.props.profile);
     return (
 
     <div>
