@@ -39,7 +39,11 @@ class Chat extends React.Component {
       "message": this.state.message
     }, config)
     .then(res => {
-      this.setState({messages: [this.state.message, ...this.state.messages]});
+      console.log(res);
+      this.props.fetchChatMessages(res.data.message);
+      console.log('props in post req ', this.props.messages);
+      // messages = this.props.messages;
+      // console.log('messages in post req ', messages)
     })
     .catch(err => {
       if(err){
@@ -54,17 +58,15 @@ class Chat extends React.Component {
   }
 
   render() {
-    console.log(this.props.currentEngagement)
-    let messages =  [...this.state.messages, ...this.props.messages];
-    return (
-      <div>
-        <Form onSubmit={this.updateChatHistory}>
-          <Form.Field onClick={this.changeId} onChange={this.handleIdAndMessage}  control={TextArea} label='Chat!' placeholder='Send em a message' />
-          <Form.Field control={Button}>Submit</Form.Field>
-        </Form>
-        <ChatList messages={messages}/>
-      </div>
-    )
+      return (
+        <div>
+          <Form onSubmit={this.updateChatHistory}>
+            <Form.Field onClick={this.changeId} onChange={this.handleIdAndMessage}  control={TextArea} label='Chat!' placeholder='Send em a message' />
+            <Form.Field control={Button}>Submit</Form.Field>
+          </Form>
+          <ChatList messages={this.props.messages}/>
+        </div>
+      )
   }
 }
 

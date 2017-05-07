@@ -15,6 +15,7 @@ const EngageReqListEntries = (props) => {
     props.fetchMessages(currMessages);
     props.fetchId(currentEngagement.id);
   }
+  // currMessages = [...props.msgs, ...currMessages];
 
   // const postReview = () => {
   //   const config = {
