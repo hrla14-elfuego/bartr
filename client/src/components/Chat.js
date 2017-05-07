@@ -19,17 +19,17 @@ class Chat extends React.Component {
   }
 
   changeId(){
-    this.setState({messages:[]})
+    // this.setState({messages:[]})
     this.setState({engagementId: this.props.id})
   }
   
   handleMessage(event) {
     event.preventDefault();
     this.setState({message: event.target.value});
-    console.log("this is message in chat 123: ", this.state.message)
   }
   
-  updateChatHistory() {
+  updateChatHistory(event) {
+    event.preventDefault();
     const config = {
       headers: {'Authorization': 'Bearer ' + localStorage.id_token,
                 'Content-Type': 'application/json' }
@@ -39,7 +39,11 @@ class Chat extends React.Component {
       "message": this.state.message
     }, config)
     .then(res => {
-      this.setState({messages: [this.state.message, ...this.state.messages]});
+      console.log(res);
+      this.props.fetchChatMessages(res.data.message);
+      console.log('props in post req ', this.props.messages);
+      // messages = this.props.messages;
+      // console.log('messages in post req ', messages)
     })
     .catch(err => {
       if(err){
@@ -50,20 +54,19 @@ class Chat extends React.Component {
 
   handleIdAndMessage(event) {
     this.handleMessage(event);
-    this.changeId();
+    // this.changeId();
   }
 
   render() {
-    let messages = [...this.props.messages, ...this.state.messages.reverse()];
-    return (
-      <div>
-        <Form onSubmit={this.updateChatHistory}>
-          <Form.Field onChange={this.handleIdAndMessage}  control={TextArea} label='Chat!' placeholder='Send em a message' />
-          <Form.Field control={Button}>Submit</Form.Field>
-        </Form>
-        <ChatList messages={messages}/>
-      </div>
-    )
+      return (
+        <div>
+          <Form onSubmit={this.updateChatHistory}>
+            <Form.Field onClick={this.changeId} onChange={this.handleIdAndMessage}  control={TextArea} label='Chat!' placeholder='Send em a message' />
+            <Form.Field control={Button}>Submit</Form.Field>
+          </Form>
+          <ChatList messages={this.props.messages}/>
+        </div>
+      )
   }
 }
 

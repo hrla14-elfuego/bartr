@@ -18,6 +18,7 @@ class EngageReq extends React.Component {
       this.fetchCurrentEngagement = this.fetchCurrentEngagement.bind(this);
       this.fetchEngagements = this.fetchEngagements.bind(this);
       this.fetchCurrentId = this.fetchCurrentId.bind(this);
+      this.fetchChatMessages = this.fetchChatMessages.bind(this);
   }
 
   componentDidMount () {
@@ -58,15 +59,20 @@ class EngageReq extends React.Component {
     this.setState({currentEngagement: this.state.currentEngagement});
   }
 
+  fetchChatMessages(chatMsg) {
+    this.setState({messages:[chatMsg, ...this.state.messages]})
+  }
+
   render() {
     return(
       <div>
         <EngageReqList 
+          msgs={this.state.messages}
           currentEngagement={this.state.currentEngagement} 
           fetchEngagements={this.fetchEngagements}
           fetchId={this.fetchCurrentId} 
           fetchMessages={this.fetchMessages}/>
-        <Chat id={this.state.id} messages={this.state.messages}/>
+        <Chat id={this.state.id} fetchChatMessages={this.fetchChatMessages} messages={this.state.messages} currentEngagement={this.state.currentEngagement}/>
       </div>
     )
   }

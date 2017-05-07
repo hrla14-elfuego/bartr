@@ -8,13 +8,14 @@ const EngageReqListEntries = (props) => {
   let currentEngagement = props.currentEngagement;
 
   _.each(currentEngagement.messages, message => {
-    currMessages = [message.message, ...currMessages] 
+    currMessages = [...currMessages, message.message] 
   })
 
   const messageAndId = () => {
     props.fetchMessages(currMessages);
     props.fetchId(currentEngagement.id);
   }
+  // currMessages = [...props.msgs, ...currMessages];
 
   // const postReview = () => {
   //   const config = {
