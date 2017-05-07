@@ -1,11 +1,19 @@
 const webpack = require('webpack');
 const path = require('path');
 
-const SRC_DIR = path.resolve(__dirname, 'client/src');
-const BUILD_DIR = path.resolve(__dirname, 'client/build');
+const SRC_DIR = path.resolve(__dirname, './client/src/');
+const BUILD_DIR = path.resolve(__dirname, './client/build/');
 
 module.exports = {
-  entry: path.resolve(SRC_DIR, 'bartr.js'),
+  // entry: path.resolve(SRC_DIR, 'index.js'),
+  entry: {
+    'app': [
+      'react-hot-loader/patch',
+      "webpack-dev-server/client?http://localhost:8080",
+        'webpack/hot/dev-server',
+      './client/src/index'
+    ]
+  },
   output: {
     filename: 'bundle.js',
     path: BUILD_DIR
@@ -13,19 +21,33 @@ module.exports = {
   module: {
     rules: [
     {
-      loader: 'babel-loader',
-      exclude: /node_modules/,
       test: /\.js$/,
+      loader: 'babel-loader?cacheDirectory',
+      exclude: /node_modules/,
       query: {
+        cacheDirectory: true,
         presets: ['es2015', 'react'],
-        plugins: ['transform-object-rest-spread']
+        plugins: ['transform-object-rest-spread','react-hot-loader/babel']
       }
-    }, 
+    },
     {
       test: /\.css$/,
       use: ['style-loader', 'css-loader']
     }
     ]
   },
-  watch: true
+  // devServer: {
+  //   contentBase: "./client/static",
+  //   publicPath: "/",
+  //   hot: true,
+  //   inline: true
+  // },
+  devtool: 'eval',
+  cache: true,
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'API_ENDPOINT': JSON.stringify("http://localhost:5000")
+    })
+  ]
 };

@@ -154,5 +154,10 @@ h2 {
 
 /* Standard syntax */
 @keyframes example {
-    from {background: red;}
-    to {background: yellow;}
+  from {
+    background: red;
+  }
+  to {
+    background: yellow;
+  }
+}
