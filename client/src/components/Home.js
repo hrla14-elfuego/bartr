@@ -5,7 +5,7 @@ import { each } from 'lodash';
 import './styles/styles.css'
 import { Parallax, Background } from 'react-parallax';
 import { Dropdown, Input, Button, Header, Image, Grid } from 'semantic-ui-react';
-import {Carousel} from "react-bootstrap"
+import {Carousel} from "react-bootstrap";
 import Autocomplete from 'react-google-autocomplete';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import { Link } from 'react-router';
