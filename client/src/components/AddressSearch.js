@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
-import Autocomplete from 'react-google-autocomplete';
 import { Icon } from 'semantic-ui-react';
 import { Dropdown, Input, Button, Header, Image, Grid } from 'semantic-ui-react';
+import Geosuggest from 'react-geosuggest';
 
 export default class AddressSearch extends Component {
   // static propTypes = {
@@ -13,15 +13,15 @@ export default class AddressSearch extends Component {
     return (
       <form className='searchform'>
         <Icon size='big' name='search' /><Input placeholder="Enter Your Location">
-        <Autocomplete
-          style={{width: 600}}
-          // onChange={this.props.addressEntered}
-          onPlaceSelected={(loc) => {
+        <Geosuggest
+          country="us"
+          types={['geocode']}
+          placeholder="Type your address!"
+          initialValue={this.props.AddressSearch.address}
+          onSuggestSelect={(loc) => {
             console.log('location selected')
-            this.props.doAddressEntered(loc.formatted_address, loc.geometry.location.lat(), loc.geometry.location.lng())
+            this.props.doAddressEntered(loc.label, loc.location.lat, loc.location.lng)
           }}
-          types={['address']}
-          componentRestrictions={{country: "USA"}}
         />
       </Input>
       </form>

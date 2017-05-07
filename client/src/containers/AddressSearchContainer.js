@@ -5,7 +5,7 @@ import { addressEntered } from '../actions/AddressSearchActions'
 
 const mapStateToProps = (state) => {
   return {
-    AddressSearch: state.userEnteredAddress
+    AddressSearch: state.AddressSearch
   }
 };
 

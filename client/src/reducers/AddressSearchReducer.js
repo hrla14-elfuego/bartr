@@ -1,6 +1,6 @@
 import * as addressAction from '../actions/actionTypes';
 
-export default function AddressSearchReducer(state = null, action) {
+export default function AddressSearchReducer(state = {address: ''}, action) {
   switch(action.type) {
     case addressAction.ADDRESS_ENTERED:
       console.log('reducer handling address entered action');
