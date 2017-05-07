@@ -12,8 +12,6 @@ class EditProfile extends React.Component {
 
     this.state = {
       userInfo: {
-        email: '',
-        name: '',
         address: '',
         lat: '',
         lng: '',
@@ -24,8 +22,6 @@ class EditProfile extends React.Component {
       listOfServices: []
     }
     this.getServices = this.getServices.bind(this);
-    this.emailChange = this.emailChange.bind(this);
-    this.nameChange = this.nameChange.bind(this);
     this.addressChange = this.addressChange.bind(this);
     this.newServiceChange = this.newServiceChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -134,14 +130,6 @@ class EditProfile extends React.Component {
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Form.Field>
-          <label style={{fontSize: '20px'}}>Email</label>
-          <Input style={{width: '400px', height: '25px', fontSize: '20px'}} placeholder='Email' onChange={(e) => {this.emailChange(e)}}/>
-        </Form.Field>
-        <Form.Field>
-          <label style={{fontSize: '20px'}}>Name</label>
-          <Input style={{width: '400px', height: '25px', fontSize: '20px'}} placeholder='Name' onChange={(e) => {this.nameChange(e)}}/>
-        </Form.Field>
         <Form.Field>
           <label style={{fontSize: '20px'}}>Address</label>
           <Input placeholder='Address' style={{ display: 'inline-block' }}>

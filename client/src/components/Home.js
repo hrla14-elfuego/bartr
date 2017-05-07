@@ -41,7 +41,7 @@ class Home extends React.Component {
           })
           if (!inDb) {
             console.log('NOT IN DB');
-            this.getAuth0UserInfo();
+            this.postNewUser();
           }
         })
     }
