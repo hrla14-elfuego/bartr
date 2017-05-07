@@ -42,6 +42,7 @@ const EngageReqListEntries = (props) => {
       swal({
         title: 'Engagement Complete!',
         text: 'We hope it was a pleasant exerience!',
+        confirmButtonText: "Check Past Engagements in the Menu",
         type: 'success'
       })
       props.fetchEngagements(data.data);
@@ -52,7 +53,7 @@ const EngageReqListEntries = (props) => {
   }
 
   return(
-    <Well>       
+    <Well >       
       <Well onClick={() => messageAndId()}>       
           <div>Reciever Name: {currentEngagement.receiver.name}</div>
           <div>Sender Name: {currentEngagement.sender.name}</div>

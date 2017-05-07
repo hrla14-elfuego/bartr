@@ -71,7 +71,7 @@ class PastEngagementsListEntry extends Component {
 
   render() {
     let engagement = this.props.engagement;
-
+    let name, currentUser;
     if(this.state.change === false) {
       return (
         <Well onClick={this.handleClick}>
@@ -80,7 +80,7 @@ class PastEngagementsListEntry extends Component {
         </Well>
       )
     } else {
-      if(!this.props.engagement.reviews[0] || !this.props.engagement.reviews[1]) {
+      if(!this.props.engagement.reviews[0] && !this.props.engagement.reviews[1]) {
         return(
           <Well>
             <Well onClick={this.handleClick}>
@@ -90,36 +90,88 @@ class PastEngagementsListEntry extends Component {
             <br/>
             <Form value={engagement} onSubmit={() => {this.handleReviewSubmit(event, engagement)}}>
               <Form.Field onChange={this.handleReviewText} control={TextArea} label='Leave a Review!' placeholder='Write your Review' />
+              <br/>
+              <Dropdown onChange={this.handleSelectedScore} placeholder="Score this Engagement" fluid selection options={options.options} style={{width: 600}}>
+              </Dropdown>
+              <br/>
               <Form.Field control={Button}>Submit</Form.Field>
             </Form>
-            <br/>
-            <Dropdown onChange={this.handleSelectedScore} placeholder="Score this Engagement" fluid selection options={options.options} style={{width: 600}}>
-            </Dropdown>
             <br/>
             Message History
             <MessagesList messages={this.state.messages}/>
           </Well>
         )
       } else {
-        return(
-          <Well>
-            <Well onClick={this.handleClick}>
-              <div>{this.props.engagement.sender.name}</div>
-              <div>{this.props.engagement.reviews[0].review}</div>
-              <div>{this.props.engagement.reviews[0].score}</div>
-              <div>{this.props.engagement.receiver.name}</div>
-              <div>{this.props.engagement.reviews[1].review}</div>
-              <div>{this.props.engagement.reviews[1].score}</div>
+        if(!this.props.engagement.reviews[1]) {
+          if(this.props.engagement.reviews[0].sender_id === this.props.engagement.sender.id) {
+            currentUser = this.props.engagement.sender;
+            name = this.props.engagement.sender.name;
+          } else {
+            currentUser = this.props.engagement.receiver;
+            name = this.props.engagement.receiver.name;
+          }
+          if(currentUser.email === JSON.parse(localStorage.profile).email) {
+            return(
+              <Well>
+                <Well onClick={this.handleClick}>
+                  <div>{this.props.engagement.sender.name}</div>
+                  <div>{this.props.engagement.receiver.name}</div>
+                </Well>
+                <br/>
+                  <div>{name}</div>
+                  <div>Review: {this.props.engagement.reviews[0].review}</div>
+                  <div>Score: {this.props.engagement.reviews[0].score}</div>
+                <br/>
+                Message History
+                <MessagesList messages={this.state.messages}/>
+              </Well>
+            )
+        } else if (currentUser.email !== JSON.parse(localStorage.profile).email) {
+          return (
+            <Well>
+              <Well onClick={this.handleClick}>
+                <div>{this.props.engagement.sender.name}</div>
+                <div>{this.props.engagement.receiver.name}</div>
+              </Well>
+              <br/>
+              <Form value={engagement} onSubmit={() => {this.handleReviewSubmit(event, engagement)}}>
+                <Form.Field onChange={this.handleReviewText} control={TextArea} label='Leave a Review!' placeholder='Write your Review' />
+                <br/>
+                <Dropdown onChange={this.handleSelectedScore} placeholder="Score this Engagement" fluid selection options={options.options} style={{width: 600}}>
+                </Dropdown>
+                <br/>
+                <Form.Field control={Button}>Submit</Form.Field>
+              </Form>
+              <br/>
+              Message History
+              <MessagesList messages={this.state.messages}/>
             </Well>
+          )
+        } 
+      } else {
+        return (
+          <Well>
+            <Well onClick={this.handleClick} >
+              <div>{this.props.engagement.sender.name}</div>
+              <div>{this.props.engagement.receiver.name}</div>
+            </Well>
+            <br/>
+              <div>{this.props.engagement.sender.name}</div>
+              <div>Review: {this.props.engagement.reviews[0].review}</div>
+              <div>Score: {this.props.engagement.reviews[0].score}</div>
+            <br/>
+              <div>{this.props.engagement.receiver.name}</div>
+              <div>Review: {this.props.engagement.reviews[1].review}</div>
+              <div>Score: {this.props.engagement.reviews[1].score}</div>
             <br/>
             Message History
             <MessagesList messages={this.state.messages}/>
           </Well>
-        )
+          )
+        }
       }
     }
   }
 }
 
-// onChange={this.changeSelectedService} 
 export default PastEngagementsListEntry;

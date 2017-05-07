@@ -1,16 +1,19 @@
 import React from 'react';
 import { Header, Image, Card } from 'semantic-ui-react'
+import './styles/styles.css';
+
 
 const ChatListEntry = (props) => {
   return(
-    <Card style={{textAlign: "center"}}>
+    <div className="chatlistentry" >
+    <Card >
       <Card.Content >
-        <Card.Description>
-          <Header>Message</Header>
-          <p>{props.message}</p>
+        <Card.Description>          
+          <p className="bubble">{props.message}</p>
         </Card.Description>
       </Card.Content>
     </Card>
+    </div>
   )
 }
 
