@@ -19,6 +19,7 @@ const ServiceProviderList = (props) => {
             swal({
               title: 'Requested Service!',
               text: user.name + " for " + user.service.type + " service",
+              confirmButtonText: "Check Current Engagements in the Menu",
               type: 'success'
             })
             props.fetchRemainingServiceUsers(data.data);
