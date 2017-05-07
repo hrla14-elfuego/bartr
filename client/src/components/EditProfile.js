@@ -59,7 +59,7 @@ class EditProfile extends React.Component {
         'Authorization': 'Bearer ' + localStorage.id_token
       }
     }
-    axios.put(`/api/users/${this.state.userInfo.auth0_id}`, this.state.userInfo, config)
+    axios.put(`${API_ENDPOINT}/api/users/${this.state.userInfo.auth0_id}`, this.state.userInfo, config)
       .then((res) => {
         console.log(res);
       })

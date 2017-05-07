@@ -28,7 +28,7 @@ class EngageReq extends React.Component {
     const config = {
       headers: {'Authorization': 'Bearer ' + localStorage.id_token}
     };
-    axios.get("/api/engagements", config)
+    axios.get(API_ENDPOINT + "/api/engagements", config)
     .then(res => {
       _.each(res.data, data =>{
         this.setState({currentEngagement: [...this.state.currentEngagement, data]})
