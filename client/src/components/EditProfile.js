@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import { each } from 'lodash';
 import { Button, Checkbox, Form, Dropdown, Input } from 'semantic-ui-react';
-// import { ServiceOptions } from '../Services/ServiceOptions';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import Autocomplete from 'react-google-autocomplete';
 import './styles/styles.css';
@@ -92,19 +91,16 @@ class EditProfile extends React.Component {
     this.setState({
       userInfo: {...this.state.userInfo, email: event.target.value}
     })
-    // console.log(event.target.value);
   }
 
   nameChange(event) {
     this.setState({
       userInfo: {...this.state.userInfo, name: event.target.value}
     })
-    // console.log(event.target.value);
   }
  
   newServiceChange(event) {
     this.setState({service: event.target.value})
-    console.log(this.state.service);
   }
 
   addressChange(event, address) {
@@ -112,7 +108,6 @@ class EditProfile extends React.Component {
       if (err) { 
         console.log('Error: ', err);
       } else {
-        // console.log(latLng.lat, latLng.lng);
         this.setState({
           userInfo: {...this.state.userInfo,
             address: address || event,
