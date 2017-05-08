@@ -141,7 +141,6 @@ class ServiceMap extends Component {
 
 
   loadMap() {
-    console.log('loadmap location', this.props.AddressSearch.lat, this.props.AddressSearch.long)
     const homeUrl = "https://cdn3.iconfinder.com/data/icons/map-markers-1/512/residence-512.png";
       const google = window.google;
       const maps = google.maps;
