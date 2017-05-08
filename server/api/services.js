@@ -49,6 +49,27 @@ router.get('/find', (req, res) => {
       })
 });
 
+router.post('/', (req, res, next) => {
+  db.Service.findOne({
+    where:{
+      type: req.body.type
+    }
+  })
+    .then(data => {
+      if(!data) {
+        db.Service.create({
+          type: req.body.type
+        })
+          .then(data => {
+            res.status(201).send(data);
+            console.log('POST REQ for Services successful: ', data);
+          })
+          .catch(next);
+      }
+    })
+    .catch(next);
+})
+
 // router.get('/:type/:address', (req, res) => {
 //     db.User.findAll({
 //       where: {
