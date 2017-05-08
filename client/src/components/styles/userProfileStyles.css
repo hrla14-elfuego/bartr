@@ -1,21 +1,24 @@
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400|Lato:400,300|Coda|Open+Sans);
 
-body {
-  background: #f8f5f0;
-  font-family: "Open sans", sans-serif;
+.body {
+  /*background: #f8f5f0;*/
+  background-image: url('https://openclipart.org/download/221722/Cloud-Network.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .profile-page-content {
   margin: auto;
-  margin-top: 8%;
   width: 52em;
 }
 
 .card {
   background: #fff;
-  border-radius: 0.3rem;
-  box-shadow: 5px 5px 5px #898989;
-  border: .17em solid #5D5D5D;
+  border-radius: 1.4rem;
+  border: .22em solid #5D5D5D;
+  box-shadow: 5px 5px 5px #D6D6D6;
   margin-bottom: 1em; 
   padding: 0.1em;
 }
@@ -25,10 +28,10 @@ body {
 
 
 
-.user-profile-page .user-profile-img {
+/*.user-profile-page .user-profile-img {
 	margin: 0 auto;
   text-align: center;
-}
+}*/
 
 .user-profile-page .user-profile-img {
   background-image: url("/img/high-resolution-wallpaper-city-wallpaper-picture-night.jpg");
@@ -43,6 +46,7 @@ body {
   overflow: hidden; 
   position: relative; 
   width: 100%; 
+  border-radius: 10px 10px 0 0 ;
 }
 
 .user-profile-page .user-profile-img .avatar {
@@ -90,17 +94,19 @@ body {
 }
 
 .user-profile-page .user-profile-info .name {
-  font-family: "Lato", sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   font-size: 3.5em;
+  font-weight: bold;
   margin-top: 0.35em;
   color: #292f33;
   margin-bottom: .1em; 
 }
 
 .user-profile-page .user-profile-info .service {
-	font-family: "Lato", sans-serif;
-  color: white;
-  text-shadow: -1px 0 black, 0 3.5px black, 1px 0 black, 0 3px black;
+	font-family: 'Ubuntu', sans-serif;
+  color: #477BC7;
+  font-weight: bold;
+  /*text-shadow: 0px 0 black, 0 0px black, 0px 0 black, 1px 1px black;*/
   font-size: 2em;
   margin-top: 0;
   margin-bottom: 1.5em; 
@@ -114,4 +120,7 @@ body {
 .profile-page-content .google-maps {
   width: absolute;
   height: 600px;
+  border-radius: 1.4em;
+  border: .22em solid #5D5D5D;
+  box-shadow: 5px 5px 5px #D6D6D6;
 }

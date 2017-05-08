@@ -114,20 +114,22 @@ class UserProfile extends React.Component {
   render() {
     console.log(this.state)
     return(
-      <div className="profile-page-content">
-        <div className="user-profile-page card">
-          <div className="user-profile-img">
-            {/*<img className="bg-top" src="http://www.petsprin.com/i/2016/12/high-resolution-wallpaper-city-wallpaper-picture.jpg" />*/}
-            <img className="avatar" src={this.props.profile.picture_large ? this.props.profile.picture_large : 'http://donatered-asset.s3.amazonaws.com/assets/default/default_user-884fcb1a70325256218e78500533affb.jpg'}/>
+      <div className='body'>
+        <div className="profile-page-content">
+          <div className="user-profile-page card">
+            <div className="user-profile-img">
+              {/*<img className="bg-top" src="http://www.petsprin.com/i/2016/12/high-resolution-wallpaper-city-wallpaper-picture.jpg" />*/}
+              <img className="avatar" src={this.props.profile.picture_large ? this.props.profile.picture_large : 'http://donatered-asset.s3.amazonaws.com/assets/default/default_user-884fcb1a70325256218e78500533affb.jpg'}/>
+            </div>
+            <div className="user-profile-info">
+              <h1 className="name">{this.state.name}</h1>
+              <p className="service">{this.state.service ? this.state.service : null}</p>
+            </div> 
+            <div className="address">{this.state.address ? this.state.address : null}</div>
+            <Link to='/editprofile'><button>Edit Profile</button></Link>
           </div>
-          <div className="user-profile-info">
-            <h1 className="name">{this.state.name}</h1>
-            <p className="service">{this.state.service ? this.state.service : null}</p>
-          </div> 
-          <div className="address">{this.state.address ? this.state.address : null}</div>
-          <Link to='/editprofile'><button>Edit Profile</button></Link>
+          <div className="google-maps" ref="map"/>
         </div>
-        <div className="google-maps" ref="map"/>
       </div>
     )
   }
