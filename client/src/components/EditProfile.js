@@ -89,8 +89,8 @@ class EditProfile extends React.Component {
         'Authorization': 'Bearer ' + localStorage.id_token
       }
     }
-    if (!this.state.service) {
-      axios.put(`${API_ENDPOINT}/api/users/${auth0_id}`, this.state.userInfo, config)
+    if(!this.state.service) {
+      axios.put(`${API_ENDPOINT}/api/users/`, this.state.userInfo, config)
         .then((res) => {
           console.log(res);
         })
@@ -98,7 +98,7 @@ class EditProfile extends React.Component {
           console.log('Err: ', err);
         })
     } else {
-      axios.put(`${API_ENDPOINT}/api/users/${auth0_id}`, this.state.userInfo, config)
+      axios.put(`${API_ENDPOINT}/api/users/`, this.state.userInfo, config)
         .then((res) => {
           console.log(res);
         })
@@ -115,6 +115,7 @@ class EditProfile extends React.Component {
           console.log('Error in Service POST: ', err);
         })
     }
+
     swal({
       title: 'Updated Profile!',
       type: 'success'
@@ -122,6 +123,7 @@ class EditProfile extends React.Component {
     function() {
       hashHistory.push('/profile')
     });
+
   }
 
   emailChange(event) {
@@ -159,7 +161,8 @@ class EditProfile extends React.Component {
           userInfo: {...this.state.userInfo,
             address: address || event,
             geo_lat: latLng.lat,
-            geo_lng: latLng.lng
+            geo_long: latLng.lng
+
           }
         })
         console.log(this.state.userInfo);
