@@ -11,6 +11,7 @@ module.exports = {
       'react-hot-loader/patch',
       "webpack-dev-server/client?http://localhost:8080",
         'webpack/hot/dev-server',
+      "babel-polyfill",
       './client/src/index'
     ]
   },
@@ -27,7 +28,7 @@ module.exports = {
       query: {
         cacheDirectory: true,
         presets: ['es2015', 'react'],
-        plugins: ['transform-object-rest-spread','react-hot-loader/babel']
+        plugins: ['transform-object-rest-spread', 'transform-regenerator', 'react-hot-loader/babel']
       }
     },
     {
