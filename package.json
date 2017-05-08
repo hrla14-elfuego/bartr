@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "webpack -d -w",
-    "hotstart": "webpack-dev-server"
+    "hotstart": "webpack-dev-server",
+    "heroku-postbuild": "webpack --config ./webpack.prod.config.js --progress --colors"
   },
   "repository": {
     "type": "git",

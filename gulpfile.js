@@ -5,7 +5,7 @@ const Promise = require('bluebird');
 const sequelize_fixtures = require('sequelize-fixtures');
 const env = require('gulp-env');
 const webpack = require ('webpack')
-const webpackConfig = require('./webpack.config');
+const webpackDevConfig = require('./webpack.config.dev');
 const WebpackDevServer = require("webpack-dev-server");
 
 env({
@@ -63,7 +63,7 @@ gulp.task('watch', function() {
 
 gulp.task("webpackhot", function(callback) {
   // Start a webpack-dev-server
-  var compiler = webpack(webpackConfig);
+  var compiler = webpack(webpackDevConfig);
 
   new WebpackDevServer(compiler, {
     contentBase: "./client/static",
