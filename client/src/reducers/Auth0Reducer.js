@@ -1,7 +1,7 @@
 import * as action from '../actions/actionTypes';
 import AuthService from '../utils/AuthService';
 
-export default function authReducer(state = {
+export default function Auth0Reducer(state = {
   isAuthenticated: !AuthService.isTokenExpired(),
   isFetching: false,
   profile: AuthService.getProfile(),

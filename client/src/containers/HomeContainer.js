@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import { loginRequest, logoutSuccess, checkLogin } from '../actions/auth0';
+import { loginRequest, logoutSuccess, checkLogin } from '../actions/Auth0Actions';
 import Home from '../components/Home';
 
 
 const mapStateToProps = (state) => {
-  const { isAuthenticated, profile, error } = state.auth
+  const { isAuthenticated, profile, error } = state.Auth0
   return {
     isAuthenticated,
     profile,

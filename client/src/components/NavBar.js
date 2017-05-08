@@ -6,7 +6,7 @@ import { Navbar, MenuItem, NavItem, NavDropdown, Nav } from 'react-bootstrap';
 import { Icon } from 'semantic-ui-react';
 import './styles/styles.css';
 import { hashHistory } from 'react-router';
-import { loginRequest, loginSuccess, logoutSuccess, setToken } from '../actions/auth0';
+import { loginRequest, loginSuccess, logoutSuccess, setToken } from '../actions/Auth0Actions';
 import { emitr } from '../utils/AuthService';
 import swal from 'sweetalert'
 
@@ -65,7 +65,7 @@ class NavBar extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { isAuthenticated, profile, error } = state.auth;
+  const { isAuthenticated, profile, error } = state.Auth0;
   return {
     isAuthenticated,
     profile,
