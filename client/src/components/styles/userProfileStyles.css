@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400|Lato:400,300|Coda|Open+Sans);
 
-body {
+.body {
   /*background: #f8f5f0;*/
   background-image: url('https://openclipart.org/download/221722/Cloud-Network.svg');
   background-size: cover;
@@ -11,7 +11,6 @@ body {
 
 .profile-page-content {
   margin: auto;
-  margin-top: 8%;
   width: 52em;
 }
 
@@ -29,10 +28,10 @@ body {
 
 
 
-.user-profile-page .user-profile-img {
+/*.user-profile-page .user-profile-img {
 	margin: 0 auto;
   text-align: center;
-}
+}*/
 
 .user-profile-page .user-profile-img {
   background-image: url("/img/high-resolution-wallpaper-city-wallpaper-picture-night.jpg");
