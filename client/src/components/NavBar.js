@@ -16,7 +16,6 @@ class NavBar extends React.Component {
     super(props);
 
     this.logoutSequence = this.logoutSequence.bind(this);
-    console.log('this is props in navbar: ', this.props)
   }
 
   componentDidMount() {
@@ -35,11 +34,9 @@ class NavBar extends React.Component {
       title: 'Logout Successful!',
       type: 'success'
     });
-    console.log('invoked');
   }
 
   render() {
-    console.log('this.props in navbar: ', this.props);
       return (
         <Navbar style={{backgroundColor: '#42E9D7', border: '1px solid gray'}} inverse collapseOnSelect>
           <Navbar.Header>
@@ -83,7 +80,6 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  console.log('mapping dispatch to props');
   return {
     onLoginClick: () => dispatch(loginRequest()),
     onLogoutClick: () => dispatch(logoutSuccess()),
