@@ -15,6 +15,7 @@ import {
   loginFailure,
   loginSuccess,
 } from '../reducers/Auth0Reducer';
+import swal from 'sweetalert'
 
 export function* loginRequestSaga() {
   const lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, { auth: { redirect: false } });
@@ -81,5 +82,9 @@ export function* watchLogout() {
     removeStoredAuthState();
 
     yield put(push('/'));
+    swal({
+      title: 'Logout Successful!',
+      type: 'success'
+    });
   }
 }
