@@ -4,7 +4,7 @@ import NavBar from './NavBar';
 import { each } from 'lodash';
 import './styles/styles.css'
 import { Parallax, Background } from 'react-parallax';
-import { Dropdown, Input, Button, Header, Image, Grid } from 'semantic-ui-react';
+import { Dropdown, Input, Button, Header, Image, Grid, Modal } from 'semantic-ui-react';
 import {Carousel} from "react-bootstrap";
 import Autocomplete from 'react-google-autocomplete';
 import { geocodeByAddress } from 'react-places-autocomplete';
@@ -141,22 +141,7 @@ class Home extends React.Component {
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-
-
-{/*<div className="content">
-   <div className="circle"></div>
-   <div className="circle"></div>
-   <div className="circle"></div>
-   <div className="circle"></div>
-   <div className="circle"></div>
-   <div className="circle"></div>
-   <div className="circle"></div>
-   <div className="circle"></div>
-</div>*/}
-
-
     </div>
-
     )
   }
 }
