@@ -69,7 +69,6 @@ class Home extends React.Component {
 
   handleAddress(event) {
     localStorage.address = event.target.value;
-    console.log(localStorage);
     event.preventDefault();
     this.setState({
       address: event.target.value
