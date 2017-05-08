@@ -66,7 +66,7 @@ class EngageReq extends React.Component {
   render() {
     return(
       <div >
-        <h2 className="title" >Current Engagements </h2>
+        <h2  className="title" style={{fontFamily: 'Ubuntu', fontWeight: "normal"}} >Current Engagements </h2>
         <EngageReqList 
         
           msgs={this.state.messages}
@@ -81,3 +81,4 @@ class EngageReq extends React.Component {
 }
 
 export default EngageReq;
+

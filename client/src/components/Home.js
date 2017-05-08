@@ -90,9 +90,9 @@ class Home extends React.Component {
 
       <section>
         <div className="block">
-          <p><span className="first-character ny">B</span>artr is the best app in the world.  If you think otherwise you are just trash.  I repeat just trash.  Let me give you a quick rundown on what Bartr is all about.  You trade services and what not with other people for services.  if you dont understand that then you are just a lost cause.  Remeber use our app because its the best not because i told you.  But use this app just this is blah blah blah text here i need this to look nice fuck</p>
-          <p className="line-break margin-top-10"></p>
-          <p className="margin-top-10">Congratulations! You’ree not perfect! It’s ridiculous to want to be perfect anyway. But then, everybody’s ridiculous sometimes, except perfect people. You know what perfect is? Perfect is not eating or drinking or talking or moving a muscle or making even the teensiest mistake. Perfect is never doing anything wrong – which means never doing anything at all. Perfect is boring! So you’re not perfect! Wonderful! Have fun! Eat things that give you bad breath! Trip over your own shoelaces! Laugh! Let somebody else laugh at you! Perfect people never do any of those things. All they do is sit around and sip weak tea and think about how perfect they are. But they’re really not one-hundred-percent perfect anyway. You should see them when they get the hiccups! Phooey! Who needs ’em? You can drink pickle juice and imitate gorillas and do silly dances and sing stupid songs and wear funny hats and be as imperfect as you please and still be a good person. Good people are hard to find nowadays. And they’re a lot more fun than perfect people any day of the week.</p>
+          <p><span className="first-character ny">B</span>artr is a peer to peer networking app that allows users to exchange services for services. In today's economy, there are countless individuals with valuable skills who are unable to make use of said skills. We serve to answer today's economic issue by providing the opportunity for talented individuals to exercise their skills in exchange for goods or services.</p>
+          
+          
         </div>
       </section>
 
