@@ -75,8 +75,8 @@ class PastEngagementsListEntry extends Component {
     if(this.state.change === false) {
       return (
         <Well onClick={this.handleClick}>
-          <div>{this.props.engagement.sender.name}</div>
-          <div>{this.props.engagement.receiver.name}</div>
+          <div><p className="thick">{this.props.engagement.sender.name}</p></div>
+          <div><p className="thick">{this.props.engagement.receiver.name}</p></div>
         </Well>
       )
     } else {
@@ -84,8 +84,8 @@ class PastEngagementsListEntry extends Component {
         return(
           <Well>
             <Well onClick={this.handleClick}>
-              <div>{this.props.engagement.sender.name}</div>
-              <div>{this.props.engagement.receiver.name}</div>
+              <div><p className="thick">{this.props.engagement.sender.name} </p></div>
+              <div><p className="thick">{this.props.engagement.receiver.name}</p></div>
             </Well>
             <br/>
             <Form value={engagement} onSubmit={() => {this.handleReviewSubmit(event, engagement)}}>
@@ -97,7 +97,7 @@ class PastEngagementsListEntry extends Component {
               <Form.Field control={Button}>Submit</Form.Field>
             </Form>
             <br/>
-            Message History
+            <p className="thick">Message History </p>
             <MessagesList messages={this.state.messages}/>
           </Well>
         )
@@ -120,9 +120,9 @@ class PastEngagementsListEntry extends Component {
                 <br/>
                   <div>{name}</div>
                   <div><p className="thick">Review: </p>{this.props.engagement.reviews[0].review}</div>
-                  <div>Score: {this.props.engagement.reviews[0].score}</div>
+                  <div><p className="thick">Score: </p> {this.props.engagement.reviews[0].score}</div>
                 <br/>
-                Message History
+                <p className="thick">Message History</p>
                 <MessagesList messages={this.state.messages}/>
               </Well>
             )
@@ -143,7 +143,7 @@ class PastEngagementsListEntry extends Component {
                 <Form.Field control={Button}>Submit</Form.Field>
               </Form>
               <br/>
-              Message History
+              <p className="thick">Message History </p>
               <MessagesList messages={this.state.messages}/>
             </Well>
           )
