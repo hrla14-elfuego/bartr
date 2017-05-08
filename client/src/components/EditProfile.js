@@ -120,7 +120,7 @@ class EditProfile extends React.Component {
       type: 'success'
     },
     function() {
-      hashHistory.push('profile')
+      hashHistory.push('/profile')
     });
   }
 
@@ -185,7 +185,7 @@ class EditProfile extends React.Component {
   render() {
     console.log('this.props in editprofile: ', this.props)
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form>
         <Form.Field>
           <label style={{fontSize: '20px'}}>Name</label>
           <Input style={{ width: '400px', height: '25px', fontSize: '20px', marginBottom: '.5em'}}
@@ -218,7 +218,7 @@ class EditProfile extends React.Component {
           <label style={{fontSize: '20px'}}>Can't Find Your Skill? Add a Service!</label>
           <Input style={{width: '400px', height: '25px', fontSize: '20px'}} placeholder='Service' onChange={(event) => {this.newServiceChange(event)}}/>
         </Form.Field>
-        <h1><Button type='submit'>Submit</Button></h1>
+        <h1><Button type='button' onClick={this.handleSubmit}>Submit</Button></h1>
       </Form>
     )
   }
