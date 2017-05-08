@@ -18,6 +18,9 @@ if (process.env.NODE_ENV === 'development') {
   sql= new Sequelize(process.env.DATABASE_URL, {
     "dialect":"postgres",
     "ssl":true,
+    "define": {
+      "underscored": true
+    },
     "dialectOptions":{
       "ssl":{
         "require":true
