@@ -259,8 +259,9 @@ h3 {
     overflow: auto;
     left: 0;
     width: 35%;
-    height: 100vh;
+    height: 100%;
     border: 1px solid #73AD21;
+    background-color: black;
 }
 .chatlistentry {
     
@@ -269,9 +270,9 @@ h3 {
     margin: 0 auto;
 }
 .chatbox {  
-    position: absolute;
+  position: absolute;
   right: 0;
-  background: url("http://wallpaper-gallery.net/images/cool-pics-for-wallpapers/cool-pics-for-wallpapers-2.jpg");
+  background: url("http://7-themes.com/data_images/collection/3/4443457-cool-backgrounds.png");
   width: 65%;
   overflow: auto;
   height: 100vh;
@@ -285,15 +286,24 @@ h3 {
 }
 
 .pastengagement {
-  background: url("http://wallpaper-gallery.net/images/cool-pics-for-wallpapers/cool-pics-for-wallpapers-2.jpg");
+  background: url("http://7-themes.com/data_images/collection/3/4443457-cool-backgrounds.png");
   position: absolute;
-  height: 100vh;
+  height:  1000vh;
   width: 100%;
 }
 
 p.thick {
     font-weight: bold;
     color: black;
+}
+
+h2.title {
+  font: italic bold 30px Georgia, serif;
+  color: white;
+  text-decoration: underline;
+  margin-top: -50px;
+  margin-bottom: -50px;
+  background-color: black
 }
 
 .servicemap {

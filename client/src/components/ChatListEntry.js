@@ -6,14 +6,14 @@ import './styles/styles.css';
 const ChatListEntry = (props) => {
   return(
     <div className="chatlistentry" >
-    <Card >
+    
       <Card.Content >
         <Card.Description>          
           <p className="bubble">{props.message}</p>
         </Card.Description>
       </Card.Content>
-    </Card>
-    </div>
+    <br/>
+    </div> 
   )
 }
 

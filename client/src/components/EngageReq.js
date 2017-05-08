@@ -66,13 +66,14 @@ class EngageReq extends React.Component {
   render() {
     return(
       <div >
+        <h2 className="title" >Current Engagements </h2>
         <EngageReqList 
         
           msgs={this.state.messages}
           currentEngagement={this.state.currentEngagement} 
           fetchEngagements={this.fetchEngagements}
           fetchId={this.fetchCurrentId} 
-          fetchMessages={this.fetchMessages}  className="engagereq"/>
+          fetchMessages={this.fetchMessages}  />
         <Chat id={this.state.id} fetchChatMessages={this.fetchChatMessages} messages={this.state.messages} currentEngagement={this.state.currentEngagement} />
       </div>
     )
