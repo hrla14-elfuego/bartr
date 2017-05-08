@@ -299,8 +299,9 @@ p.thick {
 .servicemap {
   background: url("http://7-themes.com/data_images/collection/3/4443457-cool-backgrounds.png");
   position: absolute;
-  height: 100vh;
-  width: 100%;
+  height: 180vh;
+  width: 100%;;
+  margin: 0 auto !important;
 }
 
 .googlemapsearch {
@@ -313,4 +314,11 @@ p.thick {
 .fluid{
   margin: 0 auto !important;
   left: 15px;
+}
+
+.googlemap {
+  width: 1000;
+  position: absolute;
+  height: absolute;
+  margin: 0 auto !important;
 }
