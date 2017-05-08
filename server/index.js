@@ -17,7 +17,7 @@ app.all('/*', function(req, res, next) {
 app.use(morgan());
 // app.use(expressSession({secret: 'bigboost'}));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, '../client/static')));
 
 const router = require('./router');
 
