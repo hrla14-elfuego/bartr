@@ -221,7 +221,6 @@ h3 {
   background: #ccc;
 }
 .container {
-  
   max-width: 50%;
   margin: 0 auto;
 }
@@ -244,10 +243,6 @@ h3 {
   -moz-border-radius: 20px;
   border-radius: 20px;
 }
-
-
-
-
 
 .engagereqmain{
     position: absolute;

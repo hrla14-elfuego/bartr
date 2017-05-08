@@ -25,7 +25,6 @@ class Home extends React.Component {
   }
   
   componentDidMount() {
-    console.log(localStorage.getItem('id_token'));
     if (localStorage.profile) {
       const config = {
         headers: {
@@ -52,10 +51,9 @@ class Home extends React.Component {
     const header = {
       Authorization: `Bearer ${localStorage.id_token}`
     }
-    console.log(localStorage.getItem('id_token'));
     axios.get('https://bartr.auth0.com/userinfo', header)
       .then((res) => {
-        console.log(res.data);
+
       })
   }
 
@@ -69,7 +67,6 @@ class Home extends React.Component {
 
   handleAddress(event) {
     localStorage.address = event.target.value;
-    console.log(localStorage);
     event.preventDefault();
     this.setState({
       address: event.target.value

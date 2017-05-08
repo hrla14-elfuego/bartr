@@ -64,7 +64,8 @@ const User = sql.define('user', {
 		},
 		auth0_id: {
 			type: Sequelize.STRING,
-			allowNull: false
+			allowNull: false,
+      unique: true
 		}
 }, {
 	indexes: [
