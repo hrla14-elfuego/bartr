@@ -200,19 +200,21 @@ class ServiceMap extends Component {
 
   render() {
     return (
-      <div style={{textAlign:'center'}}>
+      <div style={{textAlign:'center'}}  className="servicemap">
         <AddressSearchWithData />
         <br/>
         <form>
-          <Dropdown onChange={this.changeSelectedService} placeholder="Select Your Service" fluid selection options={this.state.serviceTypes} style={{width: 600}}>
+          <Dropdown onChange={this.changeSelectedService} placeholder="Select Your Service" fluid selection options={this.state.serviceTypes} style={{width: 500}} >
           </Dropdown>
         </form>
         <br/>
-        <div className="google-maps" ref="map" style={{width: 'absolute', height: 600}}></div>
+        <div  ref="map" style={{width: 1000, height: 500, left: 200}}></div>
         <br/>
         <br/>
         <br/>
-        <ServiceProviderList fetchRemainingServiceUsers={this.fetchRemainingServiceUsers} users={this.state.foundServiceUsers}/>
+
+        <ServiceProviderList style={{marginTop: "20px", left: 200}}fetchRemainingServiceUsers={this.fetchRemainingServiceUsers} users={this.state.foundServiceUsers} />
+
       </div>
     );
   }
