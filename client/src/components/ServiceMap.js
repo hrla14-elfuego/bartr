@@ -43,7 +43,6 @@ class ServiceMap extends Component {
   }
 
   componentDidUpdate() {
-    console.log('componentDidUpdate location', this.props.AddressSearch.lat, this.props.AddressSearch.long)
     // this.loadServicesTypes();
     this.loadMap();
     // this.loadServices()
@@ -75,11 +74,9 @@ class ServiceMap extends Component {
     if(this.state.selectedServiceType) {
       axios_config.params['services'] = this.state.selectedServiceType;
     }
-    
-    console.log(axios_config)
+
     axios.get(API_ENDPOINT + '/api/services/find', axios_config)
       .then(result => {
-        console.log('this is the result.data ', result.data)
         this.setState({foundServiceUsers: result.data}, () => {
           this.putMarkersOnMap(this.googleMap)
         })
