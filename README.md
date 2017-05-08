@@ -48,9 +48,9 @@ Access our app on bartr.life
 
 ## Built With
 
-* [React + Redux](https://facebook.github.io/react/docs/hello-world.html) & (https://github.com/reactjs/react-redux)
+* [React](https://facebook.github.io/react/docs/hello-world.html) & [Redux](https://github.com/reactjs/react-redux)
 * [Node + Express](https://expressjs.com/)
-* [SQLite3 + Sequelize + PostgreSQL](https://www.sqlite.org/) (https://doclets.io/sequelize/sequelize/doclets) (https://www.postgresql.org/)
+* [SQLite3](https://www.sqlite.org/) & [Sequelize] (https://doclets.io/sequelize/sequelize/doclets) & [PostgreSQL](https://www.postgresql.org/)
 
 ## Authors
 
