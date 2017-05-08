@@ -212,7 +212,9 @@ class ServiceMap extends Component {
         <br/>
         <br/>
         <br/>
+
         <ServiceProviderList style={{marginTop: "20px", left: 200}}fetchRemainingServiceUsers={this.fetchRemainingServiceUsers} users={this.state.foundServiceUsers} />
+
       </div>
     );
   }
