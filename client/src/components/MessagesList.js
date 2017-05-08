@@ -4,11 +4,11 @@ import { ListGroup } from 'react-bootstrap'
 
 const MessagesList = (props) => {
   return(
-    <ListGroup>
+    <div>
       {props.messages.map(message => 
         <MessagesListEntry key={message.id} message={message}/> 
       )}
-    </ListGroup>
+    </div>
   )
 }
 

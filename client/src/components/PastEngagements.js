@@ -36,7 +36,7 @@ class PastEngagements extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className="pastengagement">
         <PastEngagementsList engagements={this.state.pastEngagements}/>
       </div>
     )
