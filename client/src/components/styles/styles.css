@@ -1,19 +1,7 @@
-.jumbo {
-  text-align: center;
-}
-
 .button {
   padding: 10px;
   font-size: 20px;
   margin-right: 20px;
-}
-
-.navbar {
-  margin-bottom: 0;
-}
-
-.navbarprofile {
-  float: right;
 }
 
 .searchform {
@@ -26,15 +14,10 @@
   background-position: center;
 }*/
 
-.homelogo {
-  opacity: 0.75;
-}
-
 .homesearchbutton {
   padding: 10px;
   font-size: 100px;
 }
-
 
 /*.parallax {
   background-image: url('http://s1.thingpic.com/images/1e/usAoQMdY4zvsZisn1WoUedDs.jpeg');

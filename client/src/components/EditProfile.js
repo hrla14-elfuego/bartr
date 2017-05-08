@@ -1,9 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-import { each } from 'lodash';
+import swal from 'sweetalert';
+import _ from 'lodash';
 import { Button, Checkbox, Form, Dropdown, Input } from 'semantic-ui-react';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import Autocomplete from 'react-google-autocomplete';
+import { hashHistory } from 'react-router';
 import './styles/styles.css';
 
 class EditProfile extends React.Component {
@@ -12,31 +14,58 @@ class EditProfile extends React.Component {
 
     this.state = {
       userInfo: {
-        email: '',
         name: '',
         address: '',
-        lat: '',
-        lng: '',
-        service_id: null,
-        auth0_id: localStorage.profile.user_id
+        geo_lat: '',
+        geo_lng: '',
+        service_id: '',
+        auth0_id: ''
       },
-      service: '',
+      service: null,
       listOfServices: []
     }
     this.getServices = this.getServices.bind(this);
-    this.emailChange = this.emailChange.bind(this);
     this.nameChange = this.nameChange.bind(this);
     this.addressChange = this.addressChange.bind(this);
+    this.serviceChange = this.serviceChange.bind(this);
     this.newServiceChange = this.newServiceChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
+    console.log(localStorage.id_token)
+    this.setInitialInfo();
     this.getServices();
     const auth0_id = JSON.parse(localStorage.profile).user_id;
     this.setState({
       userInfo: {...this.state.userInfo, auth0_id: auth0_id}
     })
+  }
+
+  setInitialInfo() {
+    const auth0_id = JSON.parse(localStorage.profile).user_id;
+    const config = {
+        headers: {
+          Authorization: `Bearer ${localStorage.id_token}`
+        }
+      }
+    axios.get(API_ENDPOINT + `/api/users/${auth0_id}`, config)
+      .then((res) => {
+        this.setState({
+          userInfo: {...this.state.userInfo,
+            name: res.data.name,
+            address: res.data.address,
+            geo_lat: res.data.geo_lat,
+            geo_lng: res.data.geo_lng,
+            service_id: res.data.service_id,
+          }
+        })
+        console.log(res)
+        console.log(this.state)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   getServices() {
@@ -54,13 +83,14 @@ class EditProfile extends React.Component {
   }
 
   handleSubmit() {
+    const auth0_id = JSON.parse(localStorage.profile).user_id;
     const config = {
       headers: {
         'Authorization': 'Bearer ' + localStorage.id_token
       }
     }
-    if(!this.state.service) {
-      axios.put(`${API_ENDPOINT}/api/users/${this.state.userInfo.auth0_id}`, this.state.userInfo, config)
+    if (!this.state.service) {
+      axios.put(`${API_ENDPOINT}/api/users/${auth0_id}`, this.state.userInfo, config)
         .then((res) => {
           console.log(res);
         })
@@ -68,7 +98,7 @@ class EditProfile extends React.Component {
           console.log('Err: ', err);
         })
     } else {
-      axios.put(`${API_ENDPOINT}/api/users/${this.state.userInfo.auth0_id}`, this.state.userInfo, config)
+      axios.put(`${API_ENDPOINT}/api/users/${auth0_id}`, this.state.userInfo, config)
         .then((res) => {
           console.log(res);
         })
@@ -85,6 +115,13 @@ class EditProfile extends React.Component {
           console.log('Error in Service POST: ', err);
         })
     }
+    swal({
+      title: 'Updated Profile!',
+      type: 'success'
+    },
+    function() {
+      hashHistory.push('/profile')
+    });
   }
 
   emailChange(event) {
@@ -103,6 +140,16 @@ class EditProfile extends React.Component {
     this.setState({service: event.target.value})
   }
 
+  nameChange(event) {
+    event.preventDefault();
+    this.setState({
+      userInfo: {...this.state.userInfo,
+        name: event.target.value
+      }
+    })
+    console.log(this.state.userInfo.name)
+  }
+
   addressChange(event, address) {
     geocodeByAddress(address || event.target.value, (err, latLng) => {
       if (err) { 
@@ -111,38 +158,40 @@ class EditProfile extends React.Component {
         this.setState({
           userInfo: {...this.state.userInfo,
             address: address || event,
-            lat: latLng.lat,
-            lng: latLng.lng
+            geo_lat: latLng.lat,
+            geo_lng: latLng.lng
           }
         })
+        console.log(this.state.userInfo);
       }
     })
   }
 
   serviceChange(event, result) {
     let service_id = null;
-    each(this.state.listOfServices, (service) => {
-      if (service.type === result.value) {
-        service_id = service.id;
+    console.log('list of services: ', this.state.listOfServices)
+    _.each(this.state.listOfServices, (service) => {
+      console.log('result.value: ', result.value)
+      if (service.value === result.value) {
+        service_id = service.value;
       }
     })
     this.setState({
       userInfo: {...this.state.userInfo, service_id: service_id}
     })
+    console.log('STATE: ', this.state.userInfo);
   }
   
   render() {
+    console.log('this.props in editprofile: ', this.props)
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <Form.Field>
-          <label style={{fontSize: '20px'}}>Email</label>
-          <Input style={{width: '400px', height: '25px', fontSize: '20px'}} placeholder='Email' onChange={(e) => {this.emailChange(e)}}/>
-        </Form.Field>
+      <Form>
         <Form.Field>
           <label style={{fontSize: '20px'}}>Name</label>
-          <Input style={{width: '400px', height: '25px', fontSize: '20px'}} placeholder='Name' onChange={(e) => {this.nameChange(e)}}/>
-        </Form.Field>
-        <Form.Field>
+          <Input style={{ width: '400px', height: '25px', fontSize: '20px', marginBottom: '.5em'}}
+            placeholder='Name'
+            onChange={(e) => {this.nameChange(e)}} />
+          <br/>
           <label style={{fontSize: '20px'}}>Address</label>
           <Input placeholder='Address' style={{ display: 'inline-block' }}>
             <Autocomplete
@@ -169,7 +218,7 @@ class EditProfile extends React.Component {
           <label style={{fontSize: '20px'}}>Can't Find Your Skill? Add a Service!</label>
           <Input style={{width: '400px', height: '25px', fontSize: '20px'}} placeholder='Service' onChange={(event) => {this.newServiceChange(event)}}/>
         </Form.Field>
-        <h1><Button type='submit'>Submit</Button></h1>
+        <h1><Button type='button' onClick={this.handleSubmit}>Submit</Button></h1>
       </Form>
     )
   }

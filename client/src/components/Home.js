@@ -41,7 +41,7 @@ class Home extends React.Component {
           })
           if (!inDb) {
             console.log('NOT IN DB');
-            this.getAuth0UserInfo();
+            this.postNewUser();
           }
         })
     }
@@ -58,11 +58,22 @@ class Home extends React.Component {
   }
 
   postNewUser() {
+    const config = {
+        headers: {
+          Authorization: `Bearer ${localStorage.id_token}`
+        }
+      }
     const profile = this.props.profile;
-    axios.post(API_ENDPOINT + '/api/users',{
+    axios.post(API_ENDPOINT + '/api/users', {
       name: profile.name,
       auth0_id: profile.user_id
-    })
+    }, config)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   handleAddress(event) {
@@ -74,6 +85,7 @@ class Home extends React.Component {
   }
 
   render () {
+    console.log('this.props.profile: ', this.props.profile);
     return (
 
     <div>
