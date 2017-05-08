@@ -12,15 +12,15 @@ Bartr is a peer to peer networking app that allows users to exchange services fo
 
 4) `bartr.sqlite3 sqlite3` Run SQLite3 to monitor the database
 
-5) Run localhost:8080 into your desired browser to get started!
+5) Run localhost:8080 in your desired browser to get started!
 
 ### Technology Used
 
 - React
 
-- React Redux
-
 - React Router
+
+- React Redux
 
 - Redux Saga
 
@@ -37,6 +37,8 @@ Bartr is a peer to peer networking app that allows users to exchange services fo
 - SQlite3
 
 - Sequelize
+
+- PostgreSQL
 
 - Google Maps API
 
