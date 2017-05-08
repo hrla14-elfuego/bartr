@@ -78,8 +78,10 @@ class Home extends React.Component {
 
     <div>
             <AddressSearchWithData />
-      <Link to='/map'><Button className='homesearchbutton'>Search</Button></Link>
-
+      <Link to='/map'><Button className='homesearchbutton'>Search</Button></Link> 
+      <br/>
+      <br/>
+      
       <section>
         <div className="parallax-one">
           <h2>BARTR </h2>

@@ -81,7 +81,7 @@ const ServiceProviderList = (props) => {
   )
 
   return(
-    <Grid columns={3} divided>{columns}</Grid>
+    <Grid style={{margin: "auto"}} columns={3} divided>{columns}</Grid>
   )
 }
 
