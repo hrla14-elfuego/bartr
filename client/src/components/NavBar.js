@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { Jumbotron } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, MenuItem, NavItem, NavDropdown, Nav } from 'react-bootstrap';
 import { Icon } from 'semantic-ui-react';
