@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "webpack -d -w",
     "hotstart": "webpack-dev-server",
-    "heroku-postbuild": "webpack --config ./webpack.prod.config.js --progress --colors"
+    "heroku-postbuild": "webpack --config ./webpack.config.prod.js --progress --colors"
   },
   "repository": {
     "type": "git",
