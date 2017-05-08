@@ -21,12 +21,13 @@ class EditProfile extends React.Component {
         service_id: '',
         auth0_id: ''
       },
-      service: '',
+      service: null,
       listOfServices: []
     }
     this.getServices = this.getServices.bind(this);
     this.nameChange = this.nameChange.bind(this);
     this.addressChange = this.addressChange.bind(this);
+    this.serviceChange = this.serviceChange.bind(this);
     this.newServiceChange = this.newServiceChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -88,8 +89,8 @@ class EditProfile extends React.Component {
         'Authorization': 'Bearer ' + localStorage.id_token
       }
     }
-    if(!this.state.service) {
-      axios.put(`${API_ENDPOINT}/api/users/${this.state.userInfo.auth0_id}`, this.state.userInfo, config)
+    if (!this.state.service) {
+      axios.put(`${API_ENDPOINT}/api/users/${auth0_id}`, this.state.userInfo, config)
         .then((res) => {
           console.log(res);
         })
@@ -97,7 +98,7 @@ class EditProfile extends React.Component {
           console.log('Err: ', err);
         })
     } else {
-      axios.put(`${API_ENDPOINT}/api/users/${this.state.userInfo.auth0_id}`, this.state.userInfo, config)
+      axios.put(`${API_ENDPOINT}/api/users/${auth0_id}`, this.state.userInfo, config)
         .then((res) => {
           console.log(res);
         })
@@ -114,6 +115,13 @@ class EditProfile extends React.Component {
           console.log('Error in Service POST: ', err);
         })
     }
+    swal({
+      title: 'Updated Profile!',
+      type: 'success'
+    },
+    function() {
+      hashHistory.push('profile')
+    });
   }
 
   emailChange(event) {
@@ -130,6 +138,16 @@ class EditProfile extends React.Component {
  
   newServiceChange(event) {
     this.setState({service: event.target.value})
+  }
+
+  nameChange(event) {
+    event.preventDefault();
+    this.setState({
+      userInfo: {...this.state.userInfo,
+        name: event.target.value
+      }
+    })
+    console.log(this.state.userInfo.name)
   }
 
   addressChange(event, address) {

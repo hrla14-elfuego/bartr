@@ -31,13 +31,6 @@ body {
 }
 
 .user-profile-page .user-profile-img {
-  /*.bg-top*/
-  /*width: 54.36em;
-  max-width: 100%;
-  height: auto;
-  padding-bottom: .1em;
-  border-bottom: .17em solid #5D5D5D;*/
-
   background-image: url("/img/high-resolution-wallpaper-city-wallpaper-picture-night.jpg");
   background-attachment: fixed; 
   background-size: cover; 

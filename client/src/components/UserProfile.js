@@ -1,18 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 import { Button } from 'semantic-ui-react';
 import { PageHeader } from 'react-bootstrap';
 import axios from 'axios';
-import './styles/styles.css';
+import './styles/userProfileStyles.css';
 
-class UserProfile extends Component {
+class UserProfile extends React.Component {
   constructor (props) {
-    super (props)
+    super (props);
 
     this.state = {
-      lat: null,
-      lng: null
+      name: '',
+      address: '',
+      service: '',
+      lat: '',
+      lng: '',
+      listOfServices: [] 
     }
     
     this.fetchUser = this.fetchUser.bind(this);
@@ -21,11 +25,27 @@ class UserProfile extends Component {
   }
 
   componentDidMount() {
+    this.getServices();
     this.fetchUser();
+
   }
 
   fetchScore() {
     axios.get(API_ENDPOINT + '/api/users')
+  }
+
+  getServices() {
+    axios.get(API_ENDPOINT + '/api/services')
+      .then(result => {
+        _.each(result.data, service => {
+          this.setState({
+            listOfServices: this.state.listOfServices.concat([{text: service.type, value: service.id, key: service.id}])
+          })
+        })
+      })
+      .catch(err => {
+        console.log('Error loading listOfServices: ', err);
+      })
   }
 
   fetchUser() {
@@ -36,14 +56,25 @@ class UserProfile extends Component {
       }
     }
     axios.get(API_ENDPOINT + `/api/users/${auth}`, config)
-        .then((res) => {
-          console.log('Response in fetchUsers in UserProfile', res);
-          this.setState({lat: res.data.geo_lat, lng: res.data.geo_long});
-          this.loadMap();
+      .then((res) => {
+        let userService = null;
+        _.each(this.state.listOfServices, (service) => {
+          if (service.value === res.data.service_id) {
+            userService = service.text;
+          }
         })
-        .catch(err => {
-          console.log('Error in fetchUsers in UserProfile: ', err);
+        this.setState({...this.state,
+          name: res.data.name,
+          address: res.data.address,
+          service: userService,
+          lat: res.data.geo_lat,
+          lng: res.data.geo_long
         })
+        this.loadMap();
+      })
+      .catch(err => {
+        console.log('Error in fetchUsers in UserProfile: ', err);
+      })
   }
 
   loadMap() {
@@ -81,20 +112,22 @@ class UserProfile extends Component {
   }
 
   render() {
+    console.log(this.state)
     return(
-      <div>
-        <div className='profileHeader'>
-          <PageHeader>User Profile <small>Account Info</small></PageHeader>
-          {/*<div className='userProfileHeader'>User Profile</div>*/}
+      <div className="profile-page-content">
+        <div className="user-profile-page card">
+          <div className="user-profile-img">
+            {/*<img className="bg-top" src="http://www.petsprin.com/i/2016/12/high-resolution-wallpaper-city-wallpaper-picture.jpg" />*/}
+            <img className="avatar" src={this.props.profile.picture_large ? this.props.profile.picture_large : 'http://donatered-asset.s3.amazonaws.com/assets/default/default_user-884fcb1a70325256218e78500533affb.jpg'}/>
+          </div>
+          <div className="user-profile-info">
+            <h1 className="name">{this.state.name}</h1>
+            <p className="service">{this.state.service ? this.state.service : null}</p>
+          </div> 
+          <div className="address">{this.state.address ? this.state.address : null}</div>
+          <Link to='/editprofile'><button>Edit Profile</button></Link>
         </div>
-        <div className='userprofile'>
-          <h2 style={{textAlign: 'center', fontSize: '50px', fontFamily: 'Papyrus, fantasy'}}>{this.props.profile.name ? 'Hello, ' + this.props.profile.name : null}</h2>
-          <img src={this.props.profile.picture_large} height="200px" />
-          <br/>
-          <div className="google-maps" ref="map" style={{width: 'absolute', height: 600}}></div>
-          <br/>
-          <h1 style={{margin: 'auto'}}><Link to='editprofile'><Button>Edit Profile</Button></Link></h1>
-        </div>
+        <div className="google-maps" ref="map" style={{width: 'absolute', height: 600}}/>
       </div>
     )
   }
