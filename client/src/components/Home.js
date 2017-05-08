@@ -4,7 +4,7 @@ import NavBar from './NavBar';
 import { each } from 'lodash';
 import './styles/styles.css'
 import { Parallax, Background } from 'react-parallax';
-import { Dropdown, Input, Button, Header, Image, Grid } from 'semantic-ui-react';
+import { Dropdown, Input, Button, Header, Image, Grid, Modal } from 'semantic-ui-react';
 import {Carousel} from "react-bootstrap";
 import Autocomplete from 'react-google-autocomplete';
 import { geocodeByAddress } from 'react-places-autocomplete';
@@ -16,64 +16,10 @@ import AddressSearchWithData  from '../containers/AddressSearchContainer'
 class Home extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      address: ''
-    }
-    
-    this.handleAddress = this.handleAddress.bind(this);
-  }
-  
-  componentDidMount() {
-    if (localStorage.profile) {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${localStorage.id_token}`
-        }
-      }
-      axios.get(API_ENDPOINT + '/api/users', config)
-        .then((res) => {
-          let inDb = false;
-          each(res.data, (user) => {
-            if (user.auth0_id === this.props.profile.user_id) {
-              inDb = true;
-            }
-          })
-          if (!inDb) {
-            console.log('NOT IN DB');
-            this.getAuth0UserInfo();
-          }
-        })
-    }
-  }
-
-  getAuth0UserInfo() {
-    const header = {
-      Authorization: `Bearer ${localStorage.id_token}`
-    }
-    axios.get('https://bartr.auth0.com/userinfo', header)
-      .then((res) => {
-
-      })
-  }
-
-  postNewUser() {
-    const profile = this.props.profile;
-    axios.post(API_ENDPOINT + '/api/users',{
-      name: profile.name,
-      auth0_id: profile.user_id
-    })
-  }
-
-  handleAddress(event) {
-    localStorage.address = event.target.value;
-    event.preventDefault();
-    this.setState({
-      address: event.target.value
-    }) 
   }
 
   render () {
+    console.log('this.props.profile: ', this.props.profile);
     return (
 
     <div>
@@ -131,22 +77,7 @@ class Home extends React.Component {
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
-
-
-{/*<div className="content">
-   <div className="circle"></div>
-   <div className="circle"></div>
-   <div className="circle"></div>
-   <div className="circle"></div>
-   <div className="circle"></div>
-   <div className="circle"></div>
-   <div className="circle"></div>
-   <div className="circle"></div>
-</div>*/}
-
-
     </div>
-
     )
   }
 }

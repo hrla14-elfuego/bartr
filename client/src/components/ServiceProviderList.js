@@ -3,8 +3,13 @@ import _ from 'lodash';
 import { Grid, Card, Icon, Image, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import swal from 'sweetalert';
+import { bindActionCreators } from 'redux';
+import * as authActions from '../actions/Auth0Actions'
+import * as authSelectors from '../auth/Auth0Selectors'
+import { connect } from 'react-redux';
 
 const ServiceProviderList = (props) => {
+
 
   const requestService = (event, user) => {
       event.preventDefault();
@@ -30,7 +35,7 @@ const ServiceProviderList = (props) => {
     }
 
   const columns = _.map(props.users, user => {
-    if(localStorage.length === 0){
+    if(!props.profile){
       return(
           <Grid.Column>
             <Card>
@@ -50,7 +55,7 @@ const ServiceProviderList = (props) => {
           </Grid.Column>
         )
     } else {
-      if(user.email !== JSON.parse(localStorage.profile).name){
+      if(user.email !== props.profile.get('email')){
         return(
           <Grid.Column>
             <Card>
@@ -85,5 +90,20 @@ const ServiceProviderList = (props) => {
   )
 }
 
-export default ServiceProviderList;
+const mapStateToProps = (state) => {
+  return {
+    profile: authSelectors.getProfile(state),
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators({ ...authActions }, dispatch),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ServiceProviderList);
+
+
+// export default ServiceProviderList;
 // requestService(event, id.value)

@@ -6,7 +6,7 @@ import Autocomplete from 'react-google-autocomplete'
 import { geocodeByAddress } from 'react-places-autocomplete'
 import { Dropdown, Input, Header, Image, Grid } from 'semantic-ui-react';
 // import { Button, ButtonControl} from 'react-bootstrap';
-import ServiceProviderList from './ServiceProviderList';
+import ServiceProviderListWithData from './ServiceProviderList';
 
 import _ from 'lodash';
 import axios from 'axios';
@@ -43,7 +43,6 @@ class ServiceMap extends Component {
   }
 
   componentDidUpdate() {
-    console.log('componentDidUpdate location', this.props.AddressSearch.lat, this.props.AddressSearch.long)
     // this.loadServicesTypes();
     this.loadMap();
     // this.loadServices()
@@ -75,11 +74,9 @@ class ServiceMap extends Component {
     if(this.state.selectedServiceType) {
       axios_config.params['services'] = this.state.selectedServiceType;
     }
-    
-    console.log(axios_config)
+
     axios.get(API_ENDPOINT + '/api/services/find', axios_config)
       .then(result => {
-        console.log('this is the result.data ', result.data)
         this.setState({foundServiceUsers: result.data}, () => {
           this.putMarkersOnMap(this.googleMap)
         })
@@ -212,7 +209,7 @@ class ServiceMap extends Component {
         <br/>
         <br/>
         <br/>
-        <ServiceProviderList style={{marginTop: "20px", left: 200, margin: "0 auto"}}fetchRemainingServiceUsers={this.fetchRemainingServiceUsers} users={this.state.foundServiceUsers} />
+        <ServiceProviderListWithData style={{marginTop: "20px", left: 200}} fetchRemainingServiceUsers={this.fetchRemainingServiceUsers} users={this.state.foundServiceUsers} />
       </div>
     );
   }

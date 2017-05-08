@@ -1,39 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { Jumbotron } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, MenuItem, NavItem, NavDropdown, Nav } from 'react-bootstrap';
 import { Icon } from 'semantic-ui-react';
 import './styles/styles.css';
 import { hashHistory } from 'react-router';
-import { loginRequest, loginSuccess, logoutSuccess, setToken } from '../actions/auth0';
-import { emitr } from '../utils/AuthService';
+// import { loginRequest, loginSuccess, logoutSuccess, setToken } from '../actions/Auth0Actions';
+import { emitr } from '../utils/Auth0Utils';
 import swal from 'sweetalert'
+import { bindActionCreators } from 'redux';
+import * as authActions from '../actions/Auth0Actions'
+import * as authSelectors from '../auth/Auth0Selectors'
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
-
-    this.logoutSequence = this.logoutSequence.bind(this);
-  }
-
-  componentDidMount() {
-    emitr.on('login_sequence_complete', (val) => {
-      this.props.loginSuccess(val.profile);
-      hashHistory.push('/');
-    })
-  }
-
-  logoutSequence() {
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('profile');
-    this.props.onLogoutClick();
-    hashHistory.push('/');
-    swal({
-      title: 'Logout Successful!',
-      type: 'success'
-    });
   }
 
   render() {
@@ -43,24 +25,20 @@ class NavBar extends React.Component {
             <Navbar.Brand>
             <Link to='/home'>BARTR</Link>
             </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
           <Navbar.Collapse>
-            <Nav className='navbar'>
-              { !this.props.isAuthenticated ? (
+            <Nav pullRight>
+              { !this.props.profile ? (
                 <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">
-                  <MenuItem eventKey={3.1} onClick={this.props.onLoginClick}><Icon name='arrow circle outline right'/>Login / Sign Up</MenuItem>
+                  <MenuItem eventKey={3.1} onClick={this.props.actions.loginRequest}><Icon name='arrow circle outline right'/>Login / Sign Up</MenuItem>
                 </NavDropdown>
               ) : (
-                <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">
-                  {/*<LinkContainer to='profile'>*/}
-                  <MenuItem eventKey={3.1}><Icon name='user'/><Link to='profile'>Profile</Link></MenuItem>
-                  <MenuItem eventKey={3.2}><Icon name='calendar'/><Link to='pastengagements'>Past Engagements</Link></MenuItem>
-                  <MenuItem eventKey={3.3}><Icon name='comments'/><Link to='currentengagements'>Current Engagements</Link></MenuItem>
-                  <MenuItem eventKey={3.4}><Icon name='map'/><Link to='map'>Map</Link></MenuItem>
-                  {/*</LinkContainer>*/}
+                <NavDropdown eventKey={3} title={<span><Icon size='large' name='list layout'/></span>} id="basic-nav-dropdown">
+                  <MenuItem eventKey={3.1} onClick={() => hashHistory.push('profile')}><Icon name='user'/>Profile</MenuItem>
+                  <MenuItem eventKey={3.2} onClick={() => hashHistory.push('pastengagements')}><Icon name='calendar'/>Past Engagements</MenuItem>
+                  <MenuItem eventKey={3.3} onClick={() => hashHistory.push('currentengagements')}><Icon name='comments'/>Current Engagements</MenuItem>
+                  <MenuItem eventKey={3.4} onClick={() => hashHistory.push('map')}><Icon name='map'/>Map</MenuItem>
                   <MenuItem divider />
-                  <MenuItem eventKey={3.5} onClick={this.logoutSequence}><Icon name='log out'/>Logout</MenuItem>
+                  <MenuItem eventKey={3.5} onClick={this.props.actions.logout}><Icon name='log out'/>Logout</MenuItem>
                 </NavDropdown>
               )}
             </Nav>
@@ -71,22 +49,15 @@ class NavBar extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { isAuthenticated, profile, error } = state.auth;
   return {
-    isAuthenticated,
-    profile,
-    error
+    profile: authSelectors.getProfile(state),
   }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLoginClick: () => dispatch(loginRequest()),
-    onLogoutClick: () => dispatch(logoutSuccess()),
-    loginSuccess: (profile) => dispatch(loginSuccess(profile))
+    actions: bindActionCreators({ ...authActions }, dispatch),
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
-
-// export default NavBar;

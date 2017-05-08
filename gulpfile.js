@@ -5,7 +5,7 @@ const Promise = require('bluebird');
 const sequelize_fixtures = require('sequelize-fixtures');
 const env = require('gulp-env');
 const webpack = require ('webpack')
-const webpackConfig = require('./webpack.config');
+const webpackDevConfig = require('./webpack.config.dev');
 const WebpackDevServer = require("webpack-dev-server");
 
 env({
@@ -25,12 +25,22 @@ const models = {
 };
 
 gulp.task('seed:wipe', function(cb){
-  db.User.sync({force: true})
+  db.Service.sync({force: true})
     .then(()=>{
-      return Promise.all([db.Service.sync({force: true}), db.Engagement.sync({force: true})])
+      return Promise.all([db.User.sync({force: true})])
+    })
+    .then(()=>{
+      return Promise.all([db.Engagement.sync({force: true})])
     })
     .then(()=>{
       return Promise.all([db.Message.sync({force: true}), db.Review.sync({force: true})])
+    })
+    .then(()=>{
+      if(process.env.DATABASE_URL.includes('postgres')){
+        return db.sql.query('alter sequence engagements_id_seq restart with 100;') // reset engagement id primary key to 100 so it doesnt conflict with our manually seeded IDs
+      } else {
+        return true
+      }
     })
     .then(()=>{cb()})
     .catch((err)=>{cb(err)})
@@ -63,7 +73,7 @@ gulp.task('watch', function() {
 
 gulp.task("webpackhot", function(callback) {
   // Start a webpack-dev-server
-  var compiler = webpack(webpackConfig);
+  var compiler = webpack(webpackDevConfig);
 
   new WebpackDevServer(compiler, {
     contentBase: "./client/static",
