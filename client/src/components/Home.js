@@ -81,6 +81,7 @@ class Home extends React.Component {
       <Link to='/map'><Button className='homesearchbutton'>Search</Button></Link> 
       <br/>
       <br/>
+
       <section>
         <div className="parallax-one">
           <h2>BARTR </h2>
