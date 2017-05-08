@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import { each } from 'lodash';
 import { Button, Checkbox, Form, Dropdown, Input } from 'semantic-ui-react';
-// import { ServiceOptions } from '../Services/ServiceOptions';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import Autocomplete from 'react-google-autocomplete';
 import './styles/styles.css';
@@ -21,13 +20,14 @@ class EditProfile extends React.Component {
         service_id: null,
         auth0_id: localStorage.profile.user_id
       },
+      service: '',
       listOfServices: []
     }
     this.getServices = this.getServices.bind(this);
     this.emailChange = this.emailChange.bind(this);
     this.nameChange = this.nameChange.bind(this);
     this.addressChange = this.addressChange.bind(this);
-    this.serviceChange = this.serviceChange.bind(this);
+    this.newServiceChange = this.newServiceChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -59,27 +59,48 @@ class EditProfile extends React.Component {
         'Authorization': 'Bearer ' + localStorage.id_token
       }
     }
-    axios.put(`${API_ENDPOINT}/api/users/${this.state.userInfo.auth0_id}`, this.state.userInfo, config)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log('Err: ', err);
-      })
+    if(!this.state.service) {
+      axios.put(`${API_ENDPOINT}/api/users/${this.state.userInfo.auth0_id}`, this.state.userInfo, config)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log('Err: ', err);
+        })
+    } else {
+      axios.put(`${API_ENDPOINT}/api/users/${this.state.userInfo.auth0_id}`, this.state.userInfo, config)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log('Err: ', err);
+        })
+      axios.post(API_ENDPOINT + '/api/services/', {
+        type: this.state.service
+      }, config)
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log('Error in Service POST: ', err);
+        })
+    }
   }
 
   emailChange(event) {
     this.setState({
       userInfo: {...this.state.userInfo, email: event.target.value}
     })
-    // console.log(event.target.value);
   }
 
   nameChange(event) {
     this.setState({
       userInfo: {...this.state.userInfo, name: event.target.value}
     })
-    // console.log(event.target.value);
+  }
+ 
+  newServiceChange(event) {
+    this.setState({service: event.target.value})
   }
 
   addressChange(event, address) {
@@ -87,7 +108,6 @@ class EditProfile extends React.Component {
       if (err) { 
         console.log('Error: ', err);
       } else {
-        // console.log(latLng.lat, latLng.lng);
         this.setState({
           userInfo: {...this.state.userInfo,
             address: address || event,
@@ -143,6 +163,12 @@ class EditProfile extends React.Component {
           placeholder='Select Service'
           fluid selection options={this.state.listOfServices}
           onChange={this.serviceChange} />
+        <br/>
+        <br/>
+        <Form.Field>
+          <label style={{fontSize: '20px'}}>Can't Find Your Skill? Add a Service!</label>
+          <Input style={{width: '400px', height: '25px', fontSize: '20px'}} placeholder='Service' onChange={(event) => {this.newServiceChange(event)}}/>
+        </Form.Field>
         <h1><Button type='submit'>Submit</Button></h1>
       </Form>
     )
