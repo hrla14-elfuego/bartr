@@ -188,6 +188,7 @@ class EditProfile extends React.Component {
   render() {
     console.log('this.props in editprofile: ', this.props)
     return (
+      <div style={{backgroundImage:'url(https://openclipart.org/download/221722/Cloud-Network.svg)', backgroundAttachment: 'fixed', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', height: '100vh'}}>
       <Form style={{border: '.3em solid black', borderRadius: '3rem', marginTop: '8%', padding: '1em', display: 'inline-block', backgroundColor: 'white'}}>
         <Form.Field>
           <label style={{fontSize: '20px', color: 'black'}}>Name</label>
@@ -211,18 +212,19 @@ class EditProfile extends React.Component {
         </Form.Field>
         <label style={{fontSize: '20px', color: 'black'}}>Service</label>
         <br/>
-        <Dropdown style={{width: '400px', display: 'inline-block', height: '10px', fontSize: '20px'}}
+        <Dropdown style={{width: '400px', height: '5px', fontSize: '15px', position: 'absolute'}}
           placeholder='Select Service'
           fluid selection options={this.state.listOfServices}
           onChange={this.serviceChange} />
         <br/>
         <br/>
         <Form.Field>
-          <label style={{fontSize: '20px', color: 'black'}}>Can't Find Your Skill? Add a Service!</label>
+          <label style={{marginTop: '25px', fontSize: '20px', color: 'black'}}>Can't Find Your Skill? Add a Service!</label>
           <Input style={{width: '400px', height: '25px', fontSize: '20px'}} placeholder='Service' onChange={(event) => {this.newServiceChange(event)}}/>
         </Form.Field>
         <h1><Button type='button' onClick={this.handleSubmit}>Submit</Button></h1>
       </Form>
+      </div>
     )
   }
 }
