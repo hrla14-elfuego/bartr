@@ -1,17 +1,33 @@
 const Sequelize = require('sequelize');
 const path = require('path');
-// var cls = require('continuation-local-storage');
+var sql
 
-// namespace = cls.createNamespace('my-namespace');
-// Sequelize.cls = namespace;
-
-const sql = new Sequelize('bartrDB', null, null, {
-  dialect: 'sqlite',
-  storage: path.join(__dirname, 'bartr.sqlite3'),
-  define: {
-    underscored: true
-  }
-});
+if (process.env.NODE_ENV === 'development') {
+	console.log('dev setup')
+  sql = new Sequelize('bartrDB', null, null, {
+    dialect: 'sqlite',
+    storage: path.join(__dirname, 'bartr.sqlite3'),
+    define: {
+      underscored: true
+    }
+  });
+} else {
+	var cls = require('continuation-local-storage');
+	var namespace = cls.createNamespace('my-namespace');
+	Sequelize.cls = namespace;
+  sql= new Sequelize(process.env.DATABASE_URL, {
+    "dialect":"postgres",
+    "ssl":true,
+    "define": {
+      "underscored": true
+    },
+    "dialectOptions":{
+      "ssl":{
+        "require":true
+      }
+    }
+	});
+}
 
 const Engagement = sql.define('engagement', {
 		complete: {
@@ -107,3 +123,4 @@ module.exports.Service = Service;
 module.exports.Review = Review;
 module.exports.Message = Message;
 module.exports.Engagement = Engagement;
+module.exports.sql = sql;

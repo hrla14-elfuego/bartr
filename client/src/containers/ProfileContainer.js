@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import UserProfile from '../components/UserProfile';
+import * as authSelectors from '../auth/Auth0Selectors'
 
 const mapStateToProps = (state) => {
-  const { profile, error } = state.auth;
   
   return {
-    profile,
-    error
+    profile: authSelectors.getProfile(state),
+    error: authSelectors.getError(state),
   }
-}
+};
 
 // const mapDispatchToProps = (dispatch) => {
 

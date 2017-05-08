@@ -4,6 +4,7 @@ const Sequelize = require('sequelize');
 const User = require('../db').User;
 const Service = require('../db/index').Service;
 const router = require('express').Router();
+const findAuth0User = require('./util').findAuth0User;
 
 router.get('/:auth0_id', (req, res, next) => {
   User.findOne({
@@ -39,13 +40,8 @@ router.post('/', (req, res, next) => {
     })
 })
 
-router.put('/:auth0_id', (req, res, next) => {
-  console.log(req.params);
-    User.find({
-      where: {
-        auth0_id: req.params.auth0_id
-      }
-    })
+router.put('/', (req, res, next) => {
+    findAuth0User(req)
     .then(data => {
         data.updateAttributes({
           email: req.body.email,

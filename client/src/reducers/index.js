@@ -1,13 +1,14 @@
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
 import ProfileReducer from './profileReducer';
-import auth from './auth';
+import Auth0 from './Auth0Reducer';
 import AddressSearch from './AddressSearchReducer'
+import authReducer from './Auth0Reducer';
 
 const rootReducer = combineReducers({
   routing,
   ProfileReducer,
-  auth,
+  auth: authReducer,
   AddressSearch
 });
 
