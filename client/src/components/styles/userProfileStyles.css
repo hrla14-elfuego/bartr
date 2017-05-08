@@ -108,3 +108,8 @@ body {
   color: #75787b;
   font-size: 1.4em;
 }
+
+.profile-page-content .google-maps {
+  width: absolute;
+  height: 600px;
+}

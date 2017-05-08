@@ -127,7 +127,7 @@ class UserProfile extends React.Component {
           <div className="address">{this.state.address ? this.state.address : null}</div>
           <Link to='/editprofile'><button>Edit Profile</button></Link>
         </div>
-        <div className="google-maps" ref="map" style={{width: 'absolute', height: 600}}/>
+        <div className="google-maps" ref="map"/>
       </div>
     )
   }
