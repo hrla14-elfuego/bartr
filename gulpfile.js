@@ -25,9 +25,12 @@ const models = {
 };
 
 gulp.task('seed:wipe', function(cb){
-  db.User.sync({force: true})
+  db.Service.sync({force: true})
     .then(()=>{
-      return Promise.all([db.Service.sync({force: true}), db.Engagement.sync({force: true})])
+      return Promise.all([db.User.sync({force: true})])
+    })
+    .then(()=>{
+      return Promise.all([db.Engagement.sync({force: true})])
     })
     .then(()=>{
       return Promise.all([db.Message.sync({force: true}), db.Review.sync({force: true})])

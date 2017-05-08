@@ -15,7 +15,15 @@ if (process.env.NODE_ENV === 'development') {
 	var cls = require('continuation-local-storage');
 	var namespace = cls.createNamespace('my-namespace');
 	Sequelize.cls = namespace;
-  sql= new Sequelize(process.env.DATABASE_URL);
+  sql= new Sequelize(process.env.DATABASE_URL, {
+    "dialect":"postgres",
+    "ssl":true,
+    "dialectOptions":{
+      "ssl":{
+        "require":true
+      }
+    }
+	});
 }
 
 const Engagement = sql.define('engagement', {
