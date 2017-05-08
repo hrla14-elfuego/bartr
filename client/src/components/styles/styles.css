@@ -52,7 +52,7 @@
   background-position: top center;
 } */
 
-.title {background: white; padding: 60px; margin:0 auto; text-align:center;}
+.title {background: white; padding: 60px; margin:0 auto; text-align:center;font-family: 'Ubuntu', sans-serif;}
 .title h1 {font-size:35px; letter-spacing:8px;}
 
 .parallax-two {
@@ -254,6 +254,13 @@ h3 {
     border: 1px solid #73AD21;
 }
 
+.engagementlistentry {
+    background: #e2e2e2; /* Old browsers */
+    background: -moz-linear-gradient(top, #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #e2e2e2 0%,#dbdbdb 50%,#d1d1d1 51%,#fefefe 100%);
+}
+
 .engagereq {
     position: absolute;
     overflow: auto;
@@ -261,18 +268,23 @@ h3 {
     width: 35%;
     height: 100%;
     border: 1px solid #73AD21;
-    background-color: black;
+    background: #d8e0de; /* Old browsers */
+    background: -moz-linear-gradient(top, #d8e0de 0%, #aebfbc 22%, #99afab 33%, #8ea6a2 50%, #829d98 67%, #4e5c5a 82%, #0e0e0e 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #d8e0de 0%,#aebfbc 22%,#99afab 33%,#8ea6a2 50%,#829d98 67%,#4e5c5a 82%,#0e0e0e 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #d8e0de 0%,#aebfbc 22%,#99afab 33%,#8ea6a2 50%,#829d98 67%,#4e5c5a 82%,#0e0e0e 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 .chatlistentry {
     
     right: 50%;
     width: 200px;
-    margin: 0 auto;
+    
 }
 .chatbox {  
   position: absolute;
   right: 0;
-  background: url("http://7-themes.com/data_images/collection/3/4443457-cool-backgrounds.png");
+  background: url("https://openclipart.org/download/221722/Cloud-Network.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
   width: 65%;
   overflow: auto;
   height: 100vh;
@@ -286,7 +298,9 @@ h3 {
 }
 
 .pastengagement {
-  background: url("http://7-themes.com/data_images/collection/3/4443457-cool-backgrounds.png");
+  background: url("https://openclipart.org/download/221722/Cloud-Network.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
   position: absolute;
   height:  1000vh;
   width: 100%;
@@ -298,9 +312,7 @@ p.thick {
 }
 
 h2.title {
-  font: italic bold 30px Georgia, serif;
   color: white;
-  text-decoration: underline;
   margin-top: -50px;
   margin-bottom: -50px;
   background-color: black

@@ -4,8 +4,14 @@ import './styles/styles.css';
 
 
 const ChatListEntry = (props) => {
+  let style = {marginLeft: 0};
+  if(props.index % 2 !== 0){
+    style ={marginLeft: "500%"}
+  } else {
+    style={marginLeft: 0}
+  }
   return(
-    <div className="chatlistentry" >
+    <div className="chatlistentry" style={style} >
     
       <Card.Content >
         <Card.Description>          
