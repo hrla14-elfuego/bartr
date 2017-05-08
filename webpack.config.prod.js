@@ -1,7 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-require('dotenv').config()
-
 
 const SRC_DIR = path.resolve(__dirname, './client/src/');
 const BUILD_DIR = path.resolve(__dirname, './client/static/');
