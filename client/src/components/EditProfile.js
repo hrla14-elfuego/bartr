@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { Button, Checkbox, Form, Dropdown, Input } from 'semantic-ui-react';
 import { geocodeByAddress } from 'react-places-autocomplete';
 import Autocomplete from 'react-google-autocomplete';
+import { hashHistory } from 'react-router';
 import './styles/styles.css';
 
 class EditProfile extends React.Component {
@@ -13,6 +14,7 @@ class EditProfile extends React.Component {
 
     this.state = {
       userInfo: {
+        name: '',
         address: '',
         geo_lat: '',
         geo_lng: '',
@@ -23,6 +25,7 @@ class EditProfile extends React.Component {
       listOfServices: []
     }
     this.getServices = this.getServices.bind(this);
+    this.nameChange = this.nameChange.bind(this);
     this.addressChange = this.addressChange.bind(this);
     this.newServiceChange = this.newServiceChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -49,6 +52,7 @@ class EditProfile extends React.Component {
       .then((res) => {
         this.setState({
           userInfo: {...this.state.userInfo,
+            name: res.data.name,
             address: res.data.address,
             geo_lat: res.data.geo_lat,
             geo_lng: res.data.geo_lng,
@@ -161,10 +165,15 @@ class EditProfile extends React.Component {
   }
   
   render() {
-    console.log(this.state)
+    console.log('this.props in editprofile: ', this.props)
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Field>
+          <label style={{fontSize: '20px'}}>Name</label>
+          <Input style={{ width: '400px', height: '25px', fontSize: '20px', marginBottom: '.5em'}}
+            placeholder='Name'
+            onChange={(e) => {this.nameChange(e)}} />
+          <br/>
           <label style={{fontSize: '20px'}}>Address</label>
           <Input placeholder='Address' style={{ display: 'inline-block' }}>
             <Autocomplete

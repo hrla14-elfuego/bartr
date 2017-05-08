@@ -1,0 +1,117 @@
+@import url(http://fonts.googleapis.com/css?family=Quicksand:300,400|Lato:400,300|Coda|Open+Sans);
+
+body {
+  background: #f8f5f0;
+  font-family: "Open sans", sans-serif;
+}
+
+.profile-page-content {
+  margin: auto;
+  margin-top: 8%;
+  width: 52em;
+}
+
+.card {
+  background: #fff;
+  border-radius: 0.3rem;
+  box-shadow: 5px 5px 5px #898989;
+  border: .17em solid #5D5D5D;
+  margin-bottom: 1em; 
+  padding: 0.1em;
+}
+
+
+
+
+
+
+.user-profile-page .user-profile-img {
+	margin: 0 auto;
+  text-align: center;
+}
+
+.user-profile-page .user-profile-img {
+  /*.bg-top*/
+  /*width: 54.36em;
+  max-width: 100%;
+  height: auto;
+  padding-bottom: .1em;
+  border-bottom: .17em solid #5D5D5D;*/
+
+  background-image: url("/img/high-resolution-wallpaper-city-wallpaper-picture-night.jpg");
+  background-attachment: fixed; 
+  background-size: cover; 
+  -moz-background-size: cover; 
+  -webkit-background-size: cover; 
+  background-repeat: no-repeat; 
+  background-position: top center;
+  padding-top: 7em;
+  padding-bottom: 7em; 
+  overflow: hidden; 
+  position: relative; 
+  width: 100%; 
+}
+
+.user-profile-page .user-profile-img .avatar {
+	margin: 0 auto;
+  background: #42E9D7;
+  width: 15em;
+  height: 15em;
+  padding: 0.17em;
+  border-radius: .17em 5em;
+  margin-top: 1em;
+}
+
+
+
+
+
+
+.user-profile-page button {
+  font-size: 13px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  /*width: 7em; */
+  background: #42E9D7;
+  border: 1px solid #5D5D5D;
+  border-radius: .6em .6em .6em .6em;
+  padding: .50em;
+  margin: 1em;
+}
+
+.user-profile-page button:hover {
+  background: #4F4F4F;
+  transition: background .2s ease-in-out;
+  border: 1px solid #42E9D7;
+}
+
+
+
+
+
+
+.user-profile-page .user-profile-info, .user-profile-page .address {
+  text-align: center;
+  padding: 0 1.5em; 
+}
+
+.user-profile-page .user-profile-info .name {
+  font-family: "Lato", sans-serif;
+  margin-top: 0.35em;
+  color: #292f33;
+  margin-bottom: .1em; 
+}
+
+.user-profile-page .user-profile-info .service {
+	font-family: "Lato", sans-serif;
+  color: #42E9D7; 
+  font-size: 1.7em;
+  margin-top: 0;
+  margin-bottom: 1.5em; 
+}
+
+.user-profile-page .address {
+  color: #75787b;
+  font-size: 1.4em;
+}

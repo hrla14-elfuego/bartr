@@ -37,27 +37,22 @@ class NavBar extends React.Component {
 
   render() {
       return (
-        <Navbar style={{backgroundColor: '#42E9D7', border: '1px solid gray'}} inverse collapseOnSelect>
-          <Navbar.Header>
+        <Navbar fluid fixedTop style={{backgroundColor: '#42E9D7', border: '0.15em solid #909090'}} inverse collapseOnSelect>
             <Navbar.Brand>
             <Link to='/home'>BARTR</Link>
             </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
           <Navbar.Collapse>
-            <Nav className='navbar'>
+            <Nav pullRight>
               { !this.props.isAuthenticated ? (
                 <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">
                   <MenuItem eventKey={3.1} onClick={this.props.onLoginClick}><Icon name='arrow circle outline right'/>Login / Sign Up</MenuItem>
                 </NavDropdown>
               ) : (
-                <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">
-                  {/*<LinkContainer to='profile'>*/}
-                  <MenuItem eventKey={3.1}><Icon name='user'/><Link to='profile'>Profile</Link></MenuItem>
-                  <MenuItem eventKey={3.2}><Icon name='calendar'/><Link to='pastengagements'>Past Engagements</Link></MenuItem>
-                  <MenuItem eventKey={3.3}><Icon name='comments'/><Link to='currentengagements'>Current Engagements</Link></MenuItem>
-                  <MenuItem eventKey={3.4}><Icon name='map'/><Link to='map'>Map</Link></MenuItem>
-                  {/*</LinkContainer>*/}
+                <NavDropdown eventKey={3} title={<span><Icon size='large' name='list layout'/></span>} id="basic-nav-dropdown">
+                  <MenuItem eventKey={3.1} onClick={() => hashHistory.push('profile')}><Icon name='user'/>Profile</MenuItem>
+                  <MenuItem eventKey={3.2} onClick={() => hashHistory.push('pastengagements')}><Icon name='calendar'/>Past Engagements</MenuItem>
+                  <MenuItem eventKey={3.3} onClick={() => hashHistory.push('currentengagements')}><Icon name='comments'/>Current Engagements</MenuItem>
+                  <MenuItem eventKey={3.4} onClick={() => hashHistory.push('map')}><Icon name='map'/>Map</MenuItem>
                   <MenuItem divider />
                   <MenuItem eventKey={3.5} onClick={this.logoutSequence}><Icon name='log out'/>Logout</MenuItem>
                 </NavDropdown>
