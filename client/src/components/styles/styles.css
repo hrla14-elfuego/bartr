@@ -302,6 +302,7 @@ p.thick {
   height: 180vh;
   width: 100%;;
   margin: 0 auto !important;
+
 }
 
 .googlemapsearch {
@@ -314,6 +315,7 @@ p.thick {
 .fluid{
   margin: 0 auto !important;
   left: 15px;
+
 }
 
 .googlemap {
@@ -321,4 +323,5 @@ p.thick {
   position: absolute;
   height: absolute;
   margin: 0 auto !important;
+
 }
