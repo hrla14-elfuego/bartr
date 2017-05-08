@@ -35,14 +35,14 @@ router.get('/find', (req, res) => {
         model: db.Service,
         where: buildWhere
         },
-        {
-          model: db.Review,
-          as: 'received_reviews',
-          attributes: ['score']
-        }
+        // {
+        //   model: db.Review,
+        //   as: 'received_reviews',
+        //   attributes: ['score']
+        // }
       ],
-      attributes: Object.keys(db.User.attributes).concat([[Sequelize.fn('AVG', Sequelize.col('received_reviews.score')), 'avgscore']]),
-      group:['user.id']
+      // attributes: Object.keys(db.User.attributes).concat([[Sequelize.fn('AVG', Sequelize.col('received_reviews.score')), 'avgscore']]),
+      // group:['user.id']
     })
       .then((results)=>{
         res.json(results)
