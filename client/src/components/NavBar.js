@@ -26,7 +26,7 @@ class NavBar extends React.Component {
             </Navbar.Brand>
           <Navbar.Collapse>
             <Nav pullRight>
-              { !this.props.isAuthenticated ? (
+              { !this.props.profile ? (
                 <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">
                   <MenuItem eventKey={3.1} onClick={this.props.actions.loginRequest}><Icon name='arrow circle outline right'/>Login / Sign Up</MenuItem>
                 </NavDropdown>
@@ -37,7 +37,7 @@ class NavBar extends React.Component {
                   <MenuItem eventKey={3.3} onClick={() => hashHistory.push('currentengagements')}><Icon name='comments'/>Current Engagements</MenuItem>
                   <MenuItem eventKey={3.4} onClick={() => hashHistory.push('map')}><Icon name='map'/>Map</MenuItem>
                   <MenuItem divider />
-                  <MenuItem eventKey={3.5} onClick={this.logoutSequence}><Icon name='log out'/>Logout</MenuItem>
+                  <MenuItem eventKey={3.5} onClick={this.props.actions.logout}><Icon name='log out'/>Logout</MenuItem>
                 </NavDropdown>
               )}
             </Nav>
