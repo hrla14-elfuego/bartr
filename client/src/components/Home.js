@@ -107,49 +107,33 @@ class Home extends React.Component {
             <img width={200} height={75} alt="900x500" src="http://bostonchamber.com/media/team/Justin-Kang_279.jpg"/>
             <Carousel.Caption>
               <h3>Justin Kang</h3>
-              <p>Project Owner</p>
+              <p className="thick">Project Owner</p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img width={200} height={75} alt="900x500" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTemWdq1kmDSPAOfOmTzYS9L4Nd9v7HGcR2w8beDC2qWGBVBWsL"/>
             <Carousel.Caption>
               <h3>Shak </h3>
-              <p>Scrum Master</p>
+              <p className="thick">Scrum Master Overlord</p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img width={200} height={75} alt="900x500" src="http://bostonchamber.com/media/team/Justin-Kang_279.jpg"/>
             <Carousel.Caption>
               <h3>Joe Kim</h3>
-              <p>FrontEnd Monkey</p>
+              <p className="thick">FrontEnd Monkey</p>
             </Carousel.Caption>
           </Carousel.Item>
             <Carousel.Item>
             <img width={200} height={75} alt="900x500" src="http://bostonchamber.com/media/team/Justin-Kang_279.jpg"/>
             <Carousel.Caption>
               <h3>Jason Kim</h3>
-              <p>FrontEnd Monkey</p>
+              <p className="thick">FrontEnd Monkey</p>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
 
-some textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome text
-some textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome text
-some textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome text
-some textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome text
-some textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome text
-some textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome text
-some textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome text
-some textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome text
-some textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome text
-some textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome text
-some textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome text
-some textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome text
-some textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome text
-some textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome text
-some textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome text
-some textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome text
-some textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome textsome text
+
 {/*<div className="content">
    <div className="circle"></div>
    <div className="circle"></div>
