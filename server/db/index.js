@@ -123,3 +123,4 @@ module.exports.Service = Service;
 module.exports.Review = Review;
 module.exports.Message = Message;
 module.exports.Engagement = Engagement;
+module.exports.sql = sql;

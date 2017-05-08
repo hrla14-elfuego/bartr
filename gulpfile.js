@@ -35,6 +35,13 @@ gulp.task('seed:wipe', function(cb){
     .then(()=>{
       return Promise.all([db.Message.sync({force: true}), db.Review.sync({force: true})])
     })
+    .then(()=>{
+      if(process.env.DATABASE_URL.includes('postgres')){
+        return db.sql.query('alter sequence engagements_id_seq restart with 100;') // reset engagement id primary key to 100 so it doesnt conflict with our manually seeded IDs
+      } else {
+        return true
+      }
+    })
     .then(()=>{cb()})
     .catch((err)=>{cb(err)})
 });
