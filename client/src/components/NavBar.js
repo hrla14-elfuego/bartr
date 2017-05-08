@@ -37,7 +37,7 @@ class NavBar extends React.Component {
 
   render() {
       return (
-        <Navbar fluid fixedTop style={{backgroundColor: '#42E9D7', border: '0.15em solid #909090'}} inverse collapseOnSelect>
+        <Navbar fluid fixedTop style={{backgroundColor: 'black', border: '0.15em solid #909090'}} inverse collapseOnSelect>
             <Navbar.Brand>
             <Link to='/home'>BARTR</Link>
             </Navbar.Brand>
