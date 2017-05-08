@@ -40,6 +40,7 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
+      'DEPLOYMENT_ENV': JSON.stringify(process.env.NODE_ENV),
       'API_ENDPOINT': JSON.stringify(""),
       'AUTH0_CLIENT_ID': JSON.stringify(process.env.AUTH0_CLIENT_ID),
       'AUTH0_DOMAIN': JSON.stringify(process.env.AUTH0_DOMAIN),
