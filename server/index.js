@@ -6,13 +6,14 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-//for dev testing
-app.all('/*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Authorization, Content-Type");
-  res.header("Access-Control-Allow-Methods", 'GET, POST, PUT ,DELETE');
-  next();
-});
+if (process.env.NODE_ENV === 'development') {
+  app.all('/*', function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Authorization, Content-Type");
+    res.header("Access-Control-Allow-Methods", 'GET, POST, PUT ,DELETE');
+    next();
+  });
+}
 
 app.use(morgan());
 // app.use(expressSession({secret: 'bigboost'}));
