@@ -6,7 +6,7 @@ import Autocomplete from 'react-google-autocomplete'
 import { geocodeByAddress } from 'react-places-autocomplete'
 import { Dropdown, Input, Header, Image, Grid } from 'semantic-ui-react';
 // import { Button, ButtonControl} from 'react-bootstrap';
-import ServiceProviderList from './ServiceProviderList';
+import ServiceProviderListWithData from './ServiceProviderList';
 
 import _ from 'lodash';
 import axios from 'axios';
@@ -212,9 +212,7 @@ class ServiceMap extends Component {
         <br/>
         <br/>
         <br/>
-
-        <ServiceProviderList style={{marginTop: "20px", left: 200}}fetchRemainingServiceUsers={this.fetchRemainingServiceUsers} users={this.state.foundServiceUsers} />
-
+        <ServiceProviderListWithData style={{marginTop: "20px", left: 200}}fetchRemainingServiceUsers={this.fetchRemainingServiceUsers} users={this.state.foundServiceUsers} />
       </div>
     );
   }
