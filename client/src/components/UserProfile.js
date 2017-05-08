@@ -29,8 +29,6 @@ class UserProfile extends Component {
   }
 
   fetchUser() {
-    console.log('WE IN FETCHUSERS FOR USERPROFILE')
-    console.log(JSON.parse(localStorage.profile))
     let auth = JSON.parse(localStorage.profile).user_id
     const config = {
       headers: {
