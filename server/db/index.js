@@ -1,8 +1,10 @@
 const Sequelize = require('sequelize');
 const path = require('path');
+var sql
 
 if (process.env.NODE_ENV === 'development') {
-  const sql = new Sequelize('bartrDB', null, null, {
+	console.log('dev setup')
+  sql = new Sequelize('bartrDB', null, null, {
     dialect: 'sqlite',
     storage: path.join(__dirname, 'bartr.sqlite3'),
     define: {
@@ -13,7 +15,7 @@ if (process.env.NODE_ENV === 'development') {
 	var cls = require('continuation-local-storage');
 	var namespace = cls.createNamespace('my-namespace');
 	Sequelize.cls = namespace;
-  const sql= new Sequelize(process.env.DATABASE_URL);
+  sql= new Sequelize(process.env.DATABASE_URL);
 }
 
 const Engagement = sql.define('engagement', {
