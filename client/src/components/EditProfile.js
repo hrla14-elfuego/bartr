@@ -188,14 +188,14 @@ class EditProfile extends React.Component {
   render() {
     console.log('this.props in editprofile: ', this.props)
     return (
-      <Form>
+      <Form style={{border: '.3em solid black', borderRadius: '3rem', marginTop: '8%', padding: '1em', display: 'inline-block', backgroundColor: 'white'}}>
         <Form.Field>
-          <label style={{fontSize: '20px'}}>Name</label>
+          <label style={{fontSize: '20px', color: 'black'}}>Name</label>
           <Input style={{ width: '400px', height: '25px', fontSize: '20px', marginBottom: '.5em'}}
             placeholder='Name'
             onChange={(e) => {this.nameChange(e)}} />
           <br/>
-          <label style={{fontSize: '20px'}}>Address</label>
+          <label style={{fontSize: '20px', color: 'black'}}>Address</label>
           <Input placeholder='Address' style={{ display: 'inline-block' }}>
             <Autocomplete
               style={{width: '400px', height: '25px', fontSize: '20px'}}
@@ -209,7 +209,7 @@ class EditProfile extends React.Component {
             </Autocomplete>
           </Input>
         </Form.Field>
-        <label style={{fontSize: '20px'}}>Service</label>
+        <label style={{fontSize: '20px', color: 'black'}}>Service</label>
         <br/>
         <Dropdown style={{width: '400px', display: 'inline-block', height: '10px', fontSize: '20px'}}
           placeholder='Select Service'
@@ -218,7 +218,7 @@ class EditProfile extends React.Component {
         <br/>
         <br/>
         <Form.Field>
-          <label style={{fontSize: '20px'}}>Can't Find Your Skill? Add a Service!</label>
+          <label style={{fontSize: '20px', color: 'black'}}>Can't Find Your Skill? Add a Service!</label>
           <Input style={{width: '400px', height: '25px', fontSize: '20px'}} placeholder='Service' onChange={(event) => {this.newServiceChange(event)}}/>
         </Form.Field>
         <h1><Button type='button' onClick={this.handleSubmit}>Submit</Button></h1>
