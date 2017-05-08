@@ -5,8 +5,6 @@ import ReactDOM from 'react-dom';
 import Routing from './bartr';
 import { AppContainer } from 'react-hot-loader'
 
-console.log('api endpoint', API_ENDPOINT)
-
 // if (module.hot) {
 //   console.log('try hot reload')
 //   module.hot.accept('./bartr.js', () => {

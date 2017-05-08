@@ -14,7 +14,7 @@ import ProfileContainer from './containers/ProfileContainer';
 import PastEngagements from './components/PastEngagements';
 import EngageReq from './components/EngageReq';
 import EditProfile from './components/EditProfile';
-import AuthService from './utils/AuthService';
+import AuthService from './utils/Auth0Utils';
 import ServiceMapContainer from './containers/ServiceMapContainer';
 import '../../node_modules/sweetalert/dist/sweetalert.css'
 

@@ -1,22 +1,67 @@
-import * as action from '../actions/actionTypes';
-import AuthService from '../utils/AuthService';
+import { Map } from 'immutable';
+import { getStoredAuthState } from '../utils/Auth0Utils';
 
-export default function Auth0Reducer(state = {
-  isAuthenticated: !AuthService.isTokenExpired(),
-  isFetching: false,
-  profile: AuthService.getProfile(),
-  error: null
-}, action) {
+
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT = 'LOGOUT';
+
+
+export const initialState = new Map({
+  isLoggingIn: false,
+  idToken: null,
+  profile: null,
+  error: null,
+});
+
+export default function reducer(state = initialState.merge(getStoredAuthState()), action) {
   switch (action.type) {
-    case action.LOGIN_REQUEST:
-      return {...state, isFetching: true, error: null}
-    case action.LOGIN_SUCCESS:
-      return {...state, isFetching: false, isAuthenticated: true, profile: action.profile}
-    case action.LOGIN_ERROR:
-      return {...state, isFetching: false, isAuthenticated: false, profile: {}, error: action.error}
-    case action.LOGOUT_SUCCESS:
-      return {...state, isAuthenticated: false, profile: {}}
+    case LOGIN_REQUEST:
+      return state.set('isLoggingIn', true);
+    case LOGIN_SUCCESS:
+      return state.merge({
+        isLoggingIn: false,
+        idToken: action.idToken,
+        profile: action.profile,
+      });
+    case LOGIN_FAILURE:
+      return state.merge({
+        isLoggingIn: false,
+        idToken: null,
+        profile: null,
+        error: action.error,
+      });
+    case LOGOUT:
+      return initialState;
     default:
-      return state
+      return state;
   }
 }
+
+export const loginRequest = () => (
+  {
+    type: LOGIN_REQUEST,
+  }
+);
+
+export const loginSuccess = (profile, idToken) => (
+  {
+    type: LOGIN_SUCCESS,
+    profile,
+    idToken,
+  }
+);
+
+export const loginFailure = error => (
+  {
+    type: LOGIN_FAILURE,
+    error,
+  }
+);
+
+export const logout = () => (
+  {
+    type: LOGOUT,
+  }
+);
