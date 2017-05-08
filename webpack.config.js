@@ -1,5 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
+require('dotenv').config()
+
 
 const SRC_DIR = path.resolve(__dirname, './client/src/');
 const BUILD_DIR = path.resolve(__dirname, './client/build/');
@@ -28,7 +30,11 @@ module.exports = {
       query: {
         cacheDirectory: true,
         presets: ['es2015', 'react'],
-        plugins: ['transform-object-rest-spread', 'transform-regenerator', 'react-hot-loader/babel']
+        plugins: [
+          'transform-object-rest-spread',
+          'transform-regenerator',
+          'react-hot-loader/babel',
+        ]
       }
     },
     {
@@ -48,7 +54,9 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
-      'API_ENDPOINT': JSON.stringify("http://localhost:5000")
+      'API_ENDPOINT': JSON.stringify("http://localhost:5000"),
+      'AUTH0_CLIENT_ID': JSON.stringify(process.env.AUTH0_CLIENT_ID),
+      'AUTH0_DOMAIN': JSON.stringify(process.env.AUTH0_DOMAIN),
     })
   ]
 };
