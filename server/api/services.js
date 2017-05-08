@@ -70,13 +70,4 @@ router.post('/', (req, res, next) => {
     .catch(next);
 })
 
-// router.get('/:type/:address', (req, res) => {
-//     db.User.findAll({
-//       where: {
-//         address: req.params.address
-//       },
-//       include: [db.Service]
-//     })
-// });
-
 module.exports = router;
