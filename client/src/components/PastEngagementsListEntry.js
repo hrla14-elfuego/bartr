@@ -114,12 +114,12 @@ class PastEngagementsListEntry extends Component {
             return(
               <Well>
                 <Well onClick={this.handleClick}>
-                  <div>{this.props.engagement.sender.name}</div>
-                  <div>{this.props.engagement.receiver.name}</div>
+                  <p className="thick">{this.props.engagement.sender.name}</p>
+                  <p className="thick">{this.props.engagement.receiver.name}</p>
                 </Well>
                 <br/>
                   <div>{name}</div>
-                  <div>Review: {this.props.engagement.reviews[0].review}</div>
+                  <div><p className="thick">Review: </p>{this.props.engagement.reviews[0].review}</div>
                   <div>Score: {this.props.engagement.reviews[0].score}</div>
                 <br/>
                 Message History
@@ -130,8 +130,8 @@ class PastEngagementsListEntry extends Component {
           return (
             <Well>
               <Well onClick={this.handleClick}>
-                <div>{this.props.engagement.sender.name}</div>
-                <div>{this.props.engagement.receiver.name}</div>
+                <p className="thick">{this.props.engagement.sender.name}</p>
+                <p className="thick">{this.props.engagement.receiver.name}</p>
               </Well>
               <br/>
               <Form value={engagement} onSubmit={() => {this.handleReviewSubmit(event, engagement)}}>
@@ -157,14 +157,14 @@ class PastEngagementsListEntry extends Component {
             </Well>
             <br/>
               <div>{this.props.engagement.sender.name}</div>
-              <div>Review: {this.props.engagement.reviews[0].review}</div>
-              <div>Score: {this.props.engagement.reviews[0].score}</div>
+              <div><p className="thick">Review: </p>{this.props.engagement.reviews[0].review}</div>
+              <div><p className="thick">Score: </p>{this.props.engagement.reviews[0].score}</div>
             <br/>
               <div>{this.props.engagement.receiver.name}</div>
-              <div>Review: {this.props.engagement.reviews[1].review}</div>
-              <div>Score: {this.props.engagement.reviews[1].score}</div>
+              <div><p className="thick">Review: </p> {this.props.engagement.reviews[1].review}</div>
+              <div><p className="thick">Score: </p>{this.props.engagement.reviews[1].score}</div>
             <br/>
-            Message History
+            <p className="thick">Message History </p>
             <MessagesList messages={this.state.messages}/>
           </Well>
           )
