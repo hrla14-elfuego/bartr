@@ -53,10 +53,10 @@ const EngageReqListEntries = (props) => {
   }
 
   return(
-    <Well >       
-      <Well onClick={() => messageAndId()}>       
-          <div>Reciever Name: {currentEngagement.receiver.name}</div>
-          <div>Sender Name: {currentEngagement.sender.name}</div>
+    <Well className="engagementlistentry">       
+      <Well onClick={() => messageAndId() } className="engagementlistentry">       
+          <div className="engagementlistentry">Reciever Name: {currentEngagement.receiver.name}<br/>
+          Sender Name: {currentEngagement.sender.name}</div>
           <br/>
       </Well>
       <br/>

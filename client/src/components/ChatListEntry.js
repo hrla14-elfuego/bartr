@@ -4,16 +4,22 @@ import './styles/styles.css';
 
 
 const ChatListEntry = (props) => {
+  let style = {marginLeft: 0};
+  if(props.index % 2 !== 0){
+    style ={marginLeft: "500%"}
+  } else {
+    style={marginLeft: 0}
+  }
   return(
-    <div className="chatlistentry" >
-    <Card >
+    <div className="chatlistentry" style={style} >
+    
       <Card.Content >
         <Card.Description>          
           <p className="bubble">{props.message}</p>
         </Card.Description>
       </Card.Content>
-    </Card>
-    </div>
+    <br/>
+    </div> 
   )
 }
 

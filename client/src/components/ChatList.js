@@ -7,7 +7,7 @@ const ChatList = (props) => {
   return (
     <div className="chatlistentry" >
       {props.messages.map((message, index) => 
-        <ChatListEntry message={message} key={index}/>
+        <ChatListEntry message={message} key={index} index={index}/>
       )}
     </div>
   )
