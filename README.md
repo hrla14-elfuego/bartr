@@ -6,13 +6,15 @@ Bartr is a peer to peer networking app that allows users to exchange services fo
 
 1) `npm install || yarn` Install the necessary dependencies
 
-2) `gulp seed` Create the tables & schemas in the database
+2) `gulp` Run nodemon, watch the database changes, and webpack hot reload (fire)
 
-3) `cd path/bartr/server/db` Change the directory to the root bartr folder and then into the db folder
+3) `gulp seed` Create the tables & schemas in the database
 
-4) `bartr.sqlite3 sqlite3` Run SQLite3 to monitor the database
+4) `cd path/bartr/server/db` Change the directory to the root bartr folder and then into the db folder
 
-5) Run localhost:8080 in your desired browser to get started!
+5) `bartr.sqlite3 sqlite3` Run SQLite3 to monitor the database
+
+6) Run localhost:8080 in your desired browser to get started!
 
 ### Technology Used
 
