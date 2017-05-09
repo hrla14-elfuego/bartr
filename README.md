@@ -6,15 +6,19 @@ Bartr is a peer to peer networking app that allows users to exchange services fo
 
 1) `npm install || yarn` Install the necessary dependencies
 
-2) `gulp` Run nodemon, watch the database changes, and webpack hot reload (fire)
+2) `gulp seed` Create the database, create the schema, seed the database
 
-3) `gulp seed` Create the tables & schemas in the database
+3) `gulp` Runs nodemon, watches the database definition for schema changes, watches the seed data for seed data changes, and runs webpack with hot reload
 
-4) `cd path/bartr/server/db` Change the directory to the root bartr folder and then into the db folder
+4) Open localhost:8080 in your desired browser to get started!
 
-5) `bartr.sqlite3 sqlite3` Run SQLite3 to monitor the database
+## Development environment
 
-6) Run localhost:8080 in your desired browser to get started!
+Webpack-dev-server runs on port 8080, node runs on port 5000. You will need API keys for Auth0 to run this app. The app expects the keys to be in a .env file in the project root, they are loaded by gulp before starting nodemon and loaded by webpack before compiling the bundle.
+
+The app uses a SQLite database for local development but was also deployed to Heroku with a Heroku Postgres database for production. When changing the database schema you may need to delete the SQLite file and let the seed script recreate it from scratch.
+
+`sqlite server/db/bartr.sqlite3 sqlite3` Run SQLite3 to view the database in local dev environment
 
 ### Technology Used
 
@@ -28,7 +32,7 @@ Bartr is a peer to peer networking app that allows users to exchange services fo
 
 - Webpack Hot Reload
 
-- Auth 0 Lock
+- Auth0 Lock
 
 - Gulp
 
