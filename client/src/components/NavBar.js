@@ -25,6 +25,7 @@ class NavBar extends React.Component {
             <Navbar.Brand>
             <Link to='/home'>BARTR</Link>
             </Navbar.Brand>
+          </Navbar.Header>
           <Navbar.Collapse>
             <Nav pullRight>
               { !this.props.profile ? (

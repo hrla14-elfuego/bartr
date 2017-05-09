@@ -2,6 +2,10 @@ import React from 'react';
 import axios from "axios";
 import { Button, Form, TextArea } from 'semantic-ui-react'
 import ChatList from './ChatList';
+import { bindActionCreators } from 'redux';
+import * as authActions from '../actions/Auth0Actions'
+import * as authSelectors from '../auth/Auth0Selectors'
+import { connect } from 'react-redux';
 
 class Chat extends React.Component {
   constructor(props) {
@@ -29,13 +33,15 @@ class Chat extends React.Component {
   }
   
   updateChatHistory(event) {
+    console.log(this.props)
     event.preventDefault();
     const config = {
-      headers: {'Authorization': 'Bearer ' + localStorage.id_token,
+      headers: {'Authorization': 'Bearer ' + localStorage.getItem('id_token'),
                 'Content-Type': 'application/json' }
       };
+    console.log(config)
     axios.post(API_ENDPOINT + "/api/messages", {
-      "engagement_id": this.state.engagementId, 
+      "engagement_id": this.props.currentEngagement[0].id,
       "message": this.state.message
     }, config)
     .then(res => {
@@ -70,4 +76,18 @@ class Chat extends React.Component {
   }
 }
 
-export default Chat;
+// export default Chat;
+
+const mapStateToProps = (state) => {
+  return {
+    profile: authSelectors.getProfile(state),
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators({ ...authActions }, dispatch),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);

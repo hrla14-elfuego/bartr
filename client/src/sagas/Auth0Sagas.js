@@ -3,6 +3,7 @@ import { call, put, take } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import Immutable from 'immutable';
 import * as action from '../actions/actionTypes'
+import { hashHistory } from 'react-router';
 
 
 import { setStoredAuthState, removeStoredAuthState } from '../utils/Auth0Utils';
@@ -46,10 +47,12 @@ export function* loginRequestSaga() {
   try {
     const { profile, idToken } = yield call(showLock);
     yield put(loginSuccess(profile, idToken));
-    yield put(push('/'));
+    console.log('push new location')
+    // yield put(push('/'));
+    hashHistory.push('/')
   } catch (error) {
     yield put(loginFailure(error));
-    yield put(push('/'));
+    // yield put(push('/'));
   }
 }
 
@@ -81,7 +84,8 @@ export function* watchLogout() {
 
     removeStoredAuthState();
 
-    yield put(push('/'));
+    // yield put(push('/'));
+    hashHistory.push('/')
     swal({
       title: 'Logout Successful!',
       type: 'success'

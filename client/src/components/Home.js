@@ -37,8 +37,6 @@ class Home extends React.Component {
       <section>
         <div className="block">
           <p><span className="first-character ny">B</span>artr is a peer to peer networking app that allows users to exchange services for services. In today's economy, there are countless individuals with valuable skills who are unable to make use of said skills. We serve to answer today's economic issue by providing the opportunity for talented individuals to exercise their skills in exchange for goods or services.</p>
-          
-          
         </div>
       </section>
 
@@ -49,7 +47,7 @@ class Home extends React.Component {
 
       <Carousel >
           <Carousel.Item >
-            <img width={200} height={75} alt="900x500" src="http://bostonchamber.com/media/team/Justin-Kang_279.jpg"/>
+            <img width={200} height={75} alt="900x500" src="http://images4.wikia.nocookie.net/__cb20110602071958/simpsons/images/f/fa/185px-Cosine.png"/>
             <Carousel.Caption>
               <h3>Justin Kang</h3>
               <p className="thick">Project Owner</p>
@@ -63,14 +61,14 @@ class Home extends React.Component {
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
-            <img width={200} height={75} alt="900x500" src="http://bostonchamber.com/media/team/Justin-Kang_279.jpg"/>
+            <img width={200} height={75} alt="900x500" src="http://images4.wikia.nocookie.net/__cb20110602071958/simpsons/images/f/fa/185px-Cosine.png"/>
             <Carousel.Caption>
               <h3>Joe Kim</h3>
               <p className="thick">FrontEnd Monkey</p>
             </Carousel.Caption>
           </Carousel.Item>
             <Carousel.Item>
-            <img width={200} height={75} alt="900x500" src="http://bostonchamber.com/media/team/Justin-Kang_279.jpg"/>
+            <img width={200} height={75} alt="900x500" src="http://images4.wikia.nocookie.net/__cb20110602071958/simpsons/images/f/fa/185px-Cosine.png"/>
             <Carousel.Caption>
               <h3>Jason Kim</h3>
               <p className="thick">FrontEnd Monkey</p>
