@@ -8,7 +8,7 @@ Bartr is a peer to peer networking app that allows users to exchange services fo
 
 2) `gulp seed` Create the database, create the schema, seed the database
 
-3) `gulp` Runs nodemon, watches the database definition for schema changes, watches the seed data for seed data changes, and runs webpack with hot reload
+3) `gulp` Runs nodemon, watches the seed data for seed data changes, and runs webpack with hot reload
 
 4) Open localhost:8080 in your desired browser to get started!
 
