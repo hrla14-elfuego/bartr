@@ -19,7 +19,15 @@ import {
 import swal from 'sweetalert'
 
 export function* loginRequestSaga() {
-  const lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, { auth: { redirect: false } });
+  let auth0LockConfig = {
+    auth: {
+      redirect: false,
+      params: {
+        scope: 'openid profile'
+      }
+    }
+  }
+  const lock = new Auth0Lock(AUTH0_CLIENT_ID, AUTH0_DOMAIN, auth0LockConfig);
 
   const showLock = () =>
     new Promise((resolve, reject) => {
